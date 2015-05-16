@@ -14,7 +14,6 @@ from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
 
 from .common import *  # noqa
-import os
 
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -93,12 +92,12 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='idekratia <noreply@idekratia.com>')
+                         default='ekratia <noreply@ekratia.org>')
 EMAIL_HOST = env("DJANGO_EMAIL_HOST", default='smtp.sendgrid.com')
 EMAIL_HOST_PASSWORD = env("SENDGRID_PASSWORD")
 EMAIL_HOST_USER = env('SENDGRID_USERNAME')
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)
-EMAIL_SUBJECT_PREFIX = env("EMAIL_SUBJECT_PREFIX", default='[idekratia] ')
+EMAIL_SUBJECT_PREFIX = env("EMAIL_SUBJECT_PREFIX", default='[ekratia] ')
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
 
@@ -131,11 +130,3 @@ except ImportError:
     }
 
 # Your production stuff: Below this line define 3rd party library settings
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
