@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    {# <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> #}
 
     <!-- Your stuff: Third-party css libraries go here -->
 
@@ -31,40 +31,38 @@
     {% endblock %}
 
   </head>
+  <body class="{% block body_title %}{% endblock %}">
+    {% block body %}
+      <div class="header navbar">
+        <div class="container">
+          <a class="navbar-brand" href="/">idekratia</a>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
 
-  <body>
-
-    <div class="header navbar">
-      <div class="container">
-        <a class="navbar-brand" href="/">idekratia</a>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
-
-          {% if request.user.is_authenticated %}
-            <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
-            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-          {% else %}
-            <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-            <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
-          {% endif %}
-        </ul>
+            {% if request.user.is_authenticated %}
+              <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
+              <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+            {% else %}
+              <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+              <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="container">
+      <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
 
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-          {% endfor %}
-      {% endif %}
-
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
-
-    </div> <!-- /container -->
+        {% block content %}
+          <p>Use this document as a way to quick start any new project.</p>
+        {% endblock content %}
+      </div> <!-- /container -->
+    {% endblock body %}
 
     {% block modal %}{% endblock modal %}
 
@@ -85,4 +83,3 @@
     {% endblock javascript %}
   </body>
 </html>
- 
