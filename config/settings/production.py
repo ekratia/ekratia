@@ -16,6 +16,12 @@ from django.utils import six
 from .common import *  # noqa
 import os
 
+# DEBUG
+# ------------------------------------------------------------------------------
+DEBUG = env.bool('DJANGO_DEBUG', default=True)
+TEMPLATE_DEBUG = DEBUG
+
+
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
