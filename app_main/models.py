@@ -3,7 +3,6 @@ from django.db import models
 
 from django.db import models
 from django import forms
-from django.contrib.auth.models import User
 from config.settings import common
 
 class Thread(models.Model):
