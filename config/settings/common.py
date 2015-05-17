@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'idekratia.users',  # custom users app
+    'app_main'
     # Your stuff: custom apps go here
 )
 
@@ -102,7 +103,7 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db("DATABASE_URL", default="postgres://localhost/idekratia"),
+    'default': env.db("DATABASE_URL", default="postgres://idekratia:idekratia@localhost:5432/idekratia"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
