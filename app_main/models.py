@@ -28,7 +28,6 @@ class Comment(models.Model):
         return self.description
 
 
-
 class Topic(models.Model):
     name = models.CharField(max_length=200, default="Topic Name")
     subtopic = models.ForeignKey("self", blank=True, null=True)
@@ -36,9 +35,9 @@ class Topic(models.Model):
     def __unicode__(self):
         return self.name
 
-class Project(models.Model):
+class Proposal(models.Model):
     thread = models.ForeignKey(Thread)
-    topics = models.ManyToManyField(Topic, verbose_name="list of topics", through='ProjectTopicWeight', through_fields=('project', 'topic'))
+    topics = models.ManyToManyField(Topic, verbose_name="list of topics", through='ProposalTopicWeight', through_fields=('proposal', 'topic'))
 
     def __unicode__(self):
         return self.thread.title
@@ -46,20 +45,20 @@ class Project(models.Model):
     def pollResults():
         return
 
-class ProjectTopicWeight(models.Model):
-    project = models.ForeignKey(Project)
+class ProposalTopicWeight(models.Model):
+    proposal = models.ForeignKey(Proposal)
     topic = models.ForeignKey(Topic)
     weight = models.DecimalField(max_digits=3, decimal_places=2)
 
     def save(self, *args, **kwargs):
         self.validateWeith()
-        return super(ProjectTopicWeight, self).save(*args, **kwargs)
+        return super(ProposalTopicWeight, self).save(*args, **kwargs)
 
     def validateWeith(self):
         total = 100
         if total > 100:
             raise ValueError('The weight assigned for this topic is incorrect. The total weight exceeds 100')
-        # validate the weight according the topics in the project
+        # validate the weight according the topics in the proposal
         # save many
 
 
@@ -72,8 +71,8 @@ class Vote(models.Model):
         abstract = True
 
 
-class ProjectVote(Vote):
-    project = models.ForeignKey(Project)
+class ProposalVote(Vote):
+    proposal = models.ForeignKey(Proposal)
 
     def save(self, *args, **kwargs):
         self.calculateWeight();
@@ -84,20 +83,30 @@ class ProjectVote(Vote):
         pass
         # self.weight = 100
         # Call users to get followers and calculate price
-        # based on topic of the Project
+        # based on topic of the Proposal
         # Take into account the votes
 
     def updateFollowing(self):
         pass
-        # Call user to get following and update Projects with
+        # Call user to get following and update Proposals with
         # saveAll
 
 
 class CommentVote(Vote):
-    comment = models.ForeignKey(Project)
+    comment = models.ForeignKey(Proposal)
 
+class Voter(models.Model):
+    weight = models.DecimalField(max_digits=12, decimal_places=2)
+
+    @staticmethod
+    def mostPromminentVoters(limit=10, offset=0):
+        return Voter.objects.order_by('weight')[offset:limit]
 
 class Delegate(models.Model):
     user = models.ForeignKey(common.AUTH_USER_MODEL, related_name="user_set")
     delegate = models.ForeignKey(common.AUTH_USER_MODEL, related_name="delegate_set")
     topic = models.ForeignKey(Topic)
+
+    @staticmethod
+    def delegates(userId):
+        return Delegate.objects.filter(user=userId)
