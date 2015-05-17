@@ -38,6 +38,9 @@ class Topic(models.Model):
 class Proposal(models.Model):
     thread = models.ForeignKey(Thread)
     topics = models.ManyToManyField(Topic, verbose_name="list of topics", through='ProposalTopicWeight', through_fields=('proposal', 'topic'))
+    summary = models.CharField(max_length=200)
+    rule = models.TextField()
+    expiration_date = models.DateField()
 
     def __unicode__(self):
         return self.thread.title
