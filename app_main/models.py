@@ -1,7 +1,13 @@
 from django.db import models
 
+from django import forms
+from django.forms import ModelForm
+from django.contrib.auth.models import User
+
+
 from django.db import models
 from config.settings import common
+
 
 class Thread(models.Model):
     title = models.CharField(max_length=30)
@@ -9,8 +15,6 @@ class Thread(models.Model):
     #date = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.description
-
-
 
 class Comment(models.Model):
     content = models.CharField(max_length=30)
@@ -81,11 +85,11 @@ class ProjectVote(Vote):
         # self.weight = 100
         # Call users to get followers and calculate price
         # based on topic of the Project
-        # Take into account the votes 
+        # Take into account the votes
 
     def updateFollowing(self):
         pass
-        # Call user to get following and update Projects with 
+        # Call user to get following and update Projects with
         # saveAll
 
 
@@ -97,11 +101,3 @@ class Delegate(models.Model):
     user = models.ForeignKey(common.AUTH_USER_MODEL, related_name="user_set")
     delegate = models.ForeignKey(common.AUTH_USER_MODEL, related_name="delegate_set")
     topic = models.ForeignKey(Topic)
-
-
-
-
-
-
-
-
