@@ -88,9 +88,9 @@ class ProposalVote(Vote):
         return super(ProposalVote, self).save(*args, **kwargs)
 
     @staticmethod
-    def results(self, proposal):
-        return ProposalVote.objects.values('agree').filter(proposal=proposal).annotate(total=Sum('weight'))
-        
+    def results(proposal):
+        return ProposalVote.objects.values('agree').filter(proposal=proposal).annotate(total=sum('weight'))
+
     def calculateWeight(self):
         pass
         # self.weight = 100
