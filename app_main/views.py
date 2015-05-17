@@ -29,12 +29,17 @@ class DelegateView(TemplateView):
 
 class VoteView(TemplateView):
 
+    def get(self, request, proposal_id, *args, **kwargs):
+        self.proposal_id = proposal_id
+
+        return super(VoteView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
-        context = super(DelegateView, self).get_context_data(**kwargs)
-        context['results'] = ProposalVote.results(self.request.proposal)
+        context = super(VoteView, self).get_context_data(**kwargs)
+        context['results'] = ProposalVote.results(self.proposal_id)
         return context
 
-    def vote():
+    def vote(self):
         voter = Voter.objects.get(self.request.user)
         ProposalVote.vote(voter, proposal=self.request.proposal, agree=self.request.agree)
         return redirect('/proposals/rule')
