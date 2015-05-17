@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from config.settings import common
 
+import datetime
 
 class Thread(models.Model):
     title = models.CharField(max_length=30)
@@ -40,7 +41,7 @@ class Proposal(models.Model):
     topics = models.ManyToManyField(Topic, verbose_name="list of topics", through='ProposalTopicWeight', through_fields=('proposal', 'topic'))
     summary = models.CharField(max_length=200)
     rule = models.TextField()
-    expiration_date = models.DateField()
+    expiration_date = models.DateField(default=datetime.datetime(2015+18, 5, 17, 20, 44, 15, 407805))
 
     def __unicode__(self):
         return self.thread.title
