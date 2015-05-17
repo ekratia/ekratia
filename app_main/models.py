@@ -1,10 +1,9 @@
 from django.db import models
-
-
-from django.db import models
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from config.settings import common
+
 
 class Thread(models.Model):
 
@@ -13,8 +12,6 @@ class Thread(models.Model):
     #date = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.description
-
-
 
 class Comment(models.Model):
 
