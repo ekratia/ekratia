@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^thread/success$', TemplateView.as_view(template_name='app_main/success_thread.html'), name="success-thread"),
 
     url(r'^delegations$', DelegateView.as_view(template_name='app_main/delegations.html'), name="delegations"),
-    url(r'^proposals/create$', ProposalView.as_view(template_name='app_main/create_proposal.html'), name="create_proposal"),
+    url(r'^proposals/create$', ProposalView.as_view(template_name='app_main/create_proposal.html', success_url="/proposals/rule"), name="create_proposal"),
     url(r'^proposals/rule$', TemplateView.as_view(template_name='app_main/rule_proposal.html'), name="rule_proposal"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
