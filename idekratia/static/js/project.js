@@ -1,9 +1,9 @@
 /* Project specific Javascript goes here. */
 
 
-$(".alert")
+$(".alert.messages")
 	.fadeTo(2000, 500)
-	.slideDown(500, function(){
-    	$(".alert").alert('close');
+	.slideUp(500, function(){
+    	$(".alert.messages").alert('close');
 	})
 ;

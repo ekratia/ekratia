@@ -80,7 +80,7 @@
       <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                <div class="alert messages alert-dismissible {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{ message }}
                 </div>

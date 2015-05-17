@@ -212,7 +212,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'rules'
+LOGIN_REDIRECT_URL = 'threads:rule_proposal'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER

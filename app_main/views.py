@@ -20,7 +20,6 @@ class ProposalView(CreateView):
 
 
 class DelegateView(TemplateView):
-
     def get_context_data(self, **kwargs):
         context = super(DelegateView, self).get_context_data(**kwargs)
         context['delegates'] = Delegate.delegates(self.request.user)
