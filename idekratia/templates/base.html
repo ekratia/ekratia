@@ -65,13 +65,13 @@
                       <li>
                           <a class="page-scroll" href="{% url 'rules' %}">Rules</a>
                       </li>
-                      <li>
-                          <a class="page-scroll" href="{% url 'threads:delegations' %}">Your delegates</a>
-                      </li>
                       {# <li><a href="{% url 'about' %}">About</a></li> #}
 
                       {% if request.user.is_authenticated %}
                         {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
+                        <li>
+                            <a class="page-scroll" href="{% url 'threads:delegations' %}">Your delegates</a>
+                        </li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
                         <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
