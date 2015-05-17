@@ -52,3 +52,5 @@ node_modules/
 # Compass
 .sass-cache
 env/
+
+app_main/migrations/
