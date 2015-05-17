@@ -54,3 +54,4 @@ node_modules/
 env/
 
 app_main/migrations/
+*.sublime-project
