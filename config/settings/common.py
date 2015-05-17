@@ -45,8 +45,8 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'idekratia.users',  # custom users app
-    'app_main'
     # Your stuff: custom apps go here
+    'app_main'
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -212,7 +212,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+LOGIN_REDIRECT_URL = 'rules'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER

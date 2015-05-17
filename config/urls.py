@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^rules/$', TemplateView.as_view(template_name='pages/rules.html'), name="rules"),
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
@@ -17,9 +18,8 @@ urlpatterns = [
     # User management
     url(r'^users/', include("idekratia.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
-    # Your stuff: custom urls includes go here
+
     url(r'', include("app_main.urls", namespace="threads")),
-    url(r'^rules/$', TemplateView.as_view(template_name='pages/rules.html'), name="rules"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

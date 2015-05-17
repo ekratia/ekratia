@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load staticfiles i18n socialaccount %}<!DOCTYPE html>
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+    <h1>Your delegates</h1>
+    <hr>
+    <p>
+        In Ekratia you can vote for yourself and delegate your vote to others, so that they can vote for you when you don't have the time.
+    </p>
+    <h2>Your current delegates</h2>
+    <div class="row">
+        <div class="delegate active col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-danger btn-sm" role="button">Undelegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate active col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-danger btn-sm" role="button">Undelegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate active col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-danger btn-sm" role="button">Undelegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate active col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-danger btn-sm" role="button">Undelegate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Add more delegates</h2>
+    <div class="row">
+        <div class="delegate col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-success btn-sm " role="button">Delegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-success btn-sm" role="button">Delegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-success btn-sm" role="button">Delegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-success btn-sm" role="button">Delegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-success btn-sm" role="button">Delegate</a>
+                </div>
+            </div>
+        </div>
+        <div class="delegate col-xs-6 col-sm-3 col-md-2">
+            <div class="thumbnail">
+                <img src="http://placehold.it/75x75/" alt="Slide11" class="img-circle">
+                <div class="caption">
+                    <h4><strong>John Smith</strong></h4>
+                    <p>35 followers</p>
+                    <a href="#" class="btn btn-success btn-sm" role="button">Delegate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock content %}
