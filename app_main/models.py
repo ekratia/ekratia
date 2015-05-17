@@ -83,6 +83,14 @@ class ProposalVote(Vote):
         self.updateFollowing()
         return super(Vote, self).save(*args, **kwargs)
 
+    def vote(Voter, proposal, agree):
+        proposalVote = ProposalVote(user=Voter.user, weight=Voter.weight, proposal=proposal, agree=agree)
+        return super(ProposalVote, self).save(*args, **kwargs)
+
+    @staticmethod
+    def results(self, proposal):
+        return ProposalVote.objects.values('agree').filter(proposal=proposal).annotate(total=Sum('weight'))
+        
     def calculateWeight(self):
         pass
         # self.weight = 100
