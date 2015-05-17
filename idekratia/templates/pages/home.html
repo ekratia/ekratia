@@ -1,49 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles i18n %}<!DOCTYPE html>
 
-{% block body_title %}{% endblock %}
-
-{% block css %}
-{{ block.super }}
-
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-<link rel="stylesheet" href="{% static 'vendor/creative-theme/font-awesome/css/font-awesome.min.css' %}">
-<link rel="stylesheet" href="{% static 'vendor/creative-theme/css/animate.min.css' %}" >
-<link rel="stylesheet" href="{% static 'vendor/creative-theme/css/creative.css' %}" >
-
-{% endblock css %}
+{% block body_class %}home{% endblock %}
 
 {% block body %}
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="/">Ekratia</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="page-scroll" href="">Trending</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="">How it works</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
     <header>
         <div class="header-content">
             <div class="header-content-inner">
@@ -61,7 +21,7 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">What is Ekratia?</h2>
                     <hr class="light">
-                    <p class="text-faded">Democracy is a new way of making democracy. Members of Ekratia vote directly and online for new ideas and laws. In case they are too busy to vote, members can delegate their vote to other members. Members can change their delegates on real time.</p>
+                    <p class="text-faded">Ekratia is a new way of making democracy. Members of Ekratia vote directly and online for new ideas and laws. In case they are too busy to vote, members can delegate their vote to other members. Members can change their delegates on real time.</p>
                 </div>
             </div>
         </div>
@@ -133,16 +93,3 @@
     </section>
 
 {% endblock body %}
-
-{% block javascript %}
-    {{ block.super }}
-
-    <!-- Plugin JavaScript -->
-    <script src="{% static 'vendor/creative-theme/js/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'vendor/creative-theme/js/jquery.fittext.js' %}"></script>
-    <script src="{% static 'vendor/creative-theme/js/wow.min.js' %}"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
-
-{% endblock javascript %}

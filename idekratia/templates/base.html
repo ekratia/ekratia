@@ -1,4 +1,6 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
+{% load staticfiles i18n %}
+{% load socialaccount %}
+<!DOCTYPE html>
 <html lang="en" ng-app>
   <head>
     <meta charset="utf-8">
@@ -22,35 +24,65 @@
 
     <!-- Your stuff: Third-party css libraries go here -->
 
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="{% static 'vendor/creative-theme/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/creative-theme/css/animate.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'vendor/creative-theme/css/creative.css' %}" >
+
+
+
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    {% endblock %}
+
+    {% endblock css %}
 
     {% block angular %}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     {% endblock %}
 
   </head>
-  <body class="{% block body_title %}{% endblock %}">
+  <body class="{% block body_class %}{% endblock %}">
+      <nav id="mainNav" class="navbar navbar-default">
+          <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand page-scroll" href="/"><i class="fa fa-arrow-circle-up"></i> Ekratia</a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li>
+                          <a class="page-scroll" href="">Trending</a>
+                      </li>
+                      <li>
+                          <a class="page-scroll" href="">Rules</a>
+                      </li>
+                      {# <li><a href="{% url 'about' %}">About</a></li> #}
+
+                      {% if request.user.is_authenticated %}
+                        {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
+                        <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+                      {% else %}
+                        <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
+                      {% endif %}
+                  </ul>
+              </div>
+              <!-- /.navbar-collapse -->
+          </div>
+          <!-- /.container-fluid -->
+      </nav>
+
     {% block body %}
-      <div class="header navbar">
-        <div class="container">
-          <a class="navbar-brand" href="/">idekratia</a>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-
-            {% if request.user.is_authenticated %}
-              <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
-              <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-            {% else %}
-              <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-              <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-
       <div class="container">
         {% if messages %}
             {% for message in messages %}
@@ -80,6 +112,15 @@
 
       <!-- place project specific Javascript in this file -->
       <script src="{% static 'js/project.js' %}"></script>
+
+      <!-- Plugin JavaScript -->
+      <script src="{% static 'vendor/creative-theme/js/jquery.easing.min.js' %}"></script>
+      <script src="{% static 'vendor/creative-theme/js/jquery.fittext.js' %}"></script>
+      <script src="{% static 'vendor/creative-theme/js/wow.min.js' %}"></script>
+
+      <!-- Custom Theme JavaScript -->
+      <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
+
     {% endblock javascript %}
   </body>
 </html>
