@@ -1,1 +1,120 @@
 {% extends "base.html" %}
+{% load staticfiles i18n %}<!DOCTYPE html>
+
+{% block body_title %}{% endblock %}
+
+{% block css %}
+{{ block.super }}
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="{% static 'vendor/creative-theme/font-awesome/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/creative-theme/css/animate.min.css' %}" >
+<link rel="stylesheet" href="{% static 'vendor/creative-theme/css/creative.css' %}" >
+
+{% endblock css %}
+
+{% block body %}
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Ekratia</h1>
+                <hr>
+                <p>Let's build a better government</p>
+                <a href="" class="btn btn-primary btn-xl page-scroll">Join Us</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">What is Ekratia?</h2>
+                    <hr class="light">
+                    <p class="text-faded">Democracy used to depend on politicians that were elected for years at a time. Thanks to the Internet it's now easier to participate and/or elect our representatives on real time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Democracy made for the Internet</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-level-up wow bounceIn text-primary"></i>
+                        <h3>Delegate</h3>
+                        <p class="text-muted">Vote directly or delegate your votes to others.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-comments-o wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                        <h3>Discuss</h3>
+                        <p class="text-muted">Start and participate in intelligent conversations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-check-circle-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                        <h3>Decide</h3>
+                        <p class="text-muted">Propose and vote for laws and programs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-thumbs-o-up wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                        <h3>Trust</h3>
+                        <p class="text-muted">Ekratia is build on transparency.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>Being a good citizen is now easy.</h2>
+                <a href="#" class="btn btn-default btn-xl wow tada">Join us now!</a>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Who is behind Ekratia?</h2>
+                    <hr class="primary">
+                    <p>Ekratia is a fully transparent <a href="https://github.com/torrenegra/ekratia">open source effort</a> improved and audited by software developers around the world. Ekratia was founded in 2015 by Alex Torrenegra, Amaury Prieto, Cristian Chaparro, Daniel Garcia, and Esteban Contreras.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock body %}
+
+{% block javascript %}
+    {{ block.super }}
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'vendor/creative-theme/js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'vendor/creative-theme/js/jquery.fittext.js' %}"></script>
+    <script src="{% static 'vendor/creative-theme/js/wow.min.js' %}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
+
+{% endblock javascript %}
