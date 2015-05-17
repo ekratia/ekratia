@@ -207,6 +207,7 @@ AUTHENTICATION_BACKENDS = (
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_LOGOUT_ON_GET = True
 
 # Custom user app defaults
 # Select the correct user model
