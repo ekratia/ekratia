@@ -11,6 +11,7 @@ from config.settings import common
 import datetime
 
 class Thread(models.Model):
+
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=1000)
     #date = models.DateTimeField(auto_now_add=True)

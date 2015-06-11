@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.facebook',
+    'rest_framework' #Framwork for REST API support
 )
 
 # Apps specific for this project go here.
@@ -107,6 +108,14 @@ DATABASES = {
     'default': env.db("DATABASE_URL", default="postgres://idekratia:idekratia@localhost:5432/idekratia"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 
 # GENERAL CONFIGURATION

@@ -7,7 +7,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-from views import ThreadListView, ThreadCreate, DelegateView, ProposalView, VoteView
+from views import ThreadListView, ThreadCreate, DelegateView, ProposalView, VoteView, ThreadList, ThreadDetail, CommentList, CommentDetail
+
 
 urlpatterns = [
     url(r'^threads/$', ThreadListView.as_view(template_name='app_main/threads.html'), name="threads"),
@@ -20,5 +21,11 @@ urlpatterns = [
 
     # url(r'^proposals/(?P<proposal_id>.*)/create$', ProposalView.as_view(template_name='app_main/create_proposal.html'), name="create_proposal"),
     # url(r'^proposals/(?P<proposal_id>.*)/rule$', VoteView.as_view(template_name='app_main/rule_proposal.html'), name="rule_proposal"),
+
+    url(r'^API/threads/$', ThreadList.as_view()),
+    url(r'^API/threads/(?P<pk>[0-9]+)/$', ThreadDetail.as_view()),
+    url(r'^API/comments/thread/(?P<pk>[0-9]+)/$', CommentList.as_view()),
+    url(r'^API/comments/$', CommentList.as_view()),
+    url(r'^API/comments/(?P<pk>[0-9]+)/$', CommentDetail.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
