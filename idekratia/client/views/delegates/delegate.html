@@ -1,0 +1,10 @@
+<div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="delegate in delegates">
+    <div class="thumbnail">
+        <img ng-src="{{ delegate.avatar }}" alt="{{ delegate.fullname }}" class="img-circle">
+        <div class="caption">
+            <h4 title="{{ delegate.fullname }}"><strong ng-bind="delegate.fullname"></strong></h4>
+            <p><span ng-bind="delegate.followers"></span> followers</p>
+            <button ng-click="undelegate(delegate)" class="btn btn-danger btn-sm" role="button">Undelegate</button>
+        </div>
+    </div>
+</div>

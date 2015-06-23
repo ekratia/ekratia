@@ -1,0 +1,11 @@
+.delegate{
+	.caption{
+		h4{
+			width: auto;
+		  box-sizing: content-box;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
+		  white-space: nowrap;
+		}
+	}
+}

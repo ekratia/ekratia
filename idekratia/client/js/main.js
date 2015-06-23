@@ -21,14 +21,14 @@ angular.element(document).ready(function() {
   ];
 
   // mount on window for testing
-  window.app = angular.module('app', requires);
+  window.app = angular.module('ekratia', requires);
 
-  angular.module('app').constant('AppSettings', require('./constants'));
+  angular.module('ekratia').constant('AppSettings', require('./constants'));
 
-  angular.module('app').config(require('./on_config'));
+  angular.module('ekratia').config(require('./on_config'));
 
-  angular.module('app').run(require('./on_run'));
+  angular.module('ekratia').run(require('./on_run'));
 
-  angular.bootstrap(document, ['app']);
+  angular.bootstrap(document, ['ekratia']);
 
 });

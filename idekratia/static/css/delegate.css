@@ -1,0 +1,8 @@
+/* line 3, /home/westeros/projects/ekratia/idekratia/client/styles/delegate.scss */
+.delegate .caption h4 {
+  width: auto;
+  box-sizing: content-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
