@@ -4,49 +4,48 @@ module.exports = {
 
   'browserport'  : 3000,
   'uiport'       : 3001,
-  'serverport'   : 3002,
+  'serverport'   : 8000,
 
   'styles': {
-    'src' : 'app/styles/**/*.scss',
-    'dest': 'build/css'
+    'src' : 'idekratia/client/styles/**/*.scss',
+    'dest': 'idekratia/static/css'
   },
 
   'scripts': {
-    'src' : 'app/js/**/*.js',
-    'dest': 'build/js'
+    'src' : 'idekratia/client/js/**/*.js',
+    'dest': 'idekratia/static/js'
   },
 
   'images': {
-    'src' : 'app/images/**/*',
-    'dest': 'build/images'
+    'src' : 'idekratia/static/images/**/*',
+    'dest': 'idekratia/static/images'
   },
 
   'fonts': {
-    'src' : ['app/fonts/**/*'],
-    'dest': 'build/fonts'
+    'src' : ['idekratia/client/fonts/**/*'],
+    'dest': 'idekratia/static/fonts'
   },
 
   'views': {
     'watch': [
-      'app/index.html',
-      'app/views/**/*.html'
+      'idekratia/templates/**/*.html'
     ],
-    'src': 'app/views/**/*.html',
-    'dest': 'app/js'
+    'src': 'idekratia/client/views/**/*.html',
+    'dest': 'idekratia/client/js/'
   },
 
   'gzip': {
-    'src': 'build/**/*.{html,xml,json,css,js,js.map}',
-    'dest': 'build/',
+    'src': 'idekratia/static/**/*.{html,xml,json,css,js,js.map}',
+    'dest': 'idekratia/static/',
     'options': {}
   },
 
   'dist': {
-    'root'  : 'build'
+    'root'  : 'idekratia/static'
   },
 
   'browserify': {
-    'entries'   : ['./app/js/main.js'],
+    'entries'   : ['./idekratia/client/js/main.js'],
     'bundleName': 'main.js',
     'sourcemap' : true
   },

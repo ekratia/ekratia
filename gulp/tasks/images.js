@@ -12,7 +12,7 @@ gulp.task('images', function() {
   return gulp.src(config.images.src)
     .pipe(changed(config.images.dest)) // Ignore unchanged files
     .pipe(gulpif(global.isProd, imagemin())) // Optimize
-    .pipe(gulp.dest(config.images.dest))
+    //.pipe(gulp.dest(config.images.dest)) We don't need copy imgs since they are in static
     .pipe(gulpif(browserSync.active, browserSync.reload({ stream: true, once: true })));
 
 });
