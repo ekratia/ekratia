@@ -7,7 +7,7 @@
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 {% endblock css %}
 
-{% block title %}Your delegates{% endblock title %}
+{% block title %}{% trans "Your delegates" %}{% endblock title %}
 
 {% block content %}
 <div class="row" ng-controller="DelegatesCrtl">
@@ -21,7 +21,7 @@
             <div ng-include=" 'delegates/delegate.html' "></div>
         </div>
 
-        <h2>Add more delegates</h2>
+        <h2>{% trans "Add more delegates" %}</h2>
         <div class="row">
             <div ng-include=" 'delegates/available_delegates.html' "></div>
         </div>
