@@ -7,45 +7,45 @@ module.exports = {
   'serverport'   : 8000,
 
   'styles': {
-    'src' : 'idekratia/client/styles/**/*.scss',
-    'dest': 'idekratia/static/css'
+    'src' : 'ekratia/client/styles/**/*.scss',
+    'dest': 'ekratia/static/css'
   },
 
   'scripts': {
-    'src' : 'idekratia/client/js/**/*.js',
-    'dest': 'idekratia/static/js'
+    'src' : 'ekratia/client/js/**/*.js',
+    'dest': 'ekratia/static/js'
   },
 
   'images': {
-    'src' : 'idekratia/static/images/**/*',
-    'dest': 'idekratia/static/images'
+    'src' : 'ekratia/static/images/**/*',
+    'dest': 'ekratia/static/images'
   },
 
   'fonts': {
-    'src' : ['idekratia/client/fonts/**/*'],
-    'dest': 'idekratia/static/fonts'
+    'src' : ['ekratia/client/fonts/**/*'],
+    'dest': 'ekratia/static/fonts'
   },
 
   'views': {
     'watch': [
-      'idekratia/templates/**/*.html'
+      'ekratia/templates/**/*.html'
     ],
-    'src': 'idekratia/client/views/**/*.html',
-    'dest': 'idekratia/client/js/'
+    'src': 'ekratia/client/views/**/*.html',
+    'dest': 'ekratia/client/js/'
   },
 
   'gzip': {
-    'src': 'idekratia/static/**/*.{html,xml,json,css,js,js.map}',
-    'dest': 'idekratia/static/',
+    'src': 'ekratia/static/**/*.{html,xml,json,css,js,js.map}',
+    'dest': 'ekratia/static/',
     'options': {}
   },
 
   'dist': {
-    'root'  : 'idekratia/static'
+    'root'  : 'ekratia/static'
   },
 
   'browserify': {
-    'entries'   : ['./idekratia/client/js/main.js'],
+    'entries'   : ['./ekratia/client/js/main.js'],
     'bundleName': 'main.js',
     'sourcemap' : true
   },
