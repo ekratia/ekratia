@@ -47,7 +47,8 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'ekratia.users',  # custom users app
     # Your stuff: custom apps go here
-    'app_main'
+    # 'app_main' Old main app
+    'ekratia.threads',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -68,7 +69,7 @@ MIDDLEWARE_CLASSES = (
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'idekratia.contrib.sites.migrations'
+    'sites': 'ekratia.contrib.sites.migrations'
 }
 
 # DEBUG

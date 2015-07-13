@@ -14,14 +14,6 @@ from rest_framework import permissions
 
 from .models import Thread, Delegate, Voter, Proposal, ProposalVote, Comment
 
-class ThreadListView(ListView):
-    model = Thread
-
-class ThreadCreate(CreateView):
-    model = Thread
-    fields = ['title','description']
-    success_url = '/thread/success'
-
 
 class ProposalView(CreateView):
     model = Proposal

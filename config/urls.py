@@ -16,10 +16,11 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # User management
-    url(r'^users/', include("idekratia.users.urls", namespace="users")),
+    url(r'^users/', include("ekratia.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
 
-    url(r'', include("app_main.urls", namespace="threads")),
+    url(r'^threads/', include('ekratia.threads.urls', namespace='threads')),
+    # url(r'', include("app_main.urls", namespace="threads")),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

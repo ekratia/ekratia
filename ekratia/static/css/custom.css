@@ -1,4 +1,4 @@
-/* line 1, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 1, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .votes {
   float: left;
   display: inline; }
@@ -7,48 +7,48 @@
     padding-right: 0;
     padding-left: 0;
 }*/
-/* line 10, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 10, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .caption {
   text-align: center; }
 
 /*.thumbnail{
     padding: 14px;
 }*/
-/* line 17, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 17, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .comment {
   margin-top: 0 !important; }
 
-/* line 20, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 20, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .vote-button {
   background: none;
   font-size: x-large; }
 
-/* line 24, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 24, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 ul {
   list-style-type: none; }
 
-/* line 28, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 28, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .thread-list li {
   background-color: #f0f0f0;
   padding: 14px 17px;
   margin-bottom: 5px;
   min-height: 75px; }
 
-/* line 34, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 34, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .title {
   font-size: 18px;
   font-weight: 600;
   line-height: 1.2em;
   color: #009999; }
 
-/* line 40, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 40, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .subtitle {
   font-size: 12px;
   color: #b3b3b3;
   word-spacing: 2px;
   font-weight: 300; }
 
-/* line 46, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 46, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .summary {
   margin-top: 5px;
   color: black !important;
@@ -56,17 +56,17 @@ ul {
   word-spacing: 2px;
   font-weight: 300; }
 
-/* line 53, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 53, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 #results {
   margin-left: auto;
   margin-right: auto; }
 
-/* line 58, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 58, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .image-person {
   width: 130px;
   height: 160px; }
 
-/* line 64, /home/westeros/projects/ekratia/idekratia/client/styles/custom.scss */
+/* line 64, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .bg-primary a {
   color: white; }
 
