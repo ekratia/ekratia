@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+      
+	<div class="row">
+		<div class="col-md-12">
+			<h2>{% trans "All threads" %}</h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+  	{% for thread in object_list %}
+			
+			<div class="list-group">
+				<a href="{% url "threads:detail" slug=thread.slug %}" class="list-group-item">{{ thread.title }}</a>
+			</div>
+
+  	{% endfor %}
+		</div>
+	</div>
+
+
+{% endblock %}

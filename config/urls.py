@@ -20,8 +20,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     url(r'^threads/', include('ekratia.threads.urls', namespace='threads')),
-    # url(r'', include("app_main.urls", namespace="threads")),
 
+    url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
