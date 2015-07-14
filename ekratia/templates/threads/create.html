@@ -1,6 +1,20 @@
-<h1>Add Thread</h1>
+{% extends "base.html" %}
 
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create thread" />
-</form>
+{% load crispy_forms_tags %}
+
+{% block content %}
+    
+<div class="row">
+	<div class="col-md-12">
+		
+		<h2>Add Thread</h2>
+
+		<form action="" method="post" class="form-vertical">
+			{% csrf_token %}
+		    {% crispy form %}
+		    <input type="submit" class="btn btn-primary" value="Create thread" />
+		</form>
+	</div>
+</div>
+
+{% endblock content %}

@@ -16,9 +16,9 @@ from datetime import datetime
 
 class Thread(models.Model):
 
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=30, blank=False)
     slug = models.SlugField(max_length=250, db_index=True)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000, blank=False)
     #date = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.description
@@ -37,7 +37,7 @@ class Thread(models.Model):
         return reverse('threads:detail', kwargs=kwargs)
 
 class Comment(models.Model):
-    content = models.CharField(max_length=30)
+    content = models.CharField(max_length=30, blank=False)
     thread = models.ForeignKey(Thread)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     #date = models.DateTimeField(auto_now_add=True)
