@@ -6,7 +6,14 @@
       
 	<div class="row">
 		<div class="col-md-12">
-			<h2>{% trans "All threads" %}</h2>
+			<h2>{% trans "All threads" %}
+				<div class="pull-right">
+					<a class="btn btn-primary" href="{% url 'threads:create' %}">
+					<i class="fa fa-plus"></i>
+					<span class="hidden-xs">{% trans "Create a new thread" %}</span>
+					</a>
+				</div>
+			</h2>
 		</div>
 	</div>
 

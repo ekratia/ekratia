@@ -12,8 +12,8 @@ from .views import ThreadListView, ThreadCreateView, ThreadDetailView
 
 urlpatterns = [
     url(r'^$', ThreadListView.as_view(), name="threads"),
-    url(r'^detail/(?P<slug>[\w\-\:\.0-9\s]+)/$', ThreadDetailView.as_view(),
+    url(r'^(?P<slug>[\w\-\:\.0-9\s]+)/$', ThreadDetailView.as_view(),
         name='detail'),
-    url(r'^create$', ThreadCreateView.as_view(), name="create-threads"),
+    url(r'^create$', ThreadCreateView.as_view(), name="create"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
