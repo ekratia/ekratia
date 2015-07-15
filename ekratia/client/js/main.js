@@ -30,5 +30,4 @@ angular.element(document).ready(function() {
   angular.module('ekratia').run(require('./on_run'));
 
   angular.bootstrap(document, ['ekratia']);
-
 });
