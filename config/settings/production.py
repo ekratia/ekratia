@@ -145,3 +145,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+DATABASES = {
+    # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+    'default': env.db("DATABASE_URL", default="postgres://ekratia:3kr$tia2015@localhost:5432/ekratia"),
+}

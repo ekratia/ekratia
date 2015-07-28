@@ -55,3 +55,4 @@ env/
 
 app_main/migrations/
 *.sublime-project
+.env
