@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Raises ImproperlyConfigured exception if DJANO_SECRET_KEY not in os.environ
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = env("DJANGO_SECRET_KEY","ElectronicDemocracy")
 
 # This ensures that Django will be able to detect a secure connection
 # properly on Heroku.
