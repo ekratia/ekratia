@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 '''
-Production Configurations
+Local settings
 
-- Use djangosecure
-- Use Amazon's S3 for storing static files and uploaded media
-- Use sendgrid to send emails
-- Use MEMCACHIER on Heroku
+- Run in Debug mode
+- Use console backend for emails
+- Add Django Debug Toolbar
+- Add django-extensions as app
 '''
-from __future__ import absolute_import, unicode_literals
-
-
-from boto.s3.connection import OrdinaryCallingFormat
-from django.utils import six
 
 from .common import *  # noqa
-import os
 
 # DEBUG
 # ------------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=False)
+DEBUG = env.bool('DJANGO_DEBUG', default=True)
 TEMPLATE_DEBUG = DEBUG
 
 # SECRET CONFIGURATION
@@ -69,5 +63,5 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db("DATABASE_URL", default="postgres://ekratia:3kr$tia2015@localhost:5432/ekratia"),
+    'default': env.db("DATABASE_URL", default="postgres://ekratia:ekratia@localhost:5432/ekratia"),
 }
