@@ -53,5 +53,7 @@ node_modules/
 .sass-cache
 env/
 
-app_main/migrations/
+migrations/
 *.sublime-project
+.env
+
