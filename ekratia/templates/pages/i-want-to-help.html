@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load i18n static %}
+
+{% block body_class %}
+    home
+{% endblock body_class %}
+
+{% block body %}
+<header style="background-image: url({% static 'images/ekratia-full-stack-developer.png' %})">
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 style="font-size: 65px;">We are looking for a Full-Stack Web Developer</h1>
+            <hr>
+            <p style="color:white">Interested in build a better government</p>
+            <a href="#job" class="btn btn-primary btn-xl page-scroll">{% trans "I'm that one" %}</a>
+        </div>
+    </div>
+</header>
+
+<section id="job">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<h2 class="section-heading text-center">{% trans "Job Description" %}</h2>
+                <hr class="primary">
+				<p>Come help us create the future of Making Democracy. We're looking for passionate, creative developers who are excited about solving new problems. As a full-stack developer, you'll work with everything from front-end HTML, SASS and JS with AngularJS as framework to server-side Python with Django as framework and several different data stores including PostgreSQL, Redis, and Elasticsearch. We don't expect you to know everything coming in, so we'll pair you with mentors who will help you grow and develop your skills.</p>
+				<p>We want to hire the right person wherever you are in the world. If you’re in Bogotá or interested in relocating to our office, you’ll enjoy some amazing amenities. If not, we’ll help you create your dream office at home, wherever that might be.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="bg-primary" id="skills">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="section-heading text-center">{% trans "Skills & Requirements" %}</h2>
+                <hr class="light">
+                <h4>{% trans "We expect to see" %}</h4>
+                <p class="text-faded">Solid programming skills in your language of choice (not necessarily ours) and a track 	 record of getting stuff done.<br>
+					Really good experience in server-side web development with Python/Django stack. <br>
+					Up-to-date knowledge of modern HTML, CSS and JS <br>
+					If you’re working remotely, strong telecommuting skills: self-motivating, self-directing, and a good communicator</p>
+				<h4>{% trans "We like to see (but not required)" %}</h4>
+				<p class="text-faded">Any open source code or example projects that you're proud of<br>Any other evidence of your passion for building great software</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="section-heading text-center">{% trans "About Ekratia" %}</h2>
+                <hr class="primary">
+                <p>Ekratia is a new way of making democracy. Members of Ekratia use the Internet to vote directly for new ideas and laws. In case they are too busy to vote, members can delegate their vote to other members. Members can change their delegates on real time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>{% trans "Contact" %}</h2>
+                <p>Send us your resume and be part of a new kind of citizenship</p>
+                <a href="mailto:info@ekratia.org" class="btn btn-default btn-xl wow tada" style="visibility: visible; animation-name: tada;">info@ekratia.org</a>
+            </div>
+        </div>
+    </aside>
+<section id="disclaimer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="section-heading text-center">{% trans "Disclaimer" %}</h2>
+                <hr class="primary">
+                <p>This current position is for 2 months only, after that period, you could join Ekratia's team and help us spread the word with our open source initiative. Initially you will be the only one full time developer, but you will not be alone that's why you should be able to communicate with partial time teammates and code along side with them.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}
