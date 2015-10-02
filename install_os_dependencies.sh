@@ -1,12 +1,13 @@
 #!/bin/bash
 
-OS_REQUIREMENTS_FILENAME="requirements.apt"
+OS_REQUIREMENTS_FILENAME="/srv/app/requirements.apt"
 
 # Handle call with wrong command
 function wrong_command()
 {
-  echo "${0##*/} - unknown command: '${1}'"
-  usage_message
+  #echo "${0##*/} - unknown command: '${1}'"
+  #usage_message
+  install_or_upgrade
 }
 
 # Print help / script usage
@@ -79,4 +80,3 @@ case "$1" in
     help) usage_message;;
     *) wrong_command $1;;
 esac
-
