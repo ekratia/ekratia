@@ -69,7 +69,7 @@
                         <li><a href="{% url 'threads:create_proposal' %}">Create proposal</a></li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
-                        <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
+                        {# <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li> #}
                       {% endif %}
                   </ul>
               </div>

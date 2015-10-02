@@ -39,7 +39,7 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.facebook',
     'rest_framework'  # Framwork for REST API support
 )
 
