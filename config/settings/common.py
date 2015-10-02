@@ -41,7 +41,8 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     # 'allauth.socialaccount.providers.facebook',
-    'rest_framework'  # Framwork for REST API support
+    'rest_framework',  # Framwork for REST API support
+    'compressor',  # Django Compressor
 )
 
 # Apps specific for this project go here.
@@ -65,6 +66,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Minify Middleware classes:
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -208,6 +212,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+
 )
 
 # MEDIA CONFIGURATION
