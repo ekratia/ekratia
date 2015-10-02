@@ -40,7 +40,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.facebook',
-    'rest_framework' #Framwork for REST API support
+    'rest_framework'  # Framwork for REST API support
 )
 
 # Apps specific for this project go here.
@@ -89,7 +89,8 @@ FIXTURE_DIRS = (
 
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
+                    default='django.core.mail.backends.smtp.EmailBackend')
 
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -106,7 +107,8 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db("DATABASE_URL", default="postgres://idekratia:idekratia@localhost:5432/idekratia"),
+    'default': env.db("DATABASE_URL",
+                      default="postgres://idekratia:idekratia@localhost:5432/idekratia"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 

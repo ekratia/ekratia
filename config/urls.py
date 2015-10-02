@@ -8,11 +8,16 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
-    url(r'^rules/$', TemplateView.as_view(template_name='pages/rules.html'), name="rules"),
+    url(r'^$',
+        TemplateView.as_view(template_name='pages/home.html'), name="home"),
+    url(r'^about/$',
+        TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^rules/$',
+        TemplateView.as_view(template_name='pages/rules.html'), name="rules"),
 
-    url(r'^i-want-to-help/$', TemplateView.as_view(template_name='pages/i-want-to-help.html'), name="help"),
+    url(r'^i-want-to-help/$',
+        TemplateView.as_view(template_name='pages/i-want-to-help.html'),
+        name="help"),
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
