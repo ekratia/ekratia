@@ -17,6 +17,7 @@ APPS_DIR = ROOT_DIR.path('ekratia')
 
 env = environ.Env()
 
+environ.Env.read_env(ROOT_DIR()+'/.env')
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = (
