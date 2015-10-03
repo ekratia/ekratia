@@ -2,45 +2,25 @@
 
 {% load i18n %}
 {% load account %}
+{% load socialaccount %}
 {% load url from future %}
 {% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-
 <div class="container">
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-5 text">
+    <br><br>
       <h2>{% trans "Sign In" %}</h2>
-
-      {% if socialaccount.providers  %}
-      <p>{% blocktrans with site.name as site_name %}Please sign in with one
-      of your existing third party accounts:{% endblocktrans %}</p>
-
-      <div class="socialaccount_ballot">
-        <ul class="socialaccount_providers">
-          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-        </ul>
-        <div class="login-or">{% trans 'or' %}</div>
-      </div>
-
-      <br>
-
-      {% include "socialaccount/snippets/login_extra.html" %}
-
+      {% get_providers as socialaccount_providers %}
+      {% if socialaccount_providers %}
+      <a  class="btn btn-primary"href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}"><i class="fa fa-facebook"></i> {% trans "Log In with Facebook" %}</a>
       {% endif %}
 
-      <form class="login" method="POST" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-      </form>
     </div>
   </div>
 </div>
 {% endblock %}
+
