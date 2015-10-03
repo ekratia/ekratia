@@ -83,7 +83,6 @@ MIGRATION_MODULES = {
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
-TEMPLATE_DEBUG = DEBUG
 
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -237,7 +236,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
-    'social_auth.backends.facebook.FacebookBackend',
 )
 
 # Some really nice defaults
