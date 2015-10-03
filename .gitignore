@@ -56,4 +56,5 @@ env/
 migrations/
 *.sublime-project
 .env
+*.env
 
