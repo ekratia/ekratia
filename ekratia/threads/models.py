@@ -13,6 +13,7 @@ class Thread(models.Model):
     slug = models.SlugField(max_length=250, db_index=True, unique=True)
     description = models.TextField(max_length=1000, blank=False)
     date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(common.AUTH_USER_MODEL)
 
     def __unicode__(self):
         return self.description
@@ -42,7 +43,7 @@ class Comment(models.Model):
     """
     content = models.CharField(max_length=30, blank=False)
     thread = models.ForeignKey(Thread)
-    parent = models.ForeignKey('Comment')
+    parent = models.ForeignKey('Comment', blank=True, null=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     date = models.DateTimeField(auto_now_add=True)
     # path = IntegerArrayField(blank=True, editable=False)
