@@ -10,16 +10,20 @@ class Thread(models.Model):
     Used for conversations.
     """
     title = models.CharField(max_length=30, blank=False)
-    slug = models.SlugField(max_length=250, db_index=True)
-    description = models.CharField(max_length=1000, blank=False)
-    # date = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=250, db_index=True, unique=True)
+    description = models.TextField(max_length=1000, blank=False)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.description
 
     def save(self, *args, **kwargs):
         title = self.title
-        self.slug = slugify(title)
+        self.slug = original_slug = slugify(title)
+        count = 0
+        while Thread.objects.filter(slug=self.slug).exists():
+            count += 1
+            self.slug = "%s-%i" % (original_slug, count)
 
         super(Thread, self).save(*args, **kwargs)
 
@@ -32,10 +36,15 @@ class Thread(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Comment Model:
+    Comments under Threads and other comments
+    """
     content = models.CharField(max_length=30, blank=False)
     thread = models.ForeignKey(Thread)
+    parent = models.ForeignKey('Comment')
     user = models.ForeignKey(common.AUTH_USER_MODEL)
-    # date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     # path = IntegerArrayField(blank=True, editable=False)
     depth = models.PositiveSmallIntegerField(default=0)
 

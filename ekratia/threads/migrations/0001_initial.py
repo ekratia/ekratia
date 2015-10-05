@@ -17,7 +17,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('content', models.CharField(max_length=30)),
+                ('date', models.DateTimeField(auto_now_add=True)),
                 ('depth', models.PositiveSmallIntegerField(default=0)),
+                ('parent', models.ForeignKey(to='threads.Comment')),
             ],
         ),
         migrations.CreateModel(
@@ -25,7 +27,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=30)),
-                ('description', models.CharField(max_length=1000)),
+                ('slug', models.SlugField(unique=True, max_length=250)),
+                ('description', models.TextField(max_length=1000)),
+                ('date', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.AddField(
