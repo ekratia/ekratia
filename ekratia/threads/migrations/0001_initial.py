@@ -30,6 +30,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(unique=True, max_length=250)),
                 ('description', models.TextField(max_length=1000)),
                 ('date', models.DateTimeField(auto_now_add=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(

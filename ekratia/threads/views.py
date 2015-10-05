@@ -19,7 +19,7 @@ class ThreadCreateView(CreateView):
     """
     model = Thread
     template_name = 'threads/create.html'
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'user']
 
     def form_valid(self, form):
         messages.add_message(self.request, messages.SUCCESS,
