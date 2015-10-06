@@ -2,6 +2,7 @@ from django.db import models
 from config.settings import common
 from django.utils.text import slugify
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 
 class Thread(models.Model):
@@ -9,9 +10,11 @@ class Thread(models.Model):
     Thread model:
     Used for conversations.
     """
-    title = models.CharField(max_length=30, blank=False)
+    title = models.CharField(max_length=30, blank=False,
+                             verbose_name=_('Subject'))
     slug = models.SlugField(max_length=250, db_index=True, unique=True)
-    description = models.TextField(max_length=1000, blank=False)
+    description = models.TextField(max_length=1000, blank=False,
+                                   verbose_name=_('Message'))
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
 
@@ -41,7 +44,8 @@ class Comment(models.Model):
     Comment Model:
     Comments under Threads and other comments
     """
-    content = models.CharField(max_length=30, blank=False)
+    content = models.TextField(max_length=30, blank=False,
+                               verbose_name=_('Comment'))
     thread = models.ForeignKey(Thread)
     parent = models.ForeignKey('Comment', blank=True, null=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)

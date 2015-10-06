@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags i18n%}
+{% load bootstrap3 i18n%}
 
 {% block content %}
     
 <div class="row">
 	<div class="col-md-12">
 		
-		<h2>Add Thread</h2>
+		<h2>{% trans "Start a Conversation" %}</h2>
 
 		<form action="{% url 'threads:create' %}" method="post" id="thread-create-form">
 			{% csrf_token %}
-		    {{ form|crispy }}
-		    <button type="submit" class="btn btn-primary">{% trans "Create thread" %}</button>
+		    {% bootstrap_form_errors form type='non_fields' %}
+            {% bootstrap_field form.title show_label=false %}
+            {% bootstrap_field form.description show_label=false %}
+            <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
 		</form>
 	</div>
 </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+	
+{% endblock extra_js %}

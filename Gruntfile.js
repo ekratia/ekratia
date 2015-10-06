@@ -83,6 +83,21 @@ module.exports = function (grunt) {
       runDjango: {
         cmd: 'python <%= paths.manageScript %> runserver'
       }
+    },
+    concat: {
+      app: {
+        src: [
+              'bower_components/jquery/dist/jquery.js',
+              'bower_components/angular/angular.js',
+              'bower_components/angular-resource/angular-resource.js',
+             ],
+        dest: 'ekratia/static/dist/components.js'
+      }
+    },
+    uglify: {
+      app: {
+        files: {'ekratia/static/dist/components.min.js': ['ekratia/static/dist/components.js']}
+      }
     }
   });
 
@@ -97,5 +112,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'build'
+  ]);
+
+  grunt.registerTask('jsmin', [
+    'concat:app'
+    // 'uglify:app'
   ]);
 };

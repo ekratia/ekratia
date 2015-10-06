@@ -2,10 +2,39 @@
 
 
 {% block content %}
+{% verbatim %}
+<script type="text/ng-template"  id="tree_item_renderer.html">
+    {{data.name}}
+    <button ng-click="add(data)">Add node</button>
+    <button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
+    <ul>
+        <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</script>
+{% endverbatim %}
     <div class="container">
-    	<div class="col-md-12">
-    		<h2>{{ object.title }}</h2>
-    		<p>{{ object.description }}</p>
-    	</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ object.title }}</h2>
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="CommentsController">
+            <div class="col-md-12">
+                <div class="comment-item" ng-repeat="comment in comments">
+                    {% verbatim %}
+                        {{ comment.content }}
+                    {% endverbatim %}
+                </div>
+            </div>
+
+
+{% verbatim %}
+<ul>
+    <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+</ul>
+{% endverbatim %}
+        </div>
     </div>
 {% endblock content %}

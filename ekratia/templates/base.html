@@ -1,5 +1,5 @@
 {% load staticfiles i18n socialaccount compress %}<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="Ekratia">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -103,7 +103,10 @@
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       {% compress js %}
+      {% comment %}
       <script src="{% static 'js/main.js' %}"></script>
+      {% endcomment %}
+        
 
 
       <!-- Your stuff: Third-party javascript libraries go here -->
@@ -117,6 +120,11 @@
 
       <!-- Custom Theme JavaScript -->
       <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
+
+      <script src="{% static "dist/components.js" %}"></script>
+      <script src="{% static "scripts/app.js" %}"></script>
+      <script src="{% static "scripts/controllers/comment.js" %}"></script>
+      <script src="{% static "scripts/services/comment.js" %}"></script>
       {% endcompress %}
 
     {% endblock javascript %}

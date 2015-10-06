@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount.providers.facebook',
     'rest_framework',  # Framwork for REST API support
     'compressor',  # Django Compressor
+    'bootstrap3',  # Django-Bootstrap3
 )
 
 # Apps specific for this project go here.

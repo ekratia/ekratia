@@ -58,3 +58,5 @@ migrations/
 .env
 *.env
 
+# Bower dependencies
+bower_components
