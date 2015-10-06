@@ -1,18 +1,8 @@
-from django import forms
-from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, TemplateView
+from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
 
-#Imports for django rest framework
-from .serializers import ThreadSerializer
-from .serializers import CommentSerializer
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import permissions
-
-from .models import Thread, Delegate, Voter, Proposal, ProposalVote, Comment
+# Imports for django rest framework
+from .models import Delegate, Voter, Proposal, ProposalVote
 
 
 class ProposalView(CreateView):
@@ -42,5 +32,6 @@ class VoteView(TemplateView):
 
     def vote(self):
         voter = Voter.objects.get(self.request.user)
-        ProposalVote.vote(voter, proposal=self.request.proposal, agree=self.request.agree)
+        ProposalVote.vote(voter, proposal=self.request.proposal,
+                          agree=self.request.agree)
         return redirect('/proposals/rule')

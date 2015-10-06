@@ -1,4 +1,4 @@
-{% load staticfiles i18n socialaccount %}<!DOCTYPE html>
+{% load staticfiles i18n socialaccount compress %}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -25,22 +25,15 @@
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
+    {% compress css%}
     <link rel="stylesheet" href="{% static 'vendor/creative-theme/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/creative-theme/css/animate.min.css' %}" >
     <link rel="stylesheet" href="{% static 'vendor/creative-theme/css/creative.css' %}" >
 
-
-
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
-
+    {% endcompress %}
     {% endblock css %}
-
-    {% block angular %}
-    <script src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
-
   </head>
   <body class="{% block body_class %}{% endblock %}">
       <nav id="mainNav" class="navbar navbar-default">
@@ -65,11 +58,12 @@
 
                       {% if request.user.is_authenticated %}
                         {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
-                        <li><a href="{% url 'threads:delegations' %}">Your delegates</a></li>
-                        <li><a href="{% url 'threads:create_proposal' %}">Create proposal</a></li>
+                        <li><a href="">Your delegates</a></li>
+                        <li><a href="">Create proposal</a></li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
-                        <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
+                        {# <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li> #}
+                        <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
                       {% endif %}
                   </ul>
               </div>
@@ -108,6 +102,9 @@
 
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      {% compress js %}
+      <script src="{% static 'js/main.js' %}"></script>
+
 
       <!-- Your stuff: Third-party javascript libraries go here -->
 
@@ -120,6 +117,7 @@
 
       <!-- Custom Theme JavaScript -->
       <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
+      {% endcompress %}
 
     {% endblock javascript %}
   </body>

@@ -13,7 +13,6 @@ from .common import *  # noqa
 # DEBUG
 # ------------------------------------------------------------------------------
 DEBUG = env.bool('DJANGO_DEBUG', default=True)
-TEMPLATE_DEBUG = DEBUG
 
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------

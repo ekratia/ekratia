@@ -1,5 +1,4 @@
-
-#Imports for django rest framework
+# Imports for django rest framework
 from .serializers import ThreadSerializer
 from .serializers import CommentSerializer
 from django.http import Http404
@@ -30,9 +29,10 @@ class ThreadList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ThreadDetail(APIView):
     """
-    API class for retrieve, update or delete a thread instance.
+    API class to retrieve, update or delete a thread instance.
     """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -60,6 +60,7 @@ class ThreadDetail(APIView):
         thread = self.get_object(pk)
         thread.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class CommentList(APIView):
     """

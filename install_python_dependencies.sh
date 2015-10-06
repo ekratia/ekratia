@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#Creates a virtualenv if it does not exist and uses it
+if [ ! -d ~/.envs/django-app ] ; then
+    virtualenv ~/.envs/django-app
+fi
+
+source ~/.envs/django-app/bin/activate
+
 pip --version >/dev/null 2>&1 || {
     echo >&2 -e "\npip is required but it's not installed."
     echo >&2 -e "You can install it by running the following command:\n"
@@ -30,8 +37,9 @@ if [ -z "$VIRTUAL_ENV" ]; then
     echo >&2 -e "\n"
     exit 1;
 else
-
-    pip install -r requirements/local.txt
-    pip install -r requirements/test.txt
-    pip install -r requirements.txt
+    echo >&2 -e "$VIRTUAL_ENV"
+    pip install -r /srv/app/requirements.txt
+    cp /home/ubuntu/.env /srv/app/
+    python /srv/app/manage.py migrate --settings=config.settings.production
+    python /srv/app/manage.py collectstatic --settings=config.settings.production --noinput > /dev/null 2> /dev/null < /dev/null &
 fi
