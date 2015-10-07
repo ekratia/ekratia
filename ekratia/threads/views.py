@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 
 from .models import Thread
-from .forms import ThreadForm
+from .forms import ThreadForm, ThreadCommentForm
 
 
 class ThreadListView(ListView):
@@ -41,3 +41,11 @@ class ThreadDetailView(DetailView):
     """
     model = Thread
     template_name = "threads/detail.html"
+
+    def get_context_data(self, **kwargs):
+        """
+        Insert the single object into the context dict.
+        """
+        context = super(ThreadDetailView, self).get_context_data(**kwargs)
+        context['form_comment'] = ThreadCommentForm
+        return context

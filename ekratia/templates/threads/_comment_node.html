@@ -1,0 +1,21 @@
+{% load bootstrap3 %}
+{% verbatim %}
+User: {{ comment.data.user }} - {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
+<br>
+{{ comment.data.content }}
+<br>
+{% endverbatim %}
+<a href=''>Reply</a>
+<form action="" method="post">
+{% csrf_token %}
+{% bootstrap_form form_comment %}
+{% buttons %}
+    <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "star" %} Submit
+    </button>
+{% endbuttons %}
+</form>
+
+<ul>
+    <li ng-repeat="comment in comment.children" ng-include="'tree_item_renderer.html'"></li>
+</ul>

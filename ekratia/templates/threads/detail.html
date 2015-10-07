@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load bootstrap3 %}
 
 {% block content %}
     <div class="container">
@@ -20,17 +20,7 @@
             </ul>
         </div>
     </div>
-
-{% verbatim %}
 <script type="text/ng-template"  id="tree_item_renderer.html">
-     User: {{ comment.data.user }} - {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
-     <br>
-     {{ comment.data.content }}
-     <br>
-     <a href=''>Reply</a>
-    <ul>
-        <li ng-repeat="comment in comment.children" ng-include="'tree_item_renderer.html'"></li>
-    </ul>
+{% include "threads/_comment_node.html" %}
 </script>
-{% endverbatim %}
 {% endblock content %}
