@@ -76,12 +76,3 @@ class CommentUserVote(models.Model):
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     comment = models.ForeignKey(Comment)
     value = models.IntegerField(default=1)
-
-
-class Category(MP_Node):
-    name = models.CharField(max_length=30)
-
-    node_order_by = ['name']
-
-    def __unicode__(self):
-        return 'Category: %s' % self.name
