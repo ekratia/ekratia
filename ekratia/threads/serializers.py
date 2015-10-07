@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import Thread
 from .models import Comment
-from django.db import models
 
 
 class ThreadSerializer(serializers.ModelSerializer):
@@ -17,8 +16,18 @@ class ThreadSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     """
-    Serializaer for Thread Model
+    Serializaer for Comment Model
     Class required to convert python objects to JSON.
     """
     class Meta:
         model = Comment
+
+
+class CommentThreadSerializer(serializers.Serializer):
+    """
+    Serializer for Comment Model
+    Class required to convert python objects to JSON.
+    """
+    content = serializers.CharField()
+    # user = serializers.IntegerField()
+    parent = serializers.IntegerField(allow_null=True)

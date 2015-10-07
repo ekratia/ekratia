@@ -5,7 +5,7 @@ import random
 
 def random_date():
     return datetime(2015, 9, random.randint(1, 16),
-                    random.randint(0, 23), random.randint(0, 60))
+                    random.randint(0, 23), random.randint(0, 59))
 
 t = Thread.objects.create(title='Thread title', user_id=1,
                           description="Lorem ipsum dolor sit amet")
