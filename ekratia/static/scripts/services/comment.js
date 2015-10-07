@@ -9,9 +9,7 @@
  */
 
 angular.module('Ekratia').factory('Comment', function($resource) {
-  return $resource('/api/v1/comments/:id/', {},{
-        query: { method: 'GET', isArray: true },
-        update: { method: 'PUT', params: {id: '@id'} },
-        delete: { method: 'DELETE', params: {id: '@id'} }
+  return $resource('/api/v1/comments/thread/:id/', {},{
+        query: { method: 'GET', params: {id: '@id'}, isArray: true }
       });
 });

@@ -2,16 +2,6 @@
 
 
 {% block content %}
-{% verbatim %}
-<script type="text/ng-template"  id="tree_item_renderer.html">
-    {{data.name}}
-    <button ng-click="add(data)">Add node</button>
-    <button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
-    <ul>
-        <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
-    </ul>
-</script>
-{% endverbatim %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -20,21 +10,27 @@
             </div>
         </div>
 
-        <div class="row" ng-controller="CommentsController">
-            <div class="col-md-12">
-                <div class="comment-item" ng-repeat="comment in comments">
+        <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
+            <ul>
+                <li ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'">
                     {% verbatim %}
-                        {{ comment.content }}
+                        {{ comment.data.content }}
                     {% endverbatim %}
-                </div>
-            </div>
-
-
-{% verbatim %}
-<ul>
-    <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
-</ul>
-{% endverbatim %}
+                </li>
+            </ul>
         </div>
     </div>
+
+{% verbatim %}
+<script type="text/ng-template"  id="tree_item_renderer.html">
+     User: {{ comment.data.user }} - {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
+     <br>
+     {{ comment.data.content }}
+     <br>
+     <a href=''>Reply</a>
+    <ul>
+        <li ng-repeat="comment in comment.children" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</script>
+{% endverbatim %}
 {% endblock content %}
