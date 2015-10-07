@@ -3,9 +3,34 @@
 
 {% block content %}
     <div class="container">
-    	<div class="col-md-12">
-    		<h2>{{ object.title }}</h2>
-    		<p>{{ object.description }}</p>
-    	</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ object.title }}</h2>
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
+            <ul>
+                <li ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'">
+                    {% verbatim %}
+                        {{ comment.data.content }}
+                    {% endverbatim %}
+                </li>
+            </ul>
+        </div>
     </div>
+
+{% verbatim %}
+<script type="text/ng-template"  id="tree_item_renderer.html">
+     User: {{ comment.data.user }} - {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
+     <br>
+     {{ comment.data.content }}
+     <br>
+     <a href=''>Reply</a>
+    <ul>
+        <li ng-repeat="comment in comment.children" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</script>
+{% endverbatim %}
 {% endblock content %}

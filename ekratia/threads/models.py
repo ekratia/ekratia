@@ -2,6 +2,8 @@ from django.db import models
 from config.settings import common
 from django.utils.text import slugify
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
+from treebeard.mp_tree import MP_Node
 
 
 class Thread(models.Model):
@@ -9,10 +11,13 @@ class Thread(models.Model):
     Thread model:
     Used for conversations.
     """
-    title = models.CharField(max_length=30, blank=False)
+    title = models.CharField(max_length=30, blank=False,
+                             verbose_name=_('Subject'))
     slug = models.SlugField(max_length=250, db_index=True, unique=True)
-    description = models.TextField(max_length=1000, blank=False)
+    description = models.TextField(max_length=1000, blank=False,
+                                   verbose_name=_('Message'))
     date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(common.AUTH_USER_MODEL)
 
     def __unicode__(self):
         return self.description
@@ -35,18 +40,48 @@ class Thread(models.Model):
         return reverse('threads:detail', kwargs=kwargs)
 
 
-class Comment(models.Model):
+class ThreadUserVote(models.Model):
+    """
+    ThreadUserVote Model:
+    Stores votes from users to Threads
+    """
+    user = models.ForeignKey(common.AUTH_USER_MODEL)
+    thread = models.ForeignKey(Thread)
+    value = models.IntegerField(default=1)
+
+
+class Comment(MP_Node):
     """
     Comment Model:
     Comments under Threads and other comments
     """
-    content = models.CharField(max_length=30, blank=False)
-    thread = models.ForeignKey(Thread)
-    parent = models.ForeignKey('Comment')
+    content = models.TextField(max_length=30, blank=False,
+                               verbose_name=_('Comment'))
+    thread = models.ForeignKey(Thread, null=True, blank=True, unique=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     date = models.DateTimeField(auto_now_add=True)
-    # path = IntegerArrayField(blank=True, editable=False)
-    depth = models.PositiveSmallIntegerField(default=0)
+    points = models.IntegerField(default=0)
+
+    node_order_by = ['content']
 
     def __unicode__(self):
         return self.content
+
+
+class CommentUserVote(models.Model):
+    """
+    CommentUserVote Model:
+    Stores votes from users to Comments
+    """
+    user = models.ForeignKey(common.AUTH_USER_MODEL)
+    comment = models.ForeignKey(Comment)
+    value = models.IntegerField(default=1)
+
+
+class Category(MP_Node):
+    name = models.CharField(max_length=30)
+
+    node_order_by = ['name']
+
+    def __unicode__(self):
+        return 'Category: %s' % self.name
