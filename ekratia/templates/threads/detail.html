@@ -13,13 +13,13 @@
         <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
             <ul>
                 <li ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'">
-                    {% verbatim %}
-                        {{ comment.data.content }}
-                    {% endverbatim %}
                 </li>
             </ul>
         </div>
     </div>
+<script>
+    var csrf_token = '{{ csrf_token }}';
+</script>
 <script type="text/ng-template"  id="tree_item_renderer.html">
 {% include "threads/_comment_node.html" %}
 </script>

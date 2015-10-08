@@ -5,17 +5,26 @@ User: {{ comment.data.user }} - {{ comment.data.date | date:"MM/dd/yyyy 'at' h:m
 {{ comment.data.content }}
 <br>
 {% endverbatim %}
-<a href=''>Reply</a>
-<form action="" method="post">
-{% csrf_token %}
-{% bootstrap_form form_comment %}
+<a ng-click="toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
+<a ng-click="toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+{% if request.user.is_authenticated %}
+<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form">
+<div class="form-group">
+    <label class="control-label" for="id_content">Comment</label>
+    <textarea class="form-control" maxlength="30" name="content" placeholder="Comment" required="required" rows="2" ng-model="comment.reply" required></textarea>
+</div>
+
 {% buttons %}
     <button type="submit" class="btn btn-primary">
         {% bootstrap_icon "star" %} Submit
     </button>
 {% endbuttons %}
 </form>
-
+{% else %}
+<div ng-show="comment.open_form">
+You need to be authenticated to comment <a href="{% url 'account_login' %}">Log in</a>
+</div>
+{% endif %}
 <ul>
     <li ng-repeat="comment in comment.children" ng-include="'tree_item_renderer.html'"></li>
 </ul>

@@ -2,6 +2,8 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 
+from braces.views import LoginRequiredMixin
+
 from .models import Thread
 from .forms import ThreadForm, ThreadCommentForm
 
@@ -14,7 +16,7 @@ class ThreadListView(ListView):
     template_name = 'threads/list.html'
 
 
-class ThreadCreateView(CreateView):
+class ThreadCreateView(LoginRequiredMixin, CreateView):
     """
     Creates a Thread
     """

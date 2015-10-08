@@ -52,6 +52,7 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-right">
+                      <li><a href="{% url 'threads:threads' %}">{% trans "Conversations" %}</a></li>
                       <li><a href="{% url 'rules' %}">Rules</a></li>
                       <li><a href="{% url 'help' %}">{% trans "I want to Help!" %}</a></li>
                       {# <li><a href="{% url 'about' %}">About</a></li> #}

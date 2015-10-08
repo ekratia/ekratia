@@ -10,6 +10,7 @@
 
 angular.module('Ekratia').factory('Comment', function($resource) {
   return $resource('/api/v1/comments/thread/:id/', {},{
-        query: { method: 'GET', params: {id: '@id'}, isArray: true }
+        query: { method: 'GET', params: {id: '@id'}, isArray: true },
+        save: { method: 'POST', params: {id: '@id'} }
       });
 });
