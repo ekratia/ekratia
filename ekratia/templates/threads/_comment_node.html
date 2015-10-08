@@ -1,24 +1,34 @@
 {% load bootstrap3 %}
 {% verbatim %}
-User: {{ comment.data.user }} - {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
-<br>
-{{ comment.data.content }}
-<br>
+<a name="comment-{{ comment.id }}"></a>
+<div class="row" ng-hide="comment.data.thread">
+    <div class="comment-vote">
+        <a href=""><i class="fa fa-arrow-circle-up"></i></a><br>
+        <a href=""><i class="fa fa-arrow-circle-down"></a></i>
+    </div>
+    <div class="comment-content">
+        [-] {{ comment.data.user.full_name }} &nbsp; {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
+        <br>
+        {{ comment.data.content }}
+        <br>
+        <a href="#comment-{{ comment.id }}" >permalink</a>&nbsp;
+        <a ng-click="toggleCommentForm(comment)" href="" ng-hide="comment.open_form">reply</a>
+        <a ng-click="toggleCommentForm(comment)" href="" ng-show="comment.open_form">hide</a>
+    </div>
+</div>
 {% endverbatim %}
-<a ng-click="toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
-<a ng-click="toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+
 {% if request.user.is_authenticated %}
-<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form">
+<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread">
 <div class="form-group">
-    <label class="control-label" for="id_content">Comment</label>
-    <textarea class="form-control" maxlength="30" name="content" placeholder="Comment" required="required" rows="2" ng-model="comment.reply" required></textarea>
+    <textarea class="form-control" maxlength="30" name="content" placeholder="Your Comment" required="required" rows="2" ng-model="comment.reply" required></textarea>
 </div>
 
-{% buttons %}
+<div class="form-group text-right">
     <button type="submit" class="btn btn-primary">
-        {% bootstrap_icon "star" %} Submit
+        <span class="glyphicon glyphicon-star"></span> Submit
     </button>
-{% endbuttons %}
+</div>
 </form>
 {% else %}
 <div ng-show="comment.open_form">

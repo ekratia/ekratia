@@ -11,16 +11,36 @@
         </div>
 
         <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
-            <ul>
-                <li ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'">
-                </li>
-            </ul>
+            <div class="col-md-12">
+                <ul class="root-comment-list">
+                    <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'">
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-<script>
-    var csrf_token = '{{ csrf_token }}';
-</script>
 <script type="text/ng-template"  id="tree_item_renderer.html">
 {% include "threads/_comment_node.html" %}
 </script>
+<style>
+    ul.root-comment-list, ul.root-comment-list ul:first-child{
+        padding-left: 0px;
+    }
+    ul.root-comment-list > li.first-level > ul{
+        padding-left: 0px;
+    }
+    div.comment-vote{
+        float: left;
+        font-size: x-large;
+        padding: 0 15px;
+    }
+    div.comment-content{
+        padding-left: 15px;
+    }
+    ul.root-comment-list ul{
+        border-top: 1px dotted #ccc;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+</style>
 {% endblock content %}

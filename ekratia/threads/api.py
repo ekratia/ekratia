@@ -10,8 +10,11 @@ from rest_framework import status
 from rest_framework import permissions
 
 from django.http import Http404
+from django.forms.models import model_to_dict
 
 from .models import Thread, Comment
+
+from ekratia.users.models import User
 
 
 class ThreadList(generics.ListCreateAPIView):
@@ -74,6 +77,20 @@ class ThreadComments(APIView):
                                         user_id=thread.user.id)
         return root_comment
 
+    def update_information_from_tree(self, tree):
+        """
+        Recursive function to go through tree and update information
+        """
+        for element in tree:
+            user_id = element['data']['user']
+            # TODO: Avoid a queryset per user
+            # Get all the user info in single query
+            user = User.objects.get(pk=user_id)
+            element['data']['user'] = user.get_data_dictionary()
+            if 'children' in element:
+                self.update_information_from_tree(element['children'])
+        return tree
+
     def get(self, request, pk, format=None):
         """
         Lists the tree of comments for the thread
@@ -89,7 +106,7 @@ class ThreadComments(APIView):
             root_comment = self.create_root_comment(thread=thread)
 
         data = Comment.dump_bulk(parent=root_comment)
-
+        data = self.update_information_from_tree(data)
         return Response(data)
 
     def post(self, request, pk, format=None):
