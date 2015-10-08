@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from treebeard.mp_tree import MP_Node
-
+import datetime
 
 class Thread(models.Model):
     """
@@ -59,10 +59,10 @@ class Comment(MP_Node):
                                verbose_name=_('Comment'))
     thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=datetime.datetime.now)
     points = models.IntegerField(default=0)
 
-    node_order_by = ['content']
+    node_order_by = ['-date']
 
     def __unicode__(self):
         return self.content
