@@ -38,10 +38,16 @@ $scope.message = {
 
     $scope.saveComment = function(comment){
         $scope.anchor = 'c'+String(comment.id);
-        var data = {content:comment.reply, parent:comment.id}
-        Comment.save({id:$scope.thread_id},data, function(data){
-            $scope.loadComments($scope.thread_id);
-        });
+        // var form = comment.form;
+        // var form = comment.form;
+        if(comment.reply.length<1000){
+            var data = {content:comment.reply, parent:comment.id}
+            Comment.save({id:$scope.thread_id},data, function(data){
+                $scope.loadComments($scope.thread_id);
+            });
+        }else{
+            bootbox.alert("You are ot allwed to enter more than 1000 characters.");
+        }
         
     }
     $scope.toggleCommentForm = function(comment){
