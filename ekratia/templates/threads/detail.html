@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}}, false)">
+        <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
             <div class="col-md-12">
                 <ul class="root-comment-list">
                     <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
