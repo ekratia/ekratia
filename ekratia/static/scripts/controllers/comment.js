@@ -10,8 +10,8 @@
  */
 angular.module('Ekratia')
   .controller('CommentsController',
-    ['$scope', 'Comment',
-    function ($scope, Comment) {
+    ['$scope', 'Comment', '$location','$anchorScroll',
+    function ($scope, Comment, $location, $anchorScroll) {
     $scope.thread_id = null;
 
     $scope.loadComments = function(thread_id){
@@ -39,6 +39,36 @@ angular.module('Ekratia')
     }
     $scope.toggleCommentForm = function(comment){
         comment.open_form = !comment.open_form;
+    };
+
+    $scope.toggl_children = function(comment){
+        comment.close_children = !comment.close_children;
+    };
+
+    $scope.close_children = function(comment){
+        if(!comment.close_children && comment.children){
+            return true;
+        }else{
+            return false;
+        }
     }
+    $scope.goTop = function(id) {
+      $location.hash('top');
+      $anchorScroll();
+    }
+    $scope.goBottom = function(id) {
+      $location.hash('bottom');
+      $anchorScroll();
+    }
+    $scope.goTo = function(id) {
+      $location.hash(id);
+      $anchorScroll();
+    };
+
+    $scope.$on('onRepeatLast', function(scope, element, attrs){
+        if($location.hash()){
+            $scope.goTo(String($location.hash()));
+        }
+    });
 
 }]);

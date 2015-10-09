@@ -1,17 +1,21 @@
 {% load bootstrap3 %}
 {% verbatim %}
-<a name="comment-{{ comment.id }}"></a>
-<div class="row" ng-hide="comment.data.thread">
+<a name="c{{ comment.id }}"></a>
+<div class="row" ng-hide="comment.data.thread" id="c{{ comment.id }}">
     <div class="comment-vote">
         <a href=""><i class="fa fa-arrow-circle-up"></i></a><br>
         <a href=""><i class="fa fa-arrow-circle-down"></a></i>
     </div>
     <div class="comment-content">
-        [-] {{ comment.data.user.full_name }} &nbsp; {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
-        <br>
+            <span ng-show="comment.children">
+            <a href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a> 
+            </span>
+            {{ comment.data.user.full_name }} &nbsp; {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
+            <br>
         {{ comment.data.content }}
         <br>
-        <a href="#comment-{{ comment.id }}" >permalink</a>&nbsp;
+        <a href="#/#c{{ comment.id }}" target="_self">permalink</a>&nbsp;
+        <!--a href="" ng-click="scrollTo('c54')\'" target="_self">permalink</a>&nbsp;-->
         <a ng-click="toggleCommentForm(comment)" href="" ng-hide="comment.open_form">reply</a>
         <a ng-click="toggleCommentForm(comment)" href="" ng-show="comment.open_form">hide</a>
     </div>
@@ -35,6 +39,6 @@
 You need to be authenticated to comment <a href="{% url 'account_login' %}">Log in</a>
 </div>
 {% endif %}
-<ul>
+<ul ng-hide="comment.close_children">
     <li ng-repeat="comment in comment.children" ng-include="'tree_item_renderer.html'"></li>
 </ul>

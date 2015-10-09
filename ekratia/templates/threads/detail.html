@@ -11,12 +11,14 @@
         </div>
 
         <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
+        <a href="" ng-click="goTo('bottom')" id="top">CLICKME</a>
             <div class="col-md-12">
                 <ul class="root-comment-list">
-                    <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'">
+                    <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
                     </li>
                 </ul>
             </div>
+        <a href="" ng-click="goTo('top')" id="bottom">CLICKME</a>
         </div>
     </div>
 <script type="text/ng-template"  id="tree_item_renderer.html">
@@ -41,6 +43,9 @@
         border-top: 1px dotted #ccc;
         margin-top: 10px;
         padding-top: 10px;
+    }
+    ul.root-comment-list a{
+        text-decoration: underline;
     }
 </style>
 {% endblock content %}
