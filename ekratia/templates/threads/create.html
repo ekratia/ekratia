@@ -13,10 +13,12 @@
 			{% csrf_token %}
 		    {% bootstrap_form_errors form type='non_fields' %}
             {% bootstrap_field form.title show_label=false %}
-            <div class="form-group">
+            <!--div class="form-group">
                 <label class="sr-only control-label" for="id_description">Message</label>
                 <textarea class="form-control" cols="40" id="id_description" name="description" placeholder="Message" required="required" rows="2" title="" msd-elastic ng-model="message"></textarea>
-            </div>
+            </div-->
+            {% bootstrap_field form.description show_label=false  %}
+            
             <div class="form-group text-right">
                 <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
             </div>

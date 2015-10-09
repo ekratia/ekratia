@@ -72,7 +72,7 @@ class ThreadComments(APIView):
         """
         Creates a root Comment
         """
-        root_comment = Comment.add_root(content=thread.title,
+        root_comment = Comment.add_root(content=thread.description,
                                         thread_id=thread.id,
                                         user_id=thread.user.id)
         return root_comment
