@@ -3,8 +3,8 @@
 <a name="c{{ comment.id }}"></a>
 <div class="row comment-container" ng-hide="comment.data.thread" id="c{{ comment.id }}">
     <div class="comment-vote">
-        <a ng-click="commentVote(comment,1)" ng-href="" ng-class="commentVoteClass(comment,'up')"><i class="fa fa-arrow-circle-up"></i></a><br>
-        <a ng-click="commentVote(comment,-1)" ng-href="" ng-class="commentVoteClass(comment,'down')"><i class="fa fa-arrow-circle-down"></a></i>
+        <a ng-click="commentVote(comment,1)" href="" ng-class="commentVoteClass(comment,'up')"><i class="fa fa-arrow-circle-up"></i></a><br>
+        <a ng-click="commentVote(comment,-1)" href="" ng-class="commentVoteClass(comment,'down')"><i class="fa fa-arrow-circle-down"></a></i>
     </div>
     <div class="comment-content">
             <span ng-show="comment.children">

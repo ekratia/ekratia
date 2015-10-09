@@ -15,16 +15,14 @@ angular.module('Ekratia')
     $scope.thread_id = null;
     $scope.anchor = null;
 
-    $scope.loadComments = function(thread_id, anchor){
+    if($location.hash()){
+        $scope.anchor = $location.hash();
+    }
+    $scope.loadComments = function(thread_id){
         $scope.thread_id = thread_id;
         var data = Comment.query({id:thread_id}, function(){
             $scope.comments = data;
         });
-        if(anchor === true){
-            if($location.hash()){
-                $scope.anchor = $location.hash();
-            }
-        }
     };
 
     $scope.delete = function(data) {
@@ -36,10 +34,10 @@ angular.module('Ekratia')
     $scope.tree = [{name: "Comment ", nodes: []}];
 
     $scope.saveComment = function(comment){
-        $scope.anchor = null;
+        $scope.anchor = 'c'+String(comment.id);
         var data = {content:comment.reply, parent:comment.id}
         Comment.save({id:$scope.thread_id},data, function(data){
-            $scope.loadComments($scope.thread_id, false);
+            $scope.loadComments($scope.thread_id);
         });
         
     }
@@ -71,9 +69,9 @@ angular.module('Ekratia')
     });
 
     $scope.commentVote = function(comment, vote){
-        $scope.anchor = null;
+        $scope.anchor = 'c'+String(comment.id);
         VoteComment.save({comment:comment.id, value:vote}, function(data){
-            $scope.loadComments($scope.thread_id, false);
+            $scope.loadComments($scope.thread_id);
         }, function(){
             console.log('failed');
         });
