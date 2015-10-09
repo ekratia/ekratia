@@ -62,9 +62,7 @@ class Comment(MP_Node):
     date = models.DateTimeField(auto_now_add=True)
     points = models.IntegerField(default=0)
 
-    username = 'Andres'
-
-    node_order_by = ['date']
+    node_order_by = ['content']
 
     def __unicode__(self):
         return self.content
