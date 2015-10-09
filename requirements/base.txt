@@ -50,6 +50,3 @@ django-compressor==1.5
 
 # Trees
 django-treebeard==3.0
-
-# Slug
-django-autoslug==1.8.0
