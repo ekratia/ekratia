@@ -59,7 +59,7 @@ class Comment(MP_Node):
     Comment Model:
     Comments under Threads and other comments
     """
-    content = models.TextField(max_length=30, blank=False,
+    content = models.TextField(max_length=1000, blank=False,
                                verbose_name=_('Comment'))
     thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
