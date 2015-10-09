@@ -14,7 +14,10 @@ angular.module('Ekratia')
     function ($scope, Comment, $location, $anchorScroll, VoteComment) {
     $scope.thread_id = null;
     $scope.anchor = null;
-
+$scope.message = {
+   text: 'hello world!',
+   time: moment().startOf('second').fromNow()
+};
     if($location.hash()){
         $scope.anchor = $location.hash();
     }
@@ -88,5 +91,9 @@ angular.module('Ekratia')
             }
         }
         return 'inactive';
+    };
+
+    $scope.convertDate = function(date){
+        return moment(date).startOf('second').fromNow();
     };
 }]);

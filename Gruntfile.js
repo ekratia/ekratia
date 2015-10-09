@@ -91,6 +91,10 @@ module.exports = function (grunt) {
               'bower_components/angular/angular.js',
               'bower_components/angular-resource/angular-resource.js',
               'bower_components/angular-elastic/elastic.js',
+              // 'bower_components/humanize/humanize.js',
+              // 'bower_components/angularjs-humanize/src/angular-humanize.js',
+              'bower_components/moment/moment.js',
+              'bower_components/angular-moment/angular-moment.js"',
              ],
         dest: 'ekratia/static/dist/components.js'
       }

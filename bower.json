@@ -19,6 +19,8 @@
   ],
   "dependencies": {
     "angular-resource": "~1.4.7",
-    "angular-elastic": "~2.5.1"
+    "angular-elastic": "~2.5.1",
+    "angularjs-humanize": "~0.0.1",
+    "angular-moment": "~0.10.3"
   }
 }
