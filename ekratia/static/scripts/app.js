@@ -13,6 +13,7 @@ var app = angular
     'ngResource',
     'monospaced.elastic',
     // 'angular-humanize',
+    'nl2br'
   ]);
 
 app.config(['$resourceProvider', function($resourceProvider) {
