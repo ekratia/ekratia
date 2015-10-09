@@ -10,7 +10,7 @@
             </div>
             <div class="comment-content">
                 <h2 class="section-heading">{{ object.title }}</h2>
-                <a href="{% url 'users:detail' request.user.username %}">{{ request.user.get_full_name }}</a> &nbsp; <span class="gray">0 votes &nbsp;{{ thread.date }}:</span>
+                <a href="{% url 'users:detail' object.user.username %}">{{ object.user.get_full_name }}</a> &nbsp; <span class="gray">0 votes &nbsp;{{ thread.date }}:</span>
                 <br>
                 <div class="thread-message">{{ object.description }}</div>
             </div>
