@@ -27,9 +27,11 @@
 {% endverbatim %}
 
 {% if request.user.is_authenticated %}
-<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread">
+{% verbatim %}
+<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread" name="cform-{{ comment.id }}">
+{% endverbatim %}
 <div class="form-group">
-    <textarea class="form-control" maxlength="" name="content" placeholder="Your Comment" required="required" rows="1" ng-model="comment.reply" msd-elastic required></textarea>
+    <textarea class="form-control" maxlength="" name="content" placeholder="Your Comment" required="required" rows="1" ng-model="comment.reply" msd-elastic required maxlength="1000"></textarea>
 </div>
 
 <div class="form-group text-right">

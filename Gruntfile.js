@@ -96,6 +96,8 @@ module.exports = function (grunt) {
               'bower_components/moment/moment.js',
               'bower_components/angular-moment/angular-moment.js',
               'bower_components/angular-nl2br/angular-nl2br.js',
+              'bower_components/bootstrap/dist/js/bootstrap.js',
+              'bower_components/bootbox.js/bootbox.js',
 
 
              ],
