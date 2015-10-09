@@ -6,7 +6,6 @@ from .models import Comment
 class ThreadSerializer(serializers.ModelSerializer):
     """
     Serializaer for Thread Model
-    Class required to convert python objects to JSON.
     """
     slug = serializers.SlugField(allow_blank=True, read_only=True)
 
@@ -17,7 +16,6 @@ class ThreadSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     """
     Serializaer for Comment Model
-    Class required to convert python objects to JSON.
     """
     class Meta:
         model = Comment
@@ -26,8 +24,14 @@ class CommentSerializer(serializers.ModelSerializer):
 class CommentThreadSerializer(serializers.Serializer):
     """
     Serializer for Comment Model
-    Class required to convert python objects to JSON.
     """
     content = serializers.CharField()
-    # user = serializers.IntegerField()
     parent = serializers.IntegerField(allow_null=True)
+
+
+class CommentVoteSerializer(serializers.Serializer):
+    """
+    Serializer for CommentVote Model
+    """
+    comment = serializers.IntegerField()
+    value = serializers.IntegerField(min_value=-1, max_value=1)

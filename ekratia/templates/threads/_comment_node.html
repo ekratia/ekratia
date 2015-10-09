@@ -3,19 +3,20 @@
 <a name="c{{ comment.id }}"></a>
 <div class="row comment-container" ng-hide="comment.data.thread" id="c{{ comment.id }}">
     <div class="comment-vote">
-        <a href=""><i class="fa fa-arrow-circle-up"></i></a><br>
-        <a href=""><i class="fa fa-arrow-circle-down"></a></i>
+        <a ng-click="commentVote(comment,1)" ng-href="" ng-class="commentVoteClass(comment,'up')"><i class="fa fa-arrow-circle-up"></i></a><br>
+        <a ng-click="commentVote(comment,-1)" ng-href="" ng-class="commentVoteClass(comment,'down')"><i class="fa fa-arrow-circle-down"></a></i>
     </div>
     <div class="comment-content">
             <span ng-show="comment.children">
-            <a href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a> 
+            <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a> 
             </span>
-            {{ comment.data.user.full_name }} &nbsp; {{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:
+            <a href="/users/{{ comment.data.user.username }}">{{ comment.data.user.full_name }}</a> &nbsp; <span class="gray">{{ comment.data.points }} votes &nbsp;{{ comment.data.date | date:"MM/dd/yyyy 'at' h:mma" }}:</span>
             <br>
-        {{ comment.data.content }}
-        <br>
+            <div class="text-message">
+                {{ comment.data.content }}
+            </div>
+                <br>
         <a href="#/#c{{ comment.id }}" target="_self">permalink</a>&nbsp;
-        <!--a href="" ng-click="scrollTo('c54')\'" target="_self">permalink</a>&nbsp;-->
         <a ng-click="toggleCommentForm(comment)" href="" ng-hide="comment.open_form">reply</a>
         <a ng-click="toggleCommentForm(comment)" href="" ng-show="comment.open_form">hide</a>
     </div>
@@ -25,7 +26,7 @@
 {% if request.user.is_authenticated %}
 <form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread">
 <div class="form-group">
-    <textarea class="form-control" maxlength="30" name="content" placeholder="Your Comment" required="required" rows="2" ng-model="comment.reply" required></textarea>
+    <textarea class="form-control" maxlength="" name="content" placeholder="Your Comment" required="required" rows="1" ng-model="comment.reply" msd-elastic required></textarea>
 </div>
 
 <div class="form-group text-right">

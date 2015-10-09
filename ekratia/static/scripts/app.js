@@ -11,6 +11,7 @@
 var app = angular
   .module('Ekratia', [
     'ngResource',
+    'monospaced.elastic'
   ]);
 
 app.config(['$resourceProvider', function($resourceProvider) {

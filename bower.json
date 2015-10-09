@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "angular-elastic": "~2.5.1"
   }
 }

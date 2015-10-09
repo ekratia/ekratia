@@ -2,6 +2,7 @@
 from .serializers import ThreadSerializer
 from .serializers import CommentSerializer
 from .serializers import CommentThreadSerializer
+from .serializers import CommentVoteSerializer
 
 from rest_framework import generics
 from rest_framework.response import Response
@@ -10,9 +11,8 @@ from rest_framework import status
 from rest_framework import permissions
 
 from django.http import Http404
-from django.forms.models import model_to_dict
 
-from .models import Thread, Comment
+from .models import Thread, Comment, CommentUserVote
 
 from ekratia.users.models import User
 
@@ -80,13 +80,26 @@ class ThreadComments(APIView):
     def update_information_from_tree(self, tree):
         """
         Recursive function to go through tree and update information
+        Updating: User information, Vote value
         """
         for element in tree:
             user_id = element['data']['user']
+            comment_id = element['id']
             # TODO: Avoid a queryset per user
             # Get all the user info in single query
             user = User.objects.get(pk=user_id)
             element['data']['user'] = user.get_data_dictionary()
+
+            if self.request.user.is_authenticated():
+                current_user_id = self.request.user.id
+                try:
+                    vote = CommentUserVote.objects.get(comment_id=comment_id,
+                                                       user_id=current_user_id)
+                    vote_value = vote.value
+                except CommentUserVote.DoesNotExist:
+                    vote_value = 0
+                element['data']['current_user_vote'] = vote_value
+
             if 'children' in element:
                 self.update_information_from_tree(element['children'])
         return tree
@@ -129,6 +142,53 @@ class ThreadComments(APIView):
 
             node.add_child(content=serializer.data['content'],
                            user_id=request.user.id)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ThreadCommentsVotes(APIView):
+    """
+    List Comments of the thread in a Tree
+    """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get_comment(self, pk):
+        """
+        Get Thread by Primary Key
+        """
+        try:
+            return Comment.objects.get(pk=pk)
+        except Comment.DoesNotExist:
+            raise Http404
+
+    def post(self, request, format=None):
+        """
+        Method to create or update vote for comment
+        """
+
+        serializer = CommentVoteSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                comment = self.get_comment(serializer.data['comment'])
+                vote, created = CommentUserVote.objects.get_or_create(
+                                            comment=comment, user=request.user)
+                if created:
+                    vote.value = serializer.data['value']
+                    vote.save()
+                else:
+                    if(vote.value != serializer.data['value']):
+                        vote.value = serializer.data['value']
+                        vote.save()
+                    else:
+                        vote.delete()
+
+                total_points = comment.calculate_votes()
+            except Comment.DoesNotExist:
+                return Response({'message': 'Comment not found'},
+                                status=status.HTTP_404_NOT_FOUND)
+
+            serializer.data['total_points'] = total_points
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

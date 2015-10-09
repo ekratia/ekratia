@@ -11,4 +11,5 @@ urlpatterns = patterns(
         threads.ThreadComments.as_view()),
     url(r'^comments/$', threads.CommentList.as_view()),
     url(r'^comments/(?P<pk>[0-9]+)/$', threads.CommentDetail.as_view()),
+    url(r'^comments/votes/$', threads.ThreadCommentsVotes.as_view()),
     )
