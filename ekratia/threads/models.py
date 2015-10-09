@@ -28,12 +28,13 @@ class Thread(models.Model):
         return self.description
 
     def save(self, *args, **kwargs):
-        title = self.title
-        self.slug = original_slug = slugify(title)
-        count = 0
-        while Thread.objects.filter(slug=self.slug).exists():
-            count += 1
-            self.slug = "%s-%i" % (original_slug, count)
+        if not self.slug:
+            title = self.title
+            self.slug = original_slug = slugify(title)
+            count = 0
+            while Thread.objects.filter(slug=self.slug).exists():
+                count += 1
+                self.slug = "%s-%i" % (original_slug, count)
 
         super(Thread, self).save(*args, **kwargs)
 
