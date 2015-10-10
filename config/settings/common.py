@@ -40,9 +40,11 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.facebook',
     'rest_framework',  # Framwork for REST API support
     'compressor',  # Django Compressor
+    'bootstrap3',  # Django-Bootstrap3
+    'treebeard',
 )
 
 # Apps specific for this project go here.
@@ -83,7 +85,6 @@ MIGRATION_MODULES = {
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
-TEMPLATE_DEBUG = DEBUG
 
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -120,9 +121,9 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ]
 }
 
 
@@ -180,6 +181,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
                 # Your stuff: custom template context processors go here
             ],
         },

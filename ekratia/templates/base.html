@@ -1,5 +1,5 @@
 {% load staticfiles i18n socialaccount compress %}<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="Ekratia">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -32,6 +32,12 @@
 
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <style>
+      .container {
+        min-width: 0;
+        max-width: 960px;
+      }
+    </style>
     {% endcompress %}
     {% endblock css %}
   </head>
@@ -52,6 +58,7 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-right">
+                      <li><a href="{% url 'threads:threads' %}">{% trans "Conversations" %}</a></li>
                       <li><a href="{% url 'rules' %}">Rules</a></li>
                       <li><a href="{% url 'help' %}">{% trans "I want to Help!" %}</a></li>
                       {# <li><a href="{% url 'about' %}">About</a></li> #}
@@ -63,7 +70,7 @@
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
                         {# <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li> #}
-                        <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
+                        <li><a  class=""href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
                       {% endif %}
                   </ul>
               </div>
@@ -103,7 +110,10 @@
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       {% compress js %}
+      {% comment %}
       <script src="{% static 'js/main.js' %}"></script>
+      {% endcomment %}
+        
 
 
       <!-- Your stuff: Third-party javascript libraries go here -->
@@ -117,6 +127,14 @@
 
       <!-- Custom Theme JavaScript -->
       <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
+
+      <script src="{% static "dist/components.js" %}"></script>
+      <script src="{% static "scripts/app.js" %}"></script>
+      <script src="{% static "scripts/controllers/comment.js" %}"></script>
+      <script src="{% static "scripts/controllers/conversation.js" %}"></script>
+      <script src="{% static "scripts/services/comment.js" %}"></script>
+      <script src="{% static "scripts/services/vote_comment.js" %}"></script>
+      <script src="{% static "scripts/directives/directives.js" %}"></script>
       {% endcompress %}
 
     {% endblock javascript %}

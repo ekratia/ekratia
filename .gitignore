@@ -53,7 +53,10 @@ node_modules/
 .sass-cache
 env/
 
-migrations/
+#migrations/
 *.sublime-project
 .env
+*.env
 
+# Bower dependencies
+bower_components

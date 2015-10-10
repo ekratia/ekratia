@@ -2,19 +2,18 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('threads', '0001_initial'),
+        ('threads', '0002_auto_20151009_1557'),
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='thread',
-            name='slug',
-            field=models.SlugField(default=datetime.datetime.now, max_length=250),
+            name='title',
+            field=models.CharField(max_length=250, verbose_name='Subject'),
         ),
     ]
