@@ -31,3 +31,48 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+@import "../../client/styles/project.scss";
+
+
+div.threads{
+    ul.root-comment-list, ul.root-comment-list ul:first-child{
+        padding-left: 0px;
+    }
+    ul.root-comment-list > li.first-level > ul{
+        padding-left: 0px;
+    }
+    div.comment-vote{
+        float: left;
+        font-size: x-large;
+        padding: 0 15px;
+    }
+    div.comment-content{
+        padding-left: 15px;
+    }
+    div.comment-container{
+        border-top: 1px dotted #ccc;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+    ul.root-comment-list a{
+        text-decoration: underline;
+    }
+    .comment-vote a.active{
+        color: #006699;
+    }
+    span.gray{
+        color:gray;
+    }
+    div.text-message{
+        margin-left: 35px;
+        padding-top: 5px;
+        text-align: justify;
+    }
+    div.thread-message{
+        padding-top: 5px;
+        margin-left: 35px;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+}
