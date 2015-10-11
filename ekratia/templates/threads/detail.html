@@ -2,59 +2,18 @@
 {% load bootstrap3 i18n %}
 {% block title %}{% trans "Conversation" %}: {{ object.title }}{% endblock title %}
 {% block content %}
-    <div class="container">
+<div class="container threads">
 
-        <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
-            <div class="col-md-12">
-                <ul class="root-comment-list">
-                    <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
-                    </li>
-                </ul>
-            </div>
+    <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
+        <div class="col-md-12">
+            <ul class="root-comment-list">
+                <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
 <script type="text/ng-template"  id="tree_item_renderer.html">
 {% include "threads/_comment_node.html" %}
 </script>
-<style>
-    ul.root-comment-list, ul.root-comment-list ul:first-child{
-        padding-left: 0px;
-    }
-    ul.root-comment-list > li.first-level > ul{
-        padding-left: 0px;
-    }
-    div.comment-vote{
-        float: left;
-        font-size: x-large;
-        padding: 0 15px;
-    }
-    div.comment-content{
-        padding-left: 15px;
-    }
-    div.comment-container{
-        border-top: 1px dotted #ccc;
-        margin-top: 10px;
-        padding-top: 10px;
-    }
-    ul.root-comment-list a{
-        text-decoration: underline;
-    }
-    .comment-vote a.active{
-        color: #006699;
-    }
-    span.gray{
-        color:gray;
-    }
-    div.text-message{
-        margin-left: 35px;
-        padding-top: 5px;
-        text-align: justify;
-    }
-    div.thread-message{
-        padding-top: 5px;
-        margin-left: 35px;
-        margin-bottom: 20px;
-        text-align: justify;
-    }
-</style>
 {% endblock content %}
