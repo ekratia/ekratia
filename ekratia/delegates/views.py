@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
+from braces.views import LoginRequiredMixin
 
-# Create your views here.
+
+class UserDelegatesView(LoginRequiredMixin, TemplateView):
+    """docstring for UserDelegatesView"""
+    template_name = "delegates/user_delegates.html"
