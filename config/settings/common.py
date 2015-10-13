@@ -53,6 +53,8 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     # 'app_main' Old main app
     'ekratia.threads',
+    'ekratia.topics',
+    'ekratia.delegates',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
