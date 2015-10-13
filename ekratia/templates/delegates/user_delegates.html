@@ -3,9 +3,28 @@
 {% load i18n %}
 {% block title %}{% trans "My Delegates" %}{% endblock title %}
 {% block content %}
-    <h2>{% trans "My Delegates" %}</h2>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, est nihil unde quis quibusdam? Totam illo hic laborum consequuntur, sunt! Commodi doloribus animi dolor assumenda, esse tempore sequi officia debitis.
+    <div ng-controller="DelegatesController" data-ng-init="loadDelegates()">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{% trans "My Delegates" %}</h2>
 
-    <h3>{% trans "Your current Delegates" %}</h3>
-    <h3>{% trans "Add More Delegates" %}</h3>
+                <h3>{% trans "Your current Delegates" %}</h3>
+                {% verbatim %}
+                <div class="row">
+                    <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="delegate in delegates">
+                        <div class="thumbnail">
+                            <img ng-src="{{ delegate.user.avatar }}" alt="{{ delegate.user.username }}" class="img-circle">
+                            <div class="caption">
+                                <h4 title="{{ delegate.user.username }}"><strong ng-bind="delegate.user.username"></strong></h4>
+                                <button ng-click="undelegate(delegate)" class="btn btn-danger btn-sm" role="button">Undelegate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endverbatim %}
+
+                <a href="#" class="btn btn-primary" ng-click="addDelegate()">{% trans "Add Delegate" %}</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
