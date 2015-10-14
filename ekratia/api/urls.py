@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.conf.urls import patterns, url
 from ekratia.threads import api as threads
+from ekratia.delegates import api as delegates
 
 urlpatterns = patterns(
     '',
@@ -12,4 +13,6 @@ urlpatterns = patterns(
     url(r'^comments/$', threads.CommentList.as_view()),
     url(r'^comments/(?P<pk>[0-9]+)/$', threads.CommentDetail.as_view()),
     url(r'^comments/votes/$', threads.ThreadCommentsVotes.as_view()),
+
+    url(r'^delegates/$', delegates.UserDelegates.as_view()),
     )
