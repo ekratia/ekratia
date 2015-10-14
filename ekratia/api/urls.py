@@ -14,5 +14,7 @@ urlpatterns = patterns(
     url(r'^comments/(?P<pk>[0-9]+)/$', threads.CommentDetail.as_view()),
     url(r'^comments/votes/$', threads.ThreadCommentsVotes.as_view()),
 
-    url(r'^delegates/$', delegates.UserDelegates.as_view()),
+    url(r'^delegates/assigned$', delegates.AssignedDelegates.as_view()),
+    url(r'^delegates/available$', delegates.AvailableDelegates.as_view()),
+    url(r'^delegates/(?P<delegate_id>[0-9]+)/$', delegates.UserDelegateDetail.as_view()),
     )
