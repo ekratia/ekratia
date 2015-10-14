@@ -32,6 +32,5 @@ angular.module('Ekratia')
             var idx = $scope.delegates.indexOf(item);
             $scope.delegates.splice(idx,1);
         };
-
     
 }]);
