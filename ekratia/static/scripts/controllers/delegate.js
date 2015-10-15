@@ -10,27 +10,42 @@
  */
 angular.module('Ekratia')
   .controller('DelegatesController',
-    ['$scope',
-    function ($scope) {
+    ['$scope', 'AvailableDelegate', 'AssignedDelegate',
+    function ($scope, AvailableDelegate, AssignedDelegate) {
         $scope.delegates = [];
 
         $scope.loadDelegates = function(){
-            $scope.delegates = [
-            {"user": {"username": "Andres Gonzalez", avatar: 'http://placehold.it/75x75/'}},
-            {"user": {"username": "William Perez", avatar: 'http://placehold.it/75x75/'}},
-            {"user": {"username": "William Perez", avatar: 'http://placehold.it/75x75/'}},
-            {"user": {"username": "William Perez", avatar: 'http://placehold.it/75x75/'}},
-            {"user": {"username": "William Perez", avatar: 'http://placehold.it/75x75/'}},
-            ];
+            $scope.loadAssignedDelegates();
+            $scope.loadAvailableDelegates();
+        }
+
+        $scope.loadAssignedDelegates = function(){
+            var data = AssignedDelegate.query(function(){
+                $scope.assigned_delegates = data;
+            });
         };
 
-        $scope.addDelegate = function(){
-            $scope.delegates.push({"user": {"username": "New Delegate", avatar: 'http://placehold.it/75x75/'}});
+        $scope.loadAvailableDelegates = function(){
+            var data = AvailableDelegate.query(function(){
+                $scope.available_delegates = data;
+            });
         };
 
-        $scope.undelegate = function(item){
-            var idx = $scope.delegates.indexOf(item);
-            $scope.delegates.splice(idx,1);
+        $scope.addDelegate = function(user){
+            AssignedDelegate.save({delegate:user.id},function(data){
+                $scope.assigned_delegates.push(user);
+                var idx = $scope.available_delegates.indexOf(user);
+                $scope.available_delegates.splice(idx,1);
+            });
+
+        };
+
+        $scope.undelegate = function(user){
+            AssignedDelegate.delete({id:user.id},function(data){
+                $scope.available_delegates.push(user);
+                var idx = $scope.assigned_delegates.indexOf(user);
+                $scope.assigned_delegates.splice(idx,1);
+            });
         };
     
 }]);

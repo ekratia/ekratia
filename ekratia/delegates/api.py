@@ -53,7 +53,8 @@ class AvailableDelegates(generics.ListAPIView):
         name: Optional name to filter the user
         """
         queryset = User.objects.exclude(
-                        id__in=Delegate.objects.filter(user_id=1)
+                        id__in=Delegate.objects.filter(
+                            user_id=self.request.user.id)
                         .values_list('delegate_id'))\
                        .exclude(id=self.request.user.id)
 

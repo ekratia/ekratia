@@ -65,7 +65,7 @@
 
                       {% if request.user.is_authenticated %}
                         {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
-                        <li><a href="">Your delegates</a></li>
+                        <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>
                         <li><a href="">Create proposal</a></li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
@@ -135,6 +135,7 @@
       <script src="{% static "scripts/controllers/delegate.js" %}"></script>
       <script src="{% static "scripts/services/comment.js" %}"></script>
       <script src="{% static "scripts/services/vote_comment.js" %}"></script>
+      <script src="{% static "scripts/services/delegate.js" %}"></script>
       <script src="{% static "scripts/directives/directives.js" %}"></script>
       {% endcompress %}
 
