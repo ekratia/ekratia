@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% block title %}{% trans "My Delegates" %}{% endblock title %}
+{% block content %}
+    <div ng-controller="DelegatesController" data-ng-init="loadDelegates()">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{% trans "My Delegates" %}</h2>
+
+                <h3>{% trans "Your current Delegates" %}</h3>
+                {% verbatim %}
+                <div class="row">
+                    <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates">
+                        <div class="thumbnail">
+                            <img ng-src="http://placehold.it/75x75/" alt="{{ user.username }}" class="img-circle">
+                            <div class="caption">
+                                <h4 title="{{ user.username }}"><strong ng-bind="user.username"></strong></h4>
+                                <button ng-click="undelegate(user)" class="btn btn-danger btn-sm" role="button">Undelegate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endverbatim %}
+
+
+                <h3>{% trans "Available Delegates" %}</h3>
+                {% verbatim %}
+                <div class="row">
+                    <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in available_delegates">
+                        <div class="thumbnail">
+                            <img ng-src="http://placehold.it/75x75/" alt="{{ user.username }}" class="img-circle">
+                            <div class="caption">
+                                <h4 title="{{ user.username }}"><strong ng-bind="user.username"></strong></h4>
+                                <button ng-click="addDelegate(user)" class="btn btn-success btn-sm" role="button">Delegate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endverbatim %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

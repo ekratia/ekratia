@@ -1,4 +1,28 @@
-/* line 2, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
+.alert-debug {
+  color: black;
+  background-color: white;
+  border-color: #d6e9c6; }
+
+.alert-info {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1; }
+
+.alert-success {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6; }
+
+.alert-warning {
+  color: black;
+  background-color: orange;
+  border-color: #d6e9c6; }
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7; }
+
 #mainNav {
   border-radius: 0 !important;
   border: 0; }
@@ -7,31 +31,24 @@
 Project Styles
 **/
 @media (max-width: 768px) {
-  /* line 12, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
   .navbar-collapse {
     background: #e7e7e7; } }
 
-/* line 17, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 body.home .navbar-default {
   margin-bottom: 0; }
 
-/* line 21, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .navbar-default {
   background-color: black; }
 
-/* line 27, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 body {
   font-size: 16px; }
 
-/* line 31, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 ol li {
   margin-bottom: 1em; }
 
-/* line 34, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 ol {
   margin-left: 1em; }
 
-/* line 39, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .alert.messages {
   position: absolute;
   bottom: 50px;
@@ -39,37 +56,31 @@ ol {
   z-index: 100;
   margin: 0 50px; }
 
-/* line 50, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .alert-debug {
   color: black;
   background-color: white;
   border-color: #d6e9c6; }
 
-/* line 56, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .alert-info {
   color: #3a87ad;
   background-color: #d9edf7;
   border-color: #bce8f1; }
 
-/* line 62, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .alert-success {
   color: #468847;
   background-color: #dff0d8;
   border-color: #d6e9c6; }
 
-/* line 68, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .alert-warning {
   color: black;
   background-color: orange;
   border-color: #d6e9c6; }
 
-/* line 74, /home/westeros/projects/ekratia/ekratia/client/styles/template.scss */
 .alert-error {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7; }
 
-/* line 1, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .votes {
   float: left;
   display: inline; }
@@ -78,48 +89,40 @@ ol {
     padding-right: 0;
     padding-left: 0;
 }*/
-/* line 10, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .caption {
   text-align: center; }
 
 /*.thumbnail{
     padding: 14px;
 }*/
-/* line 17, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .comment {
   margin-top: 0 !important; }
 
-/* line 20, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .vote-button {
   background: none;
   font-size: x-large; }
 
-/* line 24, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 ul {
   list-style-type: none; }
 
-/* line 28, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .thread-list li {
   background-color: #f0f0f0;
   padding: 14px 17px;
   margin-bottom: 5px;
   min-height: 75px; }
 
-/* line 34, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .title {
   font-size: 18px;
   font-weight: 600;
   line-height: 1.2em;
   color: #009999; }
 
-/* line 40, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .subtitle {
   font-size: 12px;
   color: #b3b3b3;
   word-spacing: 2px;
   font-weight: 300; }
 
-/* line 46, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .summary {
   margin-top: 5px;
   color: black !important;
@@ -127,21 +130,17 @@ ul {
   word-spacing: 2px;
   font-weight: 300; }
 
-/* line 53, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 #results {
   margin-left: auto;
   margin-right: auto; }
 
-/* line 58, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .image-person {
   width: 130px;
   height: 160px; }
 
-/* line 64, /home/westeros/projects/ekratia/ekratia/client/styles/custom.scss */
 .bg-primary a {
   color: white; }
 
-/* line 3, /home/westeros/projects/ekratia/ekratia/client/styles/delegate.scss */
 .delegate .caption h4 {
   width: auto;
   box-sizing: content-box;
@@ -149,3 +148,41 @@ ul {
   text-overflow: ellipsis;
   white-space: nowrap; }
 
+div.threads ul.root-comment-list, div.threads ul.root-comment-list ul:first-child {
+  padding-left: 0px; }
+
+div.threads ul.root-comment-list > li.first-level > ul {
+  padding-left: 0px; }
+
+div.threads div.comment-vote {
+  float: left;
+  font-size: x-large;
+  padding: 0 15px; }
+
+div.threads div.comment-content {
+  padding-left: 15px; }
+
+div.threads div.comment-container {
+  border-top: 1px dotted #ccc;
+  margin-top: 10px;
+  padding-top: 10px; }
+
+div.threads ul.root-comment-list a {
+  text-decoration: underline; }
+
+div.threads .comment-vote a.active {
+  color: #006699; }
+
+div.threads span.gray {
+  color: gray; }
+
+div.threads div.text-message {
+  margin-left: 35px;
+  padding-top: 5px;
+  text-align: justify; }
+
+div.threads div.thread-message {
+  padding-top: 5px;
+  margin-left: 35px;
+  margin-bottom: 20px;
+  text-align: justify; }
