@@ -186,3 +186,9 @@ div.threads div.thread-message {
   margin-left: 35px;
   margin-bottom: 20px;
   text-align: justify; }
+
+.delegate-action {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 30px; }
