@@ -2,6 +2,8 @@
 from __future__ import unicode_literals, absolute_import
 
 from django.contrib.auth.models import AbstractUser
+
+from avatar.util import get_primary_avatar
 # from django.db import models
 # from django.utils.translation import ugettext_lazy as _
 
@@ -19,3 +21,10 @@ class User(AbstractUser):
                 'last_name': self.last_name,
                 'full_name': self.get_full_name(),
                }
+
+    @property
+    def get_avatar(self):
+        if get_primary_avatar(self):
+            return get_primary_avatar(self).avatar.url
+        else:
+            return 'http://placehold.it/75x75/'

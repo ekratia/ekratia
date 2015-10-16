@@ -31,6 +31,7 @@ urlpatterns = [
     # Delegates App
     url(r'^delegates/', include('ekratia.delegates.urls',
                                 namespace='delegates')),
+    url(r'^avatar/', include('avatar.urls')),
 
     url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
 
