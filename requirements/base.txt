@@ -50,3 +50,6 @@ django-compressor==1.5
 
 # Trees
 django-treebeard==3.0
+
+# Avatar
+django-avatar==2.1.1

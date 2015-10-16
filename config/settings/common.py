@@ -44,7 +44,8 @@ THIRD_PARTY_APPS = (
     'rest_framework',  # Framwork for REST API support
     'compressor',  # Django Compressor
     'bootstrap3',  # Django-Bootstrap3
-    'treebeard',
+    'treebeard',   # Trees on Django
+    'avatar',  # Django Avatar
 )
 
 # Apps specific for this project go here.
