@@ -9,7 +9,7 @@
  */
 
 angular.module('Ekratia').factory('AvailableDelegate', function($resource) {
-  return $resource('/api/v1/delegates/available', {},{
+  return $resource('/api/v1/delegates/available/', {},{
         query: { method: 'GET', isArray: true }
       });
 });

@@ -13,6 +13,7 @@ angular.module('Ekratia')
     ['$scope', 'AvailableDelegate', 'AssignedDelegate',
     function ($scope, AvailableDelegate, AssignedDelegate) {
         $scope.delegates = [];
+        $scope.filter_name = '';
 
         $scope.loadDelegates = function(){
             $scope.loadAssignedDelegates();
@@ -26,7 +27,7 @@ angular.module('Ekratia')
         };
 
         $scope.loadAvailableDelegates = function(){
-            var data = AvailableDelegate.query(function(){
+            var data = AvailableDelegate.query({name:$scope.filter_name},function(){
                 $scope.available_delegates = data;
             });
         };
@@ -47,5 +48,9 @@ angular.module('Ekratia')
                 $scope.assigned_delegates.splice(idx,1);
             });
         };
+
+        $scope.filter_users = function(){
+            
+        }
     
 }]);

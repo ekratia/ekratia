@@ -22,10 +22,24 @@
                     </div>
                 </div>
                 {% endverbatim %}
-
-
+{% comment %}
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput"></label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+{% endcomment %}
                 <h3>{% trans "Available Delegates" %}</h3>
                 {% verbatim %}
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <input type="text" placeholder="Search By Name" ng-model="filter_name" ng-change="loadAvailableDelegates()" class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in available_delegates">
                         <div class="thumbnail">
