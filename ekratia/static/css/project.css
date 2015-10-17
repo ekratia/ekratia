@@ -192,3 +192,8 @@ div.threads div.thread-message {
   top: 5px;
   right: 20px;
   font-size: 30px; }
+
+.color-red {
+  color: #B22222; }
+  .color-red a {
+    color: #B22222; }

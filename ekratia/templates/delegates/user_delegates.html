@@ -17,7 +17,7 @@
                     </div>
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates">
                         <div class="thumbnail">
-                            <div class="delegate-action">
+                            <div class="delegate-action color-red">
                                 <a href="" title="Undelegate" ng-click="undelegate(user)"><i class="fa fa-times-circle"></i></a>
                             </div>
                             <img ng-src="{{ user.avatar }}" alt="{{ user.username }}" class="img-circle">
@@ -40,6 +40,9 @@
                 </div>
                 <br>
                 <div class="row">
+                    <div class="well" ng-hide="available_delegates.length>0">
+                        We don't have more delegates for you
+                    </div>
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in available_delegates">
                         <div class="thumbnail">
                             <div class="delegate-action">
