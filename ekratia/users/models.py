@@ -26,5 +26,10 @@ class User(AbstractUser):
     def get_avatar(self):
         if get_primary_avatar(self):
             return get_primary_avatar(self).avatar.url
+        elif self.socialaccount_set.all().count() > 0:
+            return self.change_picture_size(self.socialaccount_set.all()[0].get_avatar_url())
         else:
             return 'http://placehold.it/75x75/'
+
+    def change_picture_size(self, url, width=70, height=70):
+        return url.split('?')[0] + u'?width=%i&height=%i' % (width, height)
