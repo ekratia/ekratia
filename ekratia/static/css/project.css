@@ -169,7 +169,6 @@ div.threads div.comment-content {
   padding-left: 15px; }
 
 div.threads div.comment-container {
-  border-top: 1px dotted #ccc;
   margin-top: 10px;
   padding-top: 10px; }
 
@@ -198,3 +197,6 @@ div.threads div.thread-message {
 
 .bottom-20 {
   margin-bottom: 20px; }
+
+.horizontal-line {
+  border-top: 1px dotted #ccc; }

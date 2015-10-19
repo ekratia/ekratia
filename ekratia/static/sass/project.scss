@@ -65,7 +65,7 @@ div.threads{
         padding-left: 15px;
     }
     div.comment-container{
-        border-top: 1px dotted #ccc;
+        // border-top: 1px dotted #ccc;
         margin-top: 10px;
         padding-top: 10px;
     }
@@ -99,4 +99,7 @@ div.threads{
 
 .bottom-20{
   margin-bottom: 20px;
+}
+.horizontal-line{
+  border-top: 1px dotted #ccc;
 }
