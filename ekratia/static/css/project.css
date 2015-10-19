@@ -193,7 +193,12 @@ div.threads div.thread-message {
   right: 20px;
   font-size: 30px; }
 
+<<<<<<< HEAD
 .color-red {
   color: #B22222; }
   .color-red a {
     color: #B22222; }
+=======
+.bottom-20 {
+  margin-bottom: 20px; }
+>>>>>>> dev
