@@ -192,3 +192,6 @@ div.threads div.thread-message {
   top: 5px;
   right: 20px;
   font-size: 30px; }
+
+.bottom-20 {
+  margin-bottom: 20px; }
