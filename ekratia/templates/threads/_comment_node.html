@@ -19,8 +19,14 @@
                 <br>
         <div ng-hide="comment.data.thread" >
         <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;
+        {% endverbatim %}
+        {% if request.user.is_authenticated %}
         <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
+        {% else %}
+        <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
+        {% endif %}
         <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+        {% verbatim %}
         </div>
     </div>
 </div>
