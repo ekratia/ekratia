@@ -33,6 +33,16 @@ class User(AbstractUser):
         else:
             return 'http://placehold.it/75x75/'
 
+    @property
+    def get_full_name_or_username(self):
+        """
+        Get Full Name or Username
+        """
+        if len(self.get_full_name()) > 0:
+            return self.get_full_name()
+        else:
+            return self.username
+
     def change_picture_size(self, url, width=70, height=70):
         """
         Change the facebook url to use a thumbnail

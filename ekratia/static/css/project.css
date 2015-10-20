@@ -50,7 +50,7 @@ ol {
   margin-left: 1em; }
 
 .alert.messages {
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   right: 0;
   z-index: 100;
@@ -158,20 +158,22 @@ div.threads div.comment-vote {
   float: left;
   font-size: x-large;
   padding: 0 15px; }
+  div.threads div.comment-vote a {
+    color: #ccc; }
+  div.threads div.comment-vote a.active {
+    color: #006699; }
+  div.threads div.comment-vote a:hover {
+    color: rgba(0, 102, 153, 0.7); }
 
 div.threads div.comment-content {
   padding-left: 15px; }
 
 div.threads div.comment-container {
-  border-top: 1px dotted #ccc;
   margin-top: 10px;
   padding-top: 10px; }
 
 div.threads ul.root-comment-list a {
   text-decoration: underline; }
-
-div.threads .comment-vote a.active {
-  color: #006699; }
 
 div.threads span.gray {
   color: gray; }
@@ -193,5 +195,13 @@ div.threads div.thread-message {
   right: 20px;
   font-size: 30px; }
 
+.color-red {
+  color: #B22222; }
+  .color-red a {
+    color: #B22222; }
+
 .bottom-20 {
   margin-bottom: 20px; }
+
+.horizontal-line {
+  border-top: 1px dotted #ccc; }

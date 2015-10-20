@@ -11,14 +11,12 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-md-5 text">
-    <br><br>
-      <h2>{% trans "Sign In" %}</h2>
-      {% get_providers as socialaccount_providers %}
-      {% if socialaccount_providers %}
-      <a  class="btn btn-primary"href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}"><i class="fa fa-facebook"></i> {% trans "Log In with Facebook" %}</a>
-      {% endif %}
-
+    <div class="col-md-12 text">
+      <h1 class="text-center">{% trans "Sign In" %}</h1>
+      <hr>
+      <div class="text-center">
+        <a  class="btn btn-lg btn-primary" href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}"><i class="fa fa-facebook"></i> {% trans "Log In with Facebook" %}</a>
+      </div>
     </div>
   </div>
 </div>
