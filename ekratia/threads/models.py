@@ -16,9 +16,9 @@ class Thread(models.Model):
     Thread model:
     Used for conversations.
     """
-    title = models.CharField(max_length=250, blank=False,
+    title = models.CharField(max_length=25, blank=False,
                              verbose_name=_('Subject'))
-    slug = models.SlugField(max_length=250, db_index=True, unique=True)
+    slug = models.SlugField(max_length=50, db_index=True, unique=True)
     description = models.TextField(max_length=1000, blank=False,
                                    verbose_name=_('Message'))
     date = models.DateTimeField(auto_now_add=True)

@@ -3,8 +3,7 @@
 {% block title %}{% trans "Conversation" %}: {{ object.title }}{% endblock title %}
 {% block content %}
 <div class="container threads">
-    <h1 class="text-center">{{ object.title }}</h1>
-    <hr>
+    <h1>{{ object.title }}</h1>
     <div class="row" ng-controller="CommentsController" data-ng-init="loadComments({{object.id}})">
         <div class="col-md-12">
             <ul class="root-comment-list">
