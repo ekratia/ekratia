@@ -7,8 +7,7 @@
 <div class="row" ng-controller="ConversationController">
 	<div class="col-md-12">
 		
-		<h1 class="text-center">{% trans "Start a Conversation" %}</h1>
-        <hr>
+		<h1>{% trans "Start a Conversation" %}</h1>
 
 		<form action="{% url 'threads:create' %}" method="post" id="thread-create-form">
 			{% csrf_token %}

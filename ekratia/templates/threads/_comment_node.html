@@ -10,23 +10,24 @@
             <span ng-show="comment.children && !comment.data.thread">
             <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a> 
             </span>
-            <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a> &nbsp; <span class="gray">{{ ::comment.data.points }} votes &nbsp;{{ ::convertDate(comment.data.date) }}</span>
+            <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a> &nbsp; <span class="gray"><ng-pluralize count="::comment.data.points"
+                 when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;&nbsp;{{ ::convertDate(comment.data.date) }}</span>
             <br>
             <div class="text-message">
-                {{ ::comment.data.content }}
+                <span class="newlines">{{ ::comment.data.content }}</span>
+                <div ng-show="!comment.data.thread">
+                <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
+                {% endverbatim %}
+                {% if request.user.is_authenticated %}
+                <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
+                {% else %}
+                <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
+                {% endif %}
+                <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+                {% verbatim %}
+                </div>
             </div>
                 <br>
-        <div ng-show="!comment.data.thread">
-        <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;
-        {% endverbatim %}
-        {% if request.user.is_authenticated %}
-        <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
-        {% else %}
-        <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
-        {% endif %}
-        <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
-        {% verbatim %}
-        </div>
     </div>
 </div>
 {% endverbatim %}
@@ -34,7 +35,7 @@
 {% if request.user.is_authenticated %}
 {% verbatim %}
 <div ng-show="comment.data.thread" class="horizontal-line">&nbsp;</div>
-<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread" name="cform-{{ ::comment.id }}">
+<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread" name="cform-{{ ::comment.id }}" class="comment-form">
 {% endverbatim %}
 <div class="form-group">
     <textarea class="form-control" maxlength="" name="content" placeholder="Your Comment" required="required" rows="1" ng-model="comment.reply" msd-elastic required maxlength="1000"></textarea>
@@ -42,15 +43,11 @@
 
 <div class="form-group text-right">
     <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-star"></span> Submit
+        Submit
     </button>
 </div>
 </form>
-{% else %}
-<div ng-show="::comment.open_form">
-You need to be authenticated to comment <a href="{% url 'account_login' %}">Log in</a>
-</div>
 {% endif %}
-<ul ng-hide="comment.close_children">
+<ul ng-hide="comment.close_children" class="children">
     <li ng-repeat="comment in ::comment.children" ng-include="'tree_item_renderer.html'"></li>
 </ul>
