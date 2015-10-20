@@ -1,3 +1,9 @@
 .conversation-create-btn{
-  margin-top: 40px;
+    margin-top: 24px;
+    @media (min-width: $screen-sm-min) { 
+            margin-top: 30px;
+    }
+    @media (min-width: $screen-md-min) { 
+            margin-top: 40px;
+    }
 }
