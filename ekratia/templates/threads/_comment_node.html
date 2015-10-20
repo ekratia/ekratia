@@ -17,7 +17,7 @@
             </div>
                 <br>
         <div ng-show="!comment.data.thread">
-        <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;
+        <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
         {% endverbatim %}
         {% if request.user.is_authenticated %}
         <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
