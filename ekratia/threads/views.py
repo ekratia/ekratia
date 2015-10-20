@@ -32,8 +32,8 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
         self.object.user = self.request.user
         self.object = form.save(commit=True)
 
-        messages.add_message(self.request, messages.SUCCESS,
-                             _('New thread created'))
+        # messages.add_message(self.request, messages.SUCCESS,
+        #                      _('Conversation has been created'))
         return super(ThreadCreateView, self).form_valid(form)
 
 
