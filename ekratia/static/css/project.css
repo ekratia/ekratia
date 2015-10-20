@@ -188,6 +188,9 @@ div.threads div.thread-message {
   margin-bottom: 20px;
   text-align: justify; }
 
+div.threads ul.children form.comment-form {
+  margin-left: 32px; }
+
 .delegate-action {
   position: absolute;
   top: 5px;
