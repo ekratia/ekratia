@@ -31,7 +31,6 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
-
 @import "../../client/styles/project.scss";
 
 $color_base: #009999;
@@ -96,6 +95,11 @@ div.threads{
   font-size: 30px;
 }
 
+.color-red{
+  color: #B22222;
+  a{
+    color: #B22222;
+  }
 .bottom-20{
   margin-bottom: 20px;
 }

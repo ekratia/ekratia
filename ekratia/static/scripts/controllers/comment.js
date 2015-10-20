@@ -38,6 +38,11 @@ $scope.message = {
 
     $scope.saveComment = function(comment){
         $scope.anchor = 'c'+String(comment.id);
+
+        if(comment.reply === undefined){
+            bootbox.alert("It can not be empty!");
+            return;
+        }
         if(comment.reply.length<1000){
             var data = {content:comment.reply, parent:comment.id}
             Comment.save({id:$scope.thread_id},data, function(data){

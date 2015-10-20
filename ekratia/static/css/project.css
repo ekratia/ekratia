@@ -195,8 +195,18 @@ div.threads div.thread-message {
   right: 20px;
   font-size: 30px; }
 
+<<<<<<< HEAD
+.color-red {
+  color: #B22222; }
+  .color-red a {
+    color: #B22222; }
+=======
 .bottom-20 {
   margin-bottom: 20px; }
+<<<<<<< HEAD
 
 .horizontal-line {
   border-top: 1px dotted #ccc; }
+=======
+>>>>>>> dev
+>>>>>>> 421f8f4699dea4673a354d198c907c5f51720e0a
