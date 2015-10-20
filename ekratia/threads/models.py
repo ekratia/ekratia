@@ -111,7 +111,7 @@ class Comment(MP_Node):
     """
     content = models.TextField(max_length=1000, blank=False,
                                verbose_name=_('Comment'))
-    thread = models.OneToOneField(Thread, null=True, blank=True)
+    # thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     date = models.DateTimeField(default=datetime.datetime.now)
     points = models.IntegerField(default=0)
