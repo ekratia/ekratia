@@ -50,7 +50,7 @@ ol {
   margin-left: 1em; }
 
 .alert.messages {
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   right: 0;
   z-index: 100;
