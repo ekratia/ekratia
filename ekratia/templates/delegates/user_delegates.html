@@ -20,9 +20,9 @@
                             <div class="delegate-action color-red">
                                 <a href="" title="Undelegate" ng-click="undelegate(user)"><i class="fa fa-times-circle"></i></a>
                             </div>
-                            <img ng-src="{{ user.avatar }}" alt="{{ user.username }}" class="img-circle">
+                            <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             <div class="caption">
-                                <h4 title="{{ user.username }}"><strong ng-bind="user.username"></strong></h4>
+                                <h4 title="{{ user.full_name | capitalize }}"><strong ng-bind="user.full_name | capitalize"></strong></h4>
                             </div>
                         </div>
                     </div>
@@ -49,9 +49,9 @@
                                 <a href="" title="Delegate User" ng-click="addDelegate(user)"><i class="fa fa-plus-circle"></i></a>
                             </div>
 
-                            <img ng-src="{{ user.avatar }}" alt="{{ user.username }}" class="img-circle">
+                            <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             <div class="caption">
-                                <h4 title="{{ user.username }}"><strong ng-bind="user.username"></strong></h4>
+                                <h4 title="{{ user.full_name | capitalize }}"><strong ng-bind="user.full_name | capitalize"></strong></h4>
                             </div>
                         </div>
                     </div>
