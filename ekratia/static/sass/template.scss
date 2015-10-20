@@ -1,3 +1,21 @@
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) { 
+    h1{
+        font-size: 44px;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) { 
+    h1{
+        font-size: 57px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) { 
+}
+
 // project specific CSS goes here
 #mainNav{
   border-radius: 0 !important;
