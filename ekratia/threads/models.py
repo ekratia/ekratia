@@ -79,20 +79,20 @@ class CommentManager(MP_NodeManager):
         traversed_path = []
 
         def get_chunks(path, steplen):
-            output=[]
-            for chunk in range(0,len(path)/steplen):
+            output = []
+            for chunk in range(0, len(path)/steplen):
                 output.append(path[chunk*steplen:(chunk+1)*steplen])
             return output
 
-        while len(leafs)>0:
-            depth+= 1
+        while len(leafs) > 0:
+            depth += 1
             moved = []
             for key, leaf in enumerate(leafs):
                 if leaf.depth == depth:
                     parent_path = get_chunks(leaf.path[(parent_depth-1)*Comment.steplen:], Comment.steplen)
                     path = output_tree
 
-                    for chunk in range(0,(len(parent_path))-1):
+                    for chunk in range(0, (len(parent_path))-1):
                         path = path[parent_path[chunk]][1]
                     path[parent_path[-1]] = [{'content':leaf.content, 'user': leaf.user.pk,}, OrderedDict()]
                     moved.append(key)
