@@ -5,21 +5,20 @@
 {% block content %}
       
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-xs-9">
 			<h1>{% trans "Conversations" %}</h1>
 		</div>
-	</div>
-
-<div class="row">
-		<div class="col-md-3 pull-right bottom-20">
-			<a class="btn btn-primary" href="{% url 'threads:create' %}">
+		<div class="col-xs-3 text-right">
+			<a class="btn btn-primary conversation-create-btn" href="{% url 'threads:create' %}">
 			<i class="fa fa-plus"></i>
 			<span class="hidden-xs">{% trans "Start a Conversation" %}</span>
 			</a>
 		</div>
-</div>
+	</div>
+
+
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-xs-12">
   	{% for thread in object_list %}
 			
 			<div class="list-group">

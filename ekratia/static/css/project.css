@@ -148,6 +148,9 @@ ul {
   text-overflow: ellipsis;
   white-space: nowrap; }
 
+.conversation-create-btn {
+  margin-top: 40px; }
+
 div.threads ul.root-comment-list, div.threads ul.root-comment-list ul:first-child {
   padding-left: 0px; }
 
