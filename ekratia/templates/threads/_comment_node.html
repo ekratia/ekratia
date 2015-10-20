@@ -14,8 +14,7 @@
                  when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;&nbsp;{{ ::convertDate(comment.data.date) }}</span>
             <br>
             <div class="text-message">
-                {{ ::comment.data.content }}
-
+                <span class="newlines">{{ ::comment.data.content }}</span>
                 <div ng-show="!comment.data.thread">
                 <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
                 {% endverbatim %}
