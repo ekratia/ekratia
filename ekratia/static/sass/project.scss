@@ -31,9 +31,12 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
-
 @import "../../client/styles/project.scss";
 
+$color_base: #009999;
+$color_vote_inactive: #ccc;
+$color_vote_active: #006699;
+$color_vote_hover: rgba($color_vote_active, 0.7);
 
 div.threads{
     ul.root-comment-list, ul.root-comment-list ul:first-child{
@@ -46,21 +49,28 @@ div.threads{
         float: left;
         font-size: x-large;
         padding: 0 15px;
+        a{
+          color: $color_vote_inactive;
+        }
+        a.active{
+          color: $color_vote_active;
+        }
+        a:hover{
+          color: $color_vote_hover;
+        }
     }
     div.comment-content{
         padding-left: 15px;
     }
     div.comment-container{
-        border-top: 1px dotted #ccc;
+        // border-top: 1px dotted #ccc;
         margin-top: 10px;
         padding-top: 10px;
     }
     ul.root-comment-list a{
         text-decoration: underline;
     }
-    .comment-vote a.active{
-        color: #006699;
-    }
+
     span.gray{
         color:gray;
     }
@@ -92,4 +102,7 @@ div.threads{
   }
 .bottom-20{
   margin-bottom: 20px;
+}
+.horizontal-line{
+  border-top: 1px dotted #ccc;
 }

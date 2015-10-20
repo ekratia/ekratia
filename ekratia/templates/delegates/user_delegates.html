@@ -6,10 +6,10 @@
     <div ng-controller="DelegatesController" data-ng-init="loadDelegates()">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">{% trans "My Delegates" %}</h2>
+                <h1 class="text-center">{% trans "My Delegates" %}</h1>
                 <hr>
 
-                <h3>{% trans "Your current Delegates" %}</h3>
+                <h2>{% trans "Your current Delegates" %}</h2>
                 {% verbatim %}
                 <div class="row">
                     <div class="well" ng-hide="assigned_delegates.length>0">
@@ -29,7 +29,7 @@
                 </div>
                 {% endverbatim %}
 
-                <h3>{% trans "Add more Delegates" %}</h3>
+                <h2>{% trans "Add more Delegates" %}</h2>
                 {% verbatim %}
                 <div class="row">
                     <div class="form-group">
