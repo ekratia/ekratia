@@ -10,7 +10,7 @@
 
                 <h2>{% trans "Your current Delegates" %}</h2>
                 {% verbatim %}
-                <div class="row">
+                <div class="row page-content">
                     <div class="well" ng-hide="assigned_delegates.length>0">
                         Currently you don't have delegates
                     </div>
@@ -30,7 +30,7 @@
 
                 <h2>{% trans "Add more Delegates" %}</h2>
                 {% verbatim %}
-                <div class="row">
+                <div class="row page-content">
                     <div class="form-group">
                         <div class="col-md-4">
                             <input type="text" placeholder="Search By Name" ng-model="filter_name" ng-change="loadAvailableDelegates()" class="form-control input-md">
