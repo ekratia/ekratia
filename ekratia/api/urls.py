@@ -24,5 +24,6 @@ urlpatterns = patterns(
     # Delegates
     url(r'^delegates/$', delegates.AssignedDelegates.as_view()),
     url(r'^delegates/available/$', delegates.AvailableDelegates.as_view()),
-    url(r'^delegates/(?P<delegate_id>[0-9]+)/$', delegates.UserDelegateDetail.as_view()),
+    url(r'^delegates/(?P<delegate_id>[0-9]+)/$',
+        delegates.UserDelegateDetail.as_view()),
     )

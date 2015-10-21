@@ -27,7 +27,7 @@ class Referendum(models.Model):
     comment = models.OneToOneField(Comment, null=True, blank=True)
 
     def __unicode__(self):
-        return self.description
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
