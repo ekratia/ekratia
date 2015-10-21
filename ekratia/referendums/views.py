@@ -30,15 +30,18 @@ class ReferendumCreateView(LoginRequiredMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
 
-        root_comment = Comment.add_root(content=self.object.description,
+        referendum_text = "%s \n %s " % (self.object.text_remove_rules,
+                                         self.object.text_add_rules)
+
+        root_comment = Comment.add_root(content=referendum_text,
                                         user_id=self.request.user.id)
         root_comment.save()
         self.object.comment = root_comment
 
         self.object = form.save(commit=True)
+        self.object.title = "Referendum %i " % self.object.id
+        self.object.save()
 
-        # messages.add_message(self.request, messages.SUCCESS,
-        #                      _('Conversation has been created'))
         return super(ReferendumCreateView, self).form_valid(form)
 
 

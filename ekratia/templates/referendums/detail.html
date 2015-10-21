@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+{% block title %}{% trans "Conversation" %}: {{ object.title }}{% endblock title %}
+{% block content %}
+<div class="container threads">
+    <h1>{{ object.title }}</h1>
+    <div class="row" ng-controller="CommentsController" data-ng-init="initThread({{object.id}}, {{ object.comment_id}})">
+        <div class="col-md-12">
+            <ul class="root-comment-list">
+                <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template"  id="tree_item_renderer.html">
+{% include "threads/_comment_node.html" %}
+</script>
+{% endblock content %}

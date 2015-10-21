@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from config.settings import common
 
@@ -38,3 +39,9 @@ class Referendum(models.Model):
                 self.slug = "%s-%i" % (original_slug, count)
 
         super(Referendum, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        kwargs = {
+            'slug': self.slug,
+        }
+        return reverse('referendums:detail', kwargs=kwargs)

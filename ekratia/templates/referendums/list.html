@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% block title %}{% trans "Referendums" %}{% endblock title %}
+{% block content %}
+      
+	<div class="row">
+		<div class="col-xs-8">
+			<h1>{% trans "Referendums" %}</h1>
+		</div>
+		<div class="col-xs-4 text-right">
+			<a class="btn btn-primary conversation-create-btn" href="{% url 'referendums:create' %}">
+			<i class="fa fa-plus"></i>
+			<span class="hidden-xs">{% trans "Start a Referendum" %}</span>
+			</a>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-xs-12">
+  	{% for thread in object_list %}
+			
+			<div class="list-group">
+				<a href="{% url "referendums:detail" slug=thread.slug %}" class="list-group-item">{{ thread.title }}</a>
+			</div>
+
+  	{% endfor %}
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -9,13 +9,16 @@ class ReferendumForm(forms.ModelForm):
     """
     class Meta:
         model = Referendum
-        exclude = ('user', 'slug',)
+        exclude = ('user', 'slug', 'title')
 
     def __init__(self, *args, **kwargs):
         super(ReferendumForm, self).__init__(*args, **kwargs)
-        # self.fields['description'].widget = forms.Textarea(
-        #     attrs={'rows': '2', 'ng-model': 'message', 'msd-elastic': '',
-        #            'maxlength': '1000'})
+        self.fields['text_remove_rules'].widget = forms.Textarea(
+            attrs={'rows': '2', 'ng-model': 'message', 'msd-elastic': '',
+                   'maxlength': '1000', 'placeholder': ''})
+        self.fields['text_add_rules'].widget = forms.Textarea(
+            attrs={'rows': '2', 'ng-model': 'message', 'msd-elastic': '',
+                   'maxlength': '1000', 'placeholder': ''})
 
 
 class ReferendumCommentForm(forms.ModelForm):
