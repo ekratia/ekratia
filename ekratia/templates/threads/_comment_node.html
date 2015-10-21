@@ -7,7 +7,7 @@
         <a ng-click="commentVote(comment,-1)" href="" ng-class="commentVoteClass(comment,'down')"><i class="fa fa-arrow-circle-down"></a></i>
     </div>
     <div class="comment-content">
-            <span ng-show="comment.children && !comment.data.thread">
+            <span ng-show="comment.children && comment.id != parent_comment_id">
             <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a> 
             </span>
             <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a> &nbsp; <span class="gray"><ng-pluralize count="::comment.data.points"
@@ -15,7 +15,7 @@
             <br>
             <div class="text-message">
                 <span class="newlines">{{ ::comment.data.content }}</span>
-                <div ng-show="!comment.data.thread">
+                <div ng-show="comment.id != parent_comment_id">
                 <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
                 {% endverbatim %}
                 {% if request.user.is_authenticated %}
@@ -34,8 +34,8 @@
 
 {% if request.user.is_authenticated %}
 {% verbatim %}
-<div ng-show="comment.data.thread" class="horizontal-line">&nbsp;</div>
-<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.data.thread" name="cform-{{ ::comment.id }}" class="comment-form">
+<div ng-show="comment.id == parent_comment_id" class="horizontal-line">&nbsp;</div>
+<form novalidate ng-submit="saveComment(comment)" ng-show="comment.open_form || comment.id == parent_comment_id" name="cform-{{ ::comment.id }}" class="comment-form">
 {% endverbatim %}
 <div class="form-group">
     <textarea class="form-control" maxlength="" name="content" placeholder="Your Comment" required="required" rows="1" ng-model="comment.reply" msd-elastic required maxlength="1000"></textarea>
