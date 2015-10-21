@@ -1,7 +1,7 @@
 {% load bootstrap3 %}
 {% verbatim %}
 <a name="c{{ ::comment.id }}"></a>
-<div class="row comment-container" id="c{{ ::comment.id }}">
+<div class="row comment-container" id="c{{ ::comment.id }}" ng-hide="comment.id == parent_comment_id && type=='referendum'">
     <div class="comment-vote">
         <a ng-click="commentVote(comment,1)" href="" ng-class="commentVoteClass(comment,'up')"><i class="fa fa-arrow-circle-up"></i></a><br>
         <a ng-click="commentVote(comment,-1)" href="" ng-class="commentVoteClass(comment,'down')"><i class="fa fa-arrow-circle-down"></a></i>

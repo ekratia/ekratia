@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container threads">
     <h1>{{ object.title }}</h1>
-    <div class="row" ng-controller="CommentsController" data-ng-init="initThread({{object.id}}, {{ object.comment_id}})">
+    <div class="row" ng-controller="CommentsController" data-ng-init="initThread('conversation', {{object.id}}, {{ object.comment_id}})">
         <div class="col-md-12">
             <ul class="root-comment-list">
                 <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
