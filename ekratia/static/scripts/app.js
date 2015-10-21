@@ -11,7 +11,9 @@
 var app = angular
   .module('Ekratia', [
     'ngResource',
-    'monospaced.elastic'
+    'monospaced.elastic',
+    // 'angular-humanize',
+    'nl2br'
   ]);
 
 app.config(['$resourceProvider', function($resourceProvider) {

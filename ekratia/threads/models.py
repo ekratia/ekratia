@@ -16,9 +16,9 @@ class Thread(models.Model):
     Thread model:
     Used for conversations.
     """
-    title = models.CharField(max_length=30, blank=False,
+    title = models.CharField(max_length=25, blank=False,
                              verbose_name=_('Subject'))
-    slug = models.SlugField(max_length=250, db_index=True, unique=True)
+    slug = models.SlugField(max_length=50, db_index=True, unique=True)
     description = models.TextField(max_length=1000, blank=False,
                                    verbose_name=_('Message'))
     date = models.DateTimeField(auto_now_add=True)
@@ -28,12 +28,13 @@ class Thread(models.Model):
         return self.description
 
     def save(self, *args, **kwargs):
-        title = self.title
-        self.slug = original_slug = slugify(title)
-        count = 0
-        while Thread.objects.filter(slug=self.slug).exists():
-            count += 1
-            self.slug = "%s-%i" % (original_slug, count)
+        if not self.slug:
+            title = self.title
+            self.slug = original_slug = slugify(title)
+            count = 0
+            while Thread.objects.filter(slug=self.slug).exists():
+                count += 1
+                self.slug = "%s-%i" % (original_slug, count)
 
         super(Thread, self).save(*args, **kwargs)
 
@@ -108,7 +109,7 @@ class Comment(MP_Node):
     Comment Model:
     Comments under Threads and other comments
     """
-    content = models.TextField(max_length=30, blank=False,
+    content = models.TextField(max_length=1000, blank=False,
                                verbose_name=_('Comment'))
     thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)

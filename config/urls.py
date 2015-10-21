@@ -20,13 +20,18 @@ urlpatterns = [
         name="help"),
 
     # Django Admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^ekadmin/', include(admin.site.urls)),
 
     # User management
     url(r'^users/', include("ekratia.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
 
+    # Conversations
     url(r'^threads/', include('ekratia.threads.urls', namespace='threads')),
+    # Delegates App
+    url(r'^delegates/', include('ekratia.delegates.urls',
+                                namespace='delegates')),
+    url(r'^avatar/', include('avatar.urls')),
 
     url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
 

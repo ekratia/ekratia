@@ -1,0 +1,53 @@
+div.threads{
+    ul.root-comment-list, ul.root-comment-list ul:first-child{
+        padding-left: 0px;
+    }
+    ul.root-comment-list > li.first-level > ul{
+        padding-left: 0px;
+    }
+    div.comment-vote{
+        float: left;
+        font-size: x-large;
+        padding: 0 15px;
+        a{
+          color: $color_vote_inactive;
+        }
+        a.active{
+          color: $color_vote_active;
+        }
+        a:hover{
+          color: $color_vote_hover;
+        }
+    }
+    div.comment-content{
+        padding-left: 15px;
+    }
+    div.comment-container{
+        // border-top: 1px dotted #ccc;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+    ul.root-comment-list a{
+        text-decoration: underline;
+    }
+
+    span.gray{
+        color:gray;
+    }
+    div.text-message{
+        margin-left: 35px;
+        padding-top: 5px;
+        text-align: justify;
+    }
+    div.thread-message{
+        padding-top: 5px;
+        margin-left: 35px;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    ul.children form.comment-form{
+        margin-left: 32px;
+    }
+
+}

@@ -8,8 +8,13 @@ class ThreadForm(forms.ModelForm):
     """
     class Meta:
         model = Thread
-        # fields = ('title', 'description', 'user',)
         exclude = ('user', 'slug',)
+
+    def __init__(self, *args, **kwargs):
+        super(ThreadForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget = forms.Textarea(
+            attrs={'rows': '2', 'ng-model': 'message', 'msd-elastic': '',
+                   'maxlength': '1000'})
 
 
 class ThreadCommentForm(forms.ModelForm):

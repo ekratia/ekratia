@@ -40,6 +40,8 @@
     </style>
     {% endcompress %}
     {% endblock css %}
+  <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
+  <link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon">
   </head>
   <body class="{% block body_class %}{% endblock %}">
       <nav id="mainNav" class="navbar navbar-default">
@@ -65,7 +67,7 @@
 
                       {% if request.user.is_authenticated %}
                         {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
-                        <li><a href="">Your delegates</a></li>
+                        <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>
                         <li><a href="">Create proposal</a></li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
@@ -82,7 +84,7 @@
       <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert messages alert-dismissible {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                <div class="alert messages alert-dismissible {% if message.tags %}alert-{{ message.tags }} {% endif %}" style="display:none">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{ message }}
                 </div>
@@ -128,13 +130,22 @@
       <!-- Custom Theme JavaScript -->
       <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
 
-      <script src="{% static "dist/components.js" %}"></script>
+      <script src="{% static "dist/components.min.js" %}"></script>
       <script src="{% static "scripts/app.js" %}"></script>
       <script src="{% static "scripts/controllers/comment.js" %}"></script>
       <script src="{% static "scripts/controllers/conversation.js" %}"></script>
+      <script src="{% static "scripts/controllers/delegate.js" %}"></script>
       <script src="{% static "scripts/services/comment.js" %}"></script>
       <script src="{% static "scripts/services/vote_comment.js" %}"></script>
+      <script src="{% static "scripts/services/delegate.js" %}"></script>
       <script src="{% static "scripts/directives/directives.js" %}"></script>
+      <script src="{% static "scripts/filters/capitalize.js" %}"></script>
+<script type="text/javascript">
+    $(document).on('ready', function(){
+        window.setTimeout(function() { $(".alert-dismissible").fadeIn(); }, 1000);
+        window.setTimeout(function() { $(".alert-dismissible").fadeOut(); }, 5000);
+    });
+</script>
       {% endcompress %}
 
     {% endblock javascript %}

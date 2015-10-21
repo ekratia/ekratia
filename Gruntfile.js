@@ -21,7 +21,8 @@ module.exports = function (grunt) {
       fonts: this.app + '/static/fonts',
       images: this.app + '/static/images',
       js: this.app + '/static/js',
-      manageScript: 'manage.py'
+      manageScript: 'manage.py',
+      
     }
   };
 
@@ -35,9 +36,12 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
-      compass: {
+      sass: {
         files: ['<%= paths.sass %>/**/*.{scss,sass}'],
-        tasks: ['compass:server']
+        tasks: ['sass:dev'],
+        options: {
+          atBegin: true
+        }
       },
       livereload: {
         files: [
@@ -52,26 +56,52 @@ module.exports = function (grunt) {
       },
     },
 
-    // see: https://github.com/gruntjs/grunt-contrib-compass
-    compass: {
-      options: {
-          sassDir: '<%= paths.sass %>',
-          cssDir: '<%= paths.css %>',
-          fontsDir: '<%= paths.fonts %>',
-          imagesDir: '<%= paths.images %>',
-          relativeAssets: false,
-          assetCacheBuster: false,
-          raw: 'Sass::Script::Number.precision = 10\n'
+    // see: https://github.com/sindresorhus/grunt-sass
+    sass: {
+      dev: {
+          options: {
+              outputStyle: 'nested',
+              sourceMap: false,
+              precision: 10
+          },
+          files: {
+              '<%= paths.css %>/project.css': '<%= paths.sass %>/project.scss'
+          },
       },
       dist: {
-        options: {
-          environment: 'production'
-        }
+          options: {
+              outputStyle: 'compressed',
+              sourceMap: false,
+              precision: 10
+          },
+          files: {
+              '<%= paths.css %>/project.css': '<%= paths.sass %>/project.scss'
+          },
+      }
+    },
+    
+    //see https://github.com/nDmitry/grunt-postcss
+    postcss: {
+      options: {
+        map: true, // inline sourcemaps
+
+        processors: [
+          require('pixrem')(), // add fallbacks for rem units
+          require('autoprefixer-core')({browsers: [
+            'Android 2.3',
+            'Android >= 4',
+            'Chrome >= 20',
+            'Firefox >= 24',
+            'Explorer >= 8',
+            'iOS >= 6',
+            'Opera >= 12',
+            'Safari >= 6'
+          ]}), // add vendor prefixes
+          require('cssnano')() // minify the result
+        ]
       },
-      server: {
-        options: {
-          // debugInfo: true
-        }
+      dist: {
+        src: '<%= paths.css %>/*.css'
       }
     },
 
@@ -81,8 +111,9 @@ module.exports = function (grunt) {
         bg: true
       },
       runDjango: {
-        cmd: 'python <%= paths.manageScript %> runserver'
-      }
+        cmd: 'python <%= paths.manageScript %> runserver 0.0.0.0:8000'
+      },
+      
     },
     concat: {
       app: {
@@ -91,6 +122,14 @@ module.exports = function (grunt) {
               'bower_components/angular/angular.js',
               'bower_components/angular-resource/angular-resource.js',
               'bower_components/angular-elastic/elastic.js',
+              'bower_components/humanize/humanize.js',
+              'bower_components/angularjs-humanize/src/angular-humanize.js',
+              'bower_components/moment/moment.js',
+              'bower_components/angular-moment/angular-moment.js',
+              'bower_components/angular-nl2br/angular-nl2br.js',
+              'bower_components/bootstrap/dist/js/bootstrap.js',
+              'bower_components/bootbox.js/bootbox.js',
+              'bower_components/pluralize/pluralize.js',
              ],
         dest: 'ekratia/static/dist/components.js'
       }
@@ -108,7 +147,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'compass:dist'
+    'sass:dist',
+    'postcss'
   ]);
 
   grunt.registerTask('default', [
@@ -116,7 +156,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('jsmin', [
-    'concat:app'
-    // 'uglify:app'
+    'concat:app',
+    'uglify:app'
   ]);
+
 };

@@ -2,8 +2,8 @@
 from __future__ import unicode_literals, absolute_import
 
 from django.contrib.auth.models import AbstractUser
-# from django.db import models
-# from django.utils.translation import ugettext_lazy as _
+
+from avatar.util import get_primary_avatar
 
 
 class User(AbstractUser):
@@ -19,3 +19,32 @@ class User(AbstractUser):
                 'last_name': self.last_name,
                 'full_name': self.get_full_name(),
                }
+
+    @property
+    def get_avatar(self):
+        """
+        Gets avatar from Django Avatar or Facebook
+        """
+        if get_primary_avatar(self):
+            return get_primary_avatar(self).avatar.url
+        elif self.socialaccount_set.all().count() > 0:
+            return self.change_picture_size(
+                self.socialaccount_set.all()[0].get_avatar_url())
+        else:
+            return 'http://placehold.it/75x75/'
+
+    @property
+    def get_full_name_or_username(self):
+        """
+        Get Full Name or Username
+        """
+        if len(self.get_full_name()) > 0:
+            return self.get_full_name()
+        else:
+            return self.username
+
+    def change_picture_size(self, url, width=70, height=70):
+        """
+        Change the facebook url to use a thumbnail
+        """
+        return url.split('?')[0] + u'?width=%i&height=%i' % (width, height)

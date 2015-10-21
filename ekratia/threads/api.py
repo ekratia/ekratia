@@ -21,7 +21,7 @@ class ThreadList(generics.ListCreateAPIView):
     """
     API class to list all threads, or create a new thread.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAdminUser,)
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
 
@@ -30,7 +30,7 @@ class ThreadDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     API class to retrieve, update or delete a thread instance.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAdminUser,)
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
 
@@ -39,7 +39,7 @@ class CommentList(generics.ListCreateAPIView):
     """
     API class for list all comments from a thread, or create a new comment.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAdminUser,)
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -48,7 +48,7 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     API class to retrieve, update or delete a comment instance.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAdminUser,)
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -72,7 +72,7 @@ class ThreadComments(APIView):
         """
         Creates a root Comment
         """
-        root_comment = Comment.add_root(content=thread.title,
+        root_comment = Comment.add_root(content=thread.description,
                                         thread_id=thread.id,
                                         user_id=thread.user.id)
         return root_comment
