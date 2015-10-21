@@ -4,7 +4,7 @@ from django.contrib import messages
 
 from braces.views import LoginRequiredMixin
 
-from .models import Thread
+from .models import Thread, Comment
 from .forms import ThreadForm, ThreadCommentForm
 
 
@@ -30,6 +30,12 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
         """
         self.object = form.save(commit=False)
         self.object.user = self.request.user
+
+        root_comment = Comment.add_root(content=self.object.description,
+                                        user_id=self.request.user.id)
+        root_comment.save()
+        self.object.comment = root_comment
+
         self.object = form.save(commit=True)
 
         # messages.add_message(self.request, messages.SUCCESS,

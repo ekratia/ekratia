@@ -10,20 +10,29 @@
  */
 angular.module('Ekratia')
   .controller('CommentsController',
-    ['$scope', 'Comment',  '$location','$anchorScroll', 'VoteComment',
-    function ($scope, Comment, $location, $anchorScroll, VoteComment) {
+    ['$scope', 'Comment',  '$location','$anchorScroll', 'VoteComment', 'ReferendumComment',
+    function ($scope, Comment, $location, $anchorScroll, VoteComment, ReferendumComment) {
+
     $scope.thread_id = null;
     $scope.anchor = null;
-$scope.message = {
-   text: 'hello world!',
-   time: moment().startOf('second').fromNow()
-};
+    $scope.parent_comment_id = null;
+
     if($location.hash()){
         $scope.anchor = $location.hash();
     }
-    $scope.loadComments = function(thread_id){
+
+    $scope.initThread = function(type, thread_id, parent_comment_id){
+        $scope.type = type;
         $scope.thread_id = thread_id;
-        var data = Comment.query({id:thread_id}, function(){
+        $scope.parent_comment_id = parent_comment_id;
+        $scope.loadComments(thread_id);
+    };
+
+    $scope.loadComments = function(thread_id){
+        var Resource = Comment;
+        if($scope.type == 'referendum') Resource = ReferendumComment;
+
+        var data = Resource.query({id:thread_id}, function(){
             $scope.comments = data;
         });
     };
@@ -44,8 +53,11 @@ $scope.message = {
             return;
         }
         if(comment.reply.length<1000){
-            var data = {content:comment.reply, parent:comment.id}
-            Comment.save({id:$scope.thread_id},data, function(data){
+            var Resource = Comment;
+            if($scope.type == 'referendum') Resource = ReferendumComment;
+
+            var data = {content:comment.reply, parent:comment.id};
+            Resource.save({id:$scope.thread_id},data, function(data){
                 $scope.loadComments($scope.thread_id);
             });
         }else{
