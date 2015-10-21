@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from config.settings import common
 
+from ekratia.threads.models import Comment
+
 
 class Referendum(models.Model):
     """
@@ -21,7 +23,7 @@ class Referendum(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
 
-    comment = models.OneToOneField('Comment', null=True, blank=True)
+    comment = models.OneToOneField(Comment, null=True, blank=True)
 
     def __unicode__(self):
         return self.description
