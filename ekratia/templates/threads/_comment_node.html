@@ -8,9 +8,9 @@
     </div>
     <div class="comment-content">
             <span ng-show="comment.children && comment.id != parent_comment_id">
-            <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a> 
+            <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a>&nbsp;
             </span>
-            <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a> &nbsp; <span class="gray"><ng-pluralize count="::comment.data.points"
+            <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a><span class="gray"><ng-pluralize count="::comment.data.points"
                  when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;&nbsp;{{ ::convertDate(comment.data.date) }}</span>
             <br>
             <div class="text-message">
