@@ -114,10 +114,12 @@ class ThreadComments(APIView):
         except Http404:
             return Response({'message': 'Thread not found'},
                             status=status.HTTP_404_NOT_FOUND)
-        try:
-            root_comment = Comment.objects.get(thread=thread)
-        except Comment.DoesNotExist:
+        if thread.comment:
+            root_comment = thread.comment
+        else:
             root_comment = self.create_root_comment(thread=thread)
+            thread.comment = root_comment
+            thread.save()
 
         data = Comment.dump_bulk(parent=root_comment)
         data = self.update_information_from_tree(data)

@@ -28,6 +28,10 @@ urlpatterns = [
 
     # Conversations
     url(r'^threads/', include('ekratia.threads.urls', namespace='threads')),
+
+    # Referendums
+    url(r'^referendums/', include('ekratia.referendums.urls',
+                                  namespace='referendums')),
     # Delegates App
     url(r'^delegates/', include('ekratia.delegates.urls',
                                 namespace='delegates')),
