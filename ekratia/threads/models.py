@@ -24,6 +24,8 @@ class Thread(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
 
+    comment = models.OneToOneField('Comment', null=True, blank=True)
+
     def __unicode__(self):
         return self.description
 

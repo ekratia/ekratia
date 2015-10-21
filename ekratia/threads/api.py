@@ -73,8 +73,9 @@ class ThreadComments(APIView):
         Creates a root Comment
         """
         root_comment = Comment.add_root(content=thread.description,
-                                        thread_id=thread.id,
                                         user_id=thread.user.id)
+        thread.comment = root_comment
+        thread.save()
         return root_comment
 
     def update_information_from_tree(self, tree):
