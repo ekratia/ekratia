@@ -73,8 +73,9 @@ class ThreadComments(APIView):
         Creates a root Comment
         """
         root_comment = Comment.add_root(content=thread.description,
-                                        thread_id=thread.id,
                                         user_id=thread.user.id)
+        thread.comment = root_comment
+        thread.save()
         return root_comment
 
     def update_information_from_tree(self, tree):
@@ -113,10 +114,12 @@ class ThreadComments(APIView):
         except Http404:
             return Response({'message': 'Thread not found'},
                             status=status.HTTP_404_NOT_FOUND)
-        try:
-            root_comment = Comment.objects.get(thread=thread)
-        except Comment.DoesNotExist:
+        if thread.comment:
+            root_comment = thread.comment
+        else:
             root_comment = self.create_root_comment(thread=thread)
+            thread.comment = root_comment
+            thread.save()
 
         data = Comment.dump_bulk(parent=root_comment)
         data = self.update_information_from_tree(data)
@@ -138,7 +141,7 @@ class ThreadComments(APIView):
             if(parent_id):
                 node = Comment.objects.get(pk=parent_id)
             else:
-                node = Comment.objects.get(thread=thread)
+                node = thread.comment
 
             node.add_child(content=serializer.data['content'],
                            user_id=request.user.id)

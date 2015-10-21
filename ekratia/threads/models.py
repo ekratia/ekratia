@@ -24,6 +24,8 @@ class Thread(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
 
+    comment = models.OneToOneField('Comment', null=True, blank=True)
+
     def __unicode__(self):
         return self.description
 
@@ -79,20 +81,20 @@ class CommentManager(MP_NodeManager):
         traversed_path = []
 
         def get_chunks(path, steplen):
-            output=[]
-            for chunk in range(0,len(path)/steplen):
+            output = []
+            for chunk in range(0, len(path)/steplen):
                 output.append(path[chunk*steplen:(chunk+1)*steplen])
             return output
 
-        while len(leafs)>0:
-            depth+= 1
+        while len(leafs) > 0:
+            depth += 1
             moved = []
             for key, leaf in enumerate(leafs):
                 if leaf.depth == depth:
                     parent_path = get_chunks(leaf.path[(parent_depth-1)*Comment.steplen:], Comment.steplen)
                     path = output_tree
 
-                    for chunk in range(0,(len(parent_path))-1):
+                    for chunk in range(0, (len(parent_path))-1):
                         path = path[parent_path[chunk]][1]
                     path[parent_path[-1]] = [{'content':leaf.content, 'user': leaf.user.pk,}, OrderedDict()]
                     moved.append(key)
@@ -111,7 +113,7 @@ class Comment(MP_Node):
     """
     content = models.TextField(max_length=1000, blank=False,
                                verbose_name=_('Comment'))
-    thread = models.OneToOneField(Thread, null=True, blank=True)
+    # thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     date = models.DateTimeField(default=datetime.datetime.now)
     points = models.IntegerField(default=0)
