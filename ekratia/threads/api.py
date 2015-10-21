@@ -139,7 +139,7 @@ class ThreadComments(APIView):
             if(parent_id):
                 node = Comment.objects.get(pk=parent_id)
             else:
-                node = Comment.objects.get(thread=thread)
+                node = thread.comment
 
             node.add_child(content=serializer.data['content'],
                            user_id=request.user.id)

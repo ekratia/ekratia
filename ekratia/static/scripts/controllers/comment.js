@@ -12,21 +12,27 @@ angular.module('Ekratia')
   .controller('CommentsController',
     ['$scope', 'Comment',  '$location','$anchorScroll', 'VoteComment',
     function ($scope, Comment, $location, $anchorScroll, VoteComment) {
+
     $scope.thread_id = null;
     $scope.anchor = null;
-$scope.message = {
-   text: 'hello world!',
-   time: moment().startOf('second').fromNow()
-};
+    $scope.parent_comment_id = null;
+
     if($location.hash()){
         $scope.anchor = $location.hash();
     }
-    $scope.loadComments = function(thread_id){
+
+    $scope.initThread = function(thread_id, parent_comment_id){
         $scope.thread_id = thread_id;
+        $scope.parent_comment_id = parent_comment_id;
+        $scope.loadComments(thread_id);
+    };
+
+    $scope.loadComments = function(thread_id){
         var data = Comment.query({id:thread_id}, function(){
             $scope.comments = data;
         });
     };
+
 
     $scope.delete = function(data) {
         data.children = [];
