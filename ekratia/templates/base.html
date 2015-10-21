@@ -68,7 +68,7 @@
                       {% if request.user.is_authenticated %}
                         {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
                         <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>
-                        <li><a href="">Create proposal</a></li>
+                        <li><a href="{% url 'referendums:list' %}">Referendums</a></li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
                         {# <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li> #}
@@ -138,6 +138,7 @@
       <script src="{% static "scripts/services/comment.js" %}"></script>
       <script src="{% static "scripts/services/vote_comment.js" %}"></script>
       <script src="{% static "scripts/services/delegate.js" %}"></script>
+      <script src="{% static "scripts/services/referendum_comment.js" %}"></script>
       <script src="{% static "scripts/directives/directives.js" %}"></script>
       <script src="{% static "scripts/filters/capitalize.js" %}"></script>
 <script type="text/javascript">
