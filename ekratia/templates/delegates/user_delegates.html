@@ -11,9 +11,12 @@
                 <h2>{% trans "Your Current Delegates" %}</h2>
                 {% verbatim %}
                 <div class="row page-content">
-                    <div class="well" ng-hide="assigned_delegates.length>0">
-                        Currently you don't have delegates
+
+                    <div class="alert alert-warning alert-dismissible" role="alert" ng-hide="assigned_delegates.length>0">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Currently you don't have delegates
                     </div>
+
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates">
                         <div class="thumbnail">
                             <div class="delegate-action color-red">
@@ -39,8 +42,9 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="well" ng-hide="available_delegates.length>0">
-                        We don't have more delegates for you
+                    <div class="alert alert-warning alert-dismissible" role="alert" ng-hide="available_delegates.length>0">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      We don't available delegates for you.
                     </div>
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in available_delegates">
                         <div class="thumbnail">
