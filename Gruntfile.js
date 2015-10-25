@@ -121,6 +121,7 @@ module.exports = function (grunt) {
               'bower_components/jquery/dist/jquery.js',
               'bower_components/angular/angular.js',
               'bower_components/angular-resource/angular-resource.js',
+              'bower_components/angular-sanitize/angular-sanitize.js',
               'bower_components/angular-elastic/elastic.js',
               'bower_components/humanize/humanize.js',
               'bower_components/angularjs-humanize/src/angular-humanize.js',

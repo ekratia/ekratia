@@ -15,6 +15,7 @@ var app = angular
     // 'angular-humanize',
     'nl2br',
     'ngLoadingSpinner',
+    'ngSanitize',
   ]);
 
 app.config(['$resourceProvider', function($resourceProvider) {

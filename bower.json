@@ -25,6 +25,7 @@
     "angular-nl2br": "~1.0.3",
     "bootbox.js": "bootbox#~4.4.0",
     "pluralize": "~1.2.1",
-    "angular-loading-spinner": "~0.0.3"
+    "angular-loading-spinner": "~0.0.3",
+    "angular-sanitize": "~1.4.7"
   }
 }

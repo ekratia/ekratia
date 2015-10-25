@@ -20,14 +20,26 @@ div.threads{
         }
     }
     div.comment-content{
-        padding-left: 15px;
+        padding-left: 20px;
         .comment-head{
             font-size: 0.8em;
+            margin-left: 35px;
         }
         div.text-message{
             margin-left: 35px;
             padding-top: 5px;
             text-align: justify;
+            .comment-text{
+                display: inline-block;
+                // line-height: 15px;
+                p{
+                    margin-bottom: 0px;
+
+                }
+                p.emptyline{
+                    line-height: 5px;
+                }
+            }
         }
         div.comment-actions{
             a{
