@@ -4,13 +4,14 @@
 {% block title %}{% trans "My Delegates" %}{% endblock title %}
 {% block content %}
     <div ng-controller="DelegatesController" data-ng-init="loadDelegates()">
+        <span us-spinner="{radius:30, width:8, length: 16}"></span>
         <div class="row">
             <div class="col-md-12">
                 <h1>{% trans "My Delegates" %}</h1>
 
-                <h2>{% trans "Your Current Delegates" %}</h2>
-                {% verbatim %}
-
+                
+                <h2>{% trans "Your Current Delegates" %} {% verbatim %}({{ assigned_delegates.length }})</h2>
+                {% endverbatim %}
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="alert alert-warning alert-dismissible" role="alert" ng-hide="assigned_delegates.length>0">
@@ -18,6 +19,7 @@
                         </div>
                     </div>
                 </div>
+                {% verbatim %}
                 <div class="row top20">
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates">
                         <div class="thumbnail">

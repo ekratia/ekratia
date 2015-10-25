@@ -130,6 +130,9 @@ module.exports = function (grunt) {
               'bower_components/bootstrap/dist/js/bootstrap.js',
               'bower_components/bootbox.js/bootbox.js',
               'bower_components/pluralize/pluralize.js',
+              'bower_components/spin.js/spin.js',
+              'bower_components/angular-spinner/angular-spinner.js',
+              'bower_components/angular-loading-spinner/angular-loading-spinner.js',
              ],
         dest: 'ekratia/static/dist/components.js'
       }
