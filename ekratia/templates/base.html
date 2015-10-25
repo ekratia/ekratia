@@ -60,18 +60,13 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-right">
+                      <li><a href="{% url 'referendums:list' %}">{% trans "Referendums" %}</a></li>
                       <li><a href="{% url 'threads:threads' %}">{% trans "Conversations" %}</a></li>
-                      <li><a href="{% url 'rules' %}">Rules</a></li>
-                      <li><a href="{% url 'help' %}">{% trans "I want to Help!" %}</a></li>
-                      {# <li><a href="{% url 'about' %}">About</a></li> #}
-
+                      <li><a href="{% url 'rules' %}">{% trans "Rules" %}</a></li>
                       {% if request.user.is_authenticated %}
-                        {# <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li> #}
                         <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>
-                        <li><a href="{% url 'referendums:list' %}">Referendums</a></li>
                         <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                       {% else %}
-                        {# <li><a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li> #}
                         <li><a  class=""href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
                       {% endif %}
                   </ul>
