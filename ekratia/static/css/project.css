@@ -172,6 +172,14 @@ div.threads div.comment-vote {
 
 div.threads div.comment-content {
   padding-left: 15px; }
+  div.threads div.comment-content .comment-head {
+    font-size: 0.8em; }
+  div.threads div.comment-content div.text-message {
+    margin-left: 35px;
+    padding-top: 5px;
+    text-align: justify; }
+  div.threads div.comment-content div.comment-actions a {
+    font-size: 0.8em; }
 
 div.threads div.comment-container {
   margin-top: 10px;
@@ -183,11 +191,6 @@ div.threads ul.root-comment-list a {
 div.threads span.gray {
   color: gray; }
 
-div.threads div.text-message {
-  margin-left: 35px;
-  padding-top: 5px;
-  text-align: justify; }
-
 div.threads div.thread-message {
   padding-top: 5px;
   margin-left: 35px;
@@ -196,9 +199,6 @@ div.threads div.thread-message {
 
 div.threads ul.children form.comment-form {
   margin-left: 32px; }
-
-div.threads div.comment-actions a {
-  font-size: 0.8em; }
 
 .delegate-action {
   position: absolute;

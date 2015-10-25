@@ -21,9 +21,21 @@ div.threads{
     }
     div.comment-content{
         padding-left: 15px;
+        .comment-head{
+            font-size: 0.8em;
+        }
+        div.text-message{
+            margin-left: 35px;
+            padding-top: 5px;
+            text-align: justify;
+        }
+        div.comment-actions{
+            a{
+                font-size: 0.8em;
+            }
+        }
     }
     div.comment-container{
-        // border-top: 1px dotted #ccc;
         margin-top: 10px;
         padding-top: 10px;
     }
@@ -34,11 +46,7 @@ div.threads{
     span.gray{
         color:gray;
     }
-    div.text-message{
-        margin-left: 35px;
-        padding-top: 5px;
-        text-align: justify;
-    }
+
     div.thread-message{
         padding-top: 5px;
         margin-left: 35px;
@@ -50,9 +58,5 @@ div.threads{
         margin-left: 32px;
     }
 
-    div.comment-actions{
-        a{
-            font-size: 0.8em;
-        }
-    }
+
 }
