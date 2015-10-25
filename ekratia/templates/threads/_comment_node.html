@@ -15,7 +15,7 @@
             <br>
             <div class="text-message">
                 <span class="newlines">{{ ::comment.data.content }}</span>
-                <div ng-show="comment.id != parent_comment_id">
+                <div ng-show="comment.id != parent_comment_id" class="comment-actions">
                 <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
                 {% endverbatim %}
                 {% if request.user.is_authenticated %}
