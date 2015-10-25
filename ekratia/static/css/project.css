@@ -202,13 +202,18 @@ div.threads ul.children form.comment-form {
 
 .delegate-action {
   position: absolute;
-  top: 5px;
-  right: 20px;
+  top: 0px;
+  right: 40px;
   font-size: 30px; }
+
+.delegate .thumbnail {
+  border: none; }
 
 .delegate .caption h4 {
   width: auto;
   box-sizing: content-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: nowrap;
+  font-size: 1em;
+  margin: 0px; }

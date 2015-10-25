@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="alert alert-warning alert-dismissible" role="alert" ng-hide="assigned_delegates.length>0">
-                          Currently you don't have delegates
+                          {% trans "Currently you don't have delegates" %}
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                             </div>
                             <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             <div class="caption">
-                                <h4 title="{{ user.full_name | capitalize }}"><strong ng-bind="user.full_name | capitalize"></strong></h4>
+                                <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
                             </div>
                         </div>
                     </div>
@@ -45,12 +45,12 @@
                 <div class="row top20" ng-hide="available_delegates.length>0">
                     <div class="col-xs-12">
                         <div class="alert alert-warning alert-dismissible" role="alert">
-                          There are not available delegates.
+                          {% trans "There are not available delegates" %}.
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="delegate active col-xs-6 col-sm-3 col-md-2 top20" ng-repeat="user in available_delegates">
+                <div class="row top20">
+                    <div class="delegate active col-xs-6 col-sm-3 col-md-2 " ng-repeat="user in available_delegates">
                         <div class="thumbnail">
                             <div class="delegate-action">
                                 <a href="" title="Delegate User" ng-click="addDelegate(user)"><i class="fa fa-plus-circle"></i></a>
@@ -58,7 +58,7 @@
 
                             <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             <div class="caption">
-                                <h4 title="{{ user.full_name | capitalize }}"><strong ng-bind="user.full_name | capitalize"></strong></h4>
+                                <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
                             </div>
                         </div>
                     </div>
