@@ -7,24 +7,35 @@
         <a ng-click="commentVote(comment,-1)" href="" ng-class="commentVoteClass(comment,'down')"><i class="fa fa-arrow-circle-down"></a></i>
     </div>
     <div class="comment-content">
-            <span ng-show="comment.children && comment.id != parent_comment_id">
-            <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a>&nbsp;
-            </span>
-            <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a><span class="gray"><ng-pluralize count="::comment.data.points"
-                 when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;&nbsp;{{ ::convertDate(comment.data.date) }}</span>
-            <br>
+            <div class="comment-head">
+                <span ng-show="comment.children && comment.id != parent_comment_id">
+                <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a>&nbsp;
+                </span>
+                <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a> &nbsp; <span class="gray"><ng-pluralize count="::comment.data.points"
+                     when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;&nbsp;{{ ::convertDate(comment.data.date) }}</span>
+                <br>
+            </div>
             <div class="text-message">
-                <span class="newlines">{{ ::comment.data.content }}</span>
-                <div ng-show="comment.id != parent_comment_id">
-                <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
-                {% endverbatim %}
-                {% if request.user.is_authenticated %}
-                <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
-                {% else %}
-                <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
-                {% endif %}
-                <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
-                {% verbatim %}
+                <span class="comment-text" ng-bind-html="::comment.data.content | nl2p"></span>
+                <!--span class="">
+                    Donec vitae sapien ut libero asdasd<br>
+                    Donec vitae sapien ut libero<br>
+                    <br>
+                    Donec vitae sapien ut libero<br>
+                    Donec vitae sapien ut libero<br>
+                    <br>
+                    Donec vitae sapien ut libero<br>
+                </span-->
+                <div ng-show="comment.id != parent_comment_id" class="comment-actions">
+                    <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
+                    {% endverbatim %}
+                    {% if request.user.is_authenticated %}
+                    <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
+                    {% else %}
+                    <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
+                    {% endif %}
+                    <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+                    {% verbatim %}
                 </div>
             </div>
                 <br>
