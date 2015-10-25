@@ -13,7 +13,9 @@ var app = angular
     'ngResource',
     'monospaced.elastic',
     // 'angular-humanize',
-    'nl2br'
+    'nl2br',
+    'ngLoadingSpinner',
+    'ngSanitize',
   ]);
 
 app.config(['$resourceProvider', function($resourceProvider) {

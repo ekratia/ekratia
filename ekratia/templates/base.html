@@ -84,7 +84,7 @@
       <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert messages alert-dismissible {% if message.tags %}alert-{{ message.tags }} {% endif %}" style="display:none">
+                <div class="alert messages alert-dismissible {% if message.tags %}alert-{{ message.tags }} {% endif %} system-notification" style="display:none">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{ message }}
                 </div>
@@ -141,10 +141,11 @@
       <script src="{% static "scripts/services/referendum_comment.js" %}"></script>
       <script src="{% static "scripts/directives/directives.js" %}"></script>
       <script src="{% static "scripts/filters/capitalize.js" %}"></script>
+      <script src="{% static "scripts/filters/nl2p.js" %}"></script>
 <script type="text/javascript">
     $(document).on('ready', function(){
-        window.setTimeout(function() { $(".alert-dismissible").fadeIn(); }, 1000);
-        window.setTimeout(function() { $(".alert-dismissible").fadeOut(); }, 5000);
+        window.setTimeout(function() { $(".system-notification").fadeIn(); }, 1000);
+        window.setTimeout(function() { $(".system-notification").fadeOut(); }, 5000);
     });
 </script>
       {% endcompress %}

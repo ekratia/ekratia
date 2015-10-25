@@ -72,6 +72,9 @@ ul {
 .newlines {
   white-space: pre-wrap; }
 
+.top20, .page-content {
+  margin-top: 20px; }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   h1 {
@@ -132,9 +135,9 @@ ol {
   border-color: #d6e9c6; }
 
 .alert-warning {
-  color: black;
-  background-color: orange;
-  border-color: #d6e9c6; }
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc; }
 
 .alert-error {
   color: #b94a48;
@@ -168,7 +171,22 @@ div.threads div.comment-vote {
     color: rgba(0, 102, 153, 0.7); }
 
 div.threads div.comment-content {
-  padding-left: 15px; }
+  padding-left: 20px; }
+  div.threads div.comment-content .comment-head {
+    font-size: 0.8em;
+    margin-left: 35px; }
+  div.threads div.comment-content div.text-message {
+    margin-left: 35px;
+    padding-top: 5px;
+    text-align: justify; }
+    div.threads div.comment-content div.text-message .comment-text {
+      display: inline-block; }
+      div.threads div.comment-content div.text-message .comment-text p {
+        margin-bottom: 0px; }
+      div.threads div.comment-content div.text-message .comment-text p.emptyline {
+        line-height: 5px; }
+  div.threads div.comment-content div.comment-actions a {
+    font-size: 0.8em; }
 
 div.threads div.comment-container {
   margin-top: 10px;
@@ -179,11 +197,6 @@ div.threads ul.root-comment-list a {
 
 div.threads span.gray {
   color: gray; }
-
-div.threads div.text-message {
-  margin-left: 35px;
-  padding-top: 5px;
-  text-align: justify; }
 
 div.threads div.thread-message {
   padding-top: 5px;
@@ -196,13 +209,18 @@ div.threads ul.children form.comment-form {
 
 .delegate-action {
   position: absolute;
-  top: 5px;
-  right: 20px;
+  top: 0px;
+  right: 40px;
   font-size: 30px; }
+
+.delegate .thumbnail {
+  border: none; }
 
 .delegate .caption h4 {
   width: auto;
   box-sizing: content-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: nowrap;
+  font-size: 1em;
+  margin: 0px; }

@@ -121,6 +121,7 @@ module.exports = function (grunt) {
               'bower_components/jquery/dist/jquery.js',
               'bower_components/angular/angular.js',
               'bower_components/angular-resource/angular-resource.js',
+              'bower_components/angular-sanitize/angular-sanitize.js',
               'bower_components/angular-elastic/elastic.js',
               'bower_components/humanize/humanize.js',
               'bower_components/angularjs-humanize/src/angular-humanize.js',
@@ -130,6 +131,9 @@ module.exports = function (grunt) {
               'bower_components/bootstrap/dist/js/bootstrap.js',
               'bower_components/bootbox.js/bootbox.js',
               'bower_components/pluralize/pluralize.js',
+              'bower_components/spin.js/spin.js',
+              'bower_components/angular-spinner/angular-spinner.js',
+              'bower_components/angular-loading-spinner/angular-loading-spinner.js',
              ],
         dest: 'ekratia/static/dist/components.js'
       }
