@@ -5,6 +5,7 @@
 <div class="container threads">
     <h1>{{ object.title }}</h1>
     <div class="row" ng-controller="CommentsController" data-ng-init="initThread('conversation', {{object.id}}, {{ object.comment_id}})">
+    <span us-spinner="{radius:30, width:8, length: 16}"></span>
         <div class="col-md-12">
             <ul class="root-comment-list">
                 <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>

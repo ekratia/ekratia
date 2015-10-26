@@ -207,6 +207,17 @@ div.threads div.thread-message {
 div.threads ul.children form.comment-form {
   margin-left: 32px; }
 
+div.threads .referendum-rule-title {
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+.referendums-head p {
+  margin-bottom: 0px; }
+
+.referendums-head p.emptyline {
+  line-height: 5px; }
+
 .delegate-action {
   position: absolute;
   top: -12px;
