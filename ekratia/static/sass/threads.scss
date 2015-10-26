@@ -31,7 +31,6 @@ div.threads{
             text-align: justify;
             .comment-text{
                 display: inline-block;
-                // line-height: 15px;
                 p{
                     margin-bottom: 0px;
 
@@ -69,6 +68,20 @@ div.threads{
     ul.children form.comment-form{
         margin-left: 32px;
     }
+    .referendum-rule-title{
+        font-size: 0.8em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+}
 
 
+.referendums-head{
+    p{
+        margin-bottom: 0px;
+
+    }
+    p.emptyline{
+        line-height: 5px;
+    }
 }

@@ -23,10 +23,12 @@
                 <div class="row top20">
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates">
                         <div class="thumbnail">
-                            <div class="delegate-action color-red">
-                                <a href="" title="Undelegate" ng-click="undelegate(user)"><i class="fa fa-times-circle"></i></a>
+                            <div class="img-container">
+                                <div class="delegate-action color-red">
+                                    <a href="" title="Undelegate" ng-click="undelegate(user)"><i class="fa fa-times-circle"></i></a>
+                                </div>
+                                <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             </div>
-                            <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             <div class="caption">
                                 <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
                             </div>
@@ -54,11 +56,13 @@
                 <div class="row top20">
                     <div class="delegate active col-xs-6 col-sm-3 col-md-2 " ng-repeat="user in available_delegates">
                         <div class="thumbnail">
-                            <div class="delegate-action">
-                                <a href="" title="Delegate User" ng-click="addDelegate(user)"><i class="fa fa-plus-circle"></i></a>
-                            </div>
+                            <div class="img-container">
+                                <div class="delegate-action">
+                                    <a href="" title="Delegate User" ng-click="addDelegate(user)"><i class="fa fa-plus-circle"></i></a>
+                                </div>
 
-                            <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
+                                <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
+                            </div>
                             <div class="caption">
                                 <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
                             </div>
