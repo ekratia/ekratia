@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ekratia.threads.models import Comment
+from .models import Thread
 
 # Register Thread models in the admin
-admin.site.register(Comment)
+admin.site.register(Thread)
