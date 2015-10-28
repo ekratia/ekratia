@@ -1,16 +1,5 @@
 from rest_framework import serializers
-from .models import Thread
 from .models import Comment
-
-
-class ThreadSerializer(serializers.ModelSerializer):
-    """
-    Serializaer for Thread Model
-    """
-    slug = serializers.SlugField(allow_blank=True, read_only=True)
-
-    class Meta:
-        model = Thread
 
 
 class CommentSerializer(serializers.ModelSerializer):

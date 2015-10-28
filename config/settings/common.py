@@ -57,6 +57,7 @@ LOCAL_APPS = (
     'ekratia.topics',
     'ekratia.delegates',
     'ekratia.referendums',
+    'ekratia.conversations',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

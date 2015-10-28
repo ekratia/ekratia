@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Conversations
-    url(r'^threads/', include('ekratia.threads.urls', namespace='threads')),
+    url(r'^conversations/', include('ekratia.conversations.urls', namespace='conversations')),
 
     # Referendums
     url(r'^referendums/', include('ekratia.referendums.urls',

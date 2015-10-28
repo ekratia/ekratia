@@ -9,14 +9,10 @@
 		
 		<h1>{% trans "Start a Conversation" %}</h1>
 
-		<form action="{% url 'threads:create' %}" method="post" id="thread-create-form" class="page-content">
+		<form action="{% url 'conversations:create' %}" method="post" id="thread-create-form" class="page-content">
 			{% csrf_token %}
 		    {% bootstrap_form_errors form type='non_fields' %}
             {% bootstrap_field form.title show_label=false %}
-            <!--div class="form-group">
-                <label class="sr-only control-label" for="id_description">Message</label>
-                <textarea class="form-control" cols="40" id="id_description" name="description" placeholder="Message" required="required" rows="2" title="" msd-elastic ng-model="message"></textarea>
-            </div-->
             {% bootstrap_field form.description show_label=false  %}
             
             <div class="form-group text-right">
