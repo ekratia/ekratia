@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from config.settings import common
 from ekratia.threads.models import Comment
+from django.utils.text import slugify
+from django.core.urlresolvers import reverse
 
 
 class Thread(models.Model):

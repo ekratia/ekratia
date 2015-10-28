@@ -15,6 +15,8 @@ from .models import Comment, CommentUserVote
 
 from ekratia.users.models import User
 
+from ekratia.conversations.models import Thread
+
 
 class CommentList(generics.ListCreateAPIView):
     """
