@@ -61,7 +61,7 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="{% url 'referendums:list' %}">{% trans "Referendums" %}</a></li>
-                      <li><a href="{% url 'threads:threads' %}">{% trans "Conversations" %}</a></li>
+                      <li><a href="{% url 'conversations:threads' %}">{% trans "Conversations" %}</a></li>
                       <li><a href="{% url 'rules' %}">{% trans "Rules" %}</a></li>
                       {% if request.user.is_authenticated %}
                         <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>

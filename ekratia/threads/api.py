@@ -1,5 +1,4 @@
 # Imports for django rest framework
-from .serializers import ThreadSerializer
 from .serializers import CommentSerializer
 from .serializers import CommentThreadSerializer
 from .serializers import CommentVoteSerializer
@@ -12,27 +11,11 @@ from rest_framework import permissions
 
 from django.http import Http404
 
-from .models import Thread, Comment, CommentUserVote
+from .models import Comment, CommentUserVote
 
 from ekratia.users.models import User
 
-
-class ThreadList(generics.ListCreateAPIView):
-    """
-    API class to list all threads, or create a new thread.
-    """
-    permission_classes = (permissions.IsAdminUser,)
-    queryset = Thread.objects.all()
-    serializer_class = ThreadSerializer
-
-
-class ThreadDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    API class to retrieve, update or delete a thread instance.
-    """
-    permission_classes = (permissions.IsAdminUser,)
-    queryset = Thread.objects.all()
-    serializer_class = ThreadSerializer
+from ekratia.conversations.models import Thread
 
 
 class CommentList(generics.ListCreateAPIView):

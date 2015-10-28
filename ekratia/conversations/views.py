@@ -1,11 +1,10 @@
 from django.views.generic import ListView, DetailView, CreateView
-from django.utils.translation import ugettext_lazy as _
-from django.contrib import messages
 
 from braces.views import LoginRequiredMixin
 
 from .models import Thread, Comment
-from .forms import ThreadForm, ThreadCommentForm
+from .forms import ThreadForm
+from ekratia.threads.forms import ThreadCommentForm
 
 
 class ThreadListView(ListView):
@@ -13,7 +12,7 @@ class ThreadListView(ListView):
     List of Threads
     """
     model = Thread
-    template_name = 'threads/list.html'
+    template_name = 'conversations/list.html'
 
 
 class ThreadCreateView(LoginRequiredMixin, CreateView):
@@ -21,7 +20,7 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
     Creates a Thread
     """
     model = Thread
-    template_name = 'threads/create.html'
+    template_name = 'conversations/create.html'
     form_class = ThreadForm
 
     def form_valid(self, form):
@@ -48,7 +47,7 @@ class ThreadDetailView(DetailView):
     Detail View for a Thread
     """
     model = Thread
-    template_name = "threads/detail.html"
+    template_name = "conversations/detail.html"
 
     def get_context_data(self, **kwargs):
         """
