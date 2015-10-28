@@ -40,4 +40,4 @@ class Thread(models.Model):
             'slug': self.slug,
         }
 
-        return reverse('threads:detail', kwargs=kwargs)
+        return reverse('conversations:detail', kwargs=kwargs)
