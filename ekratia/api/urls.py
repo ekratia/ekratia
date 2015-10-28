@@ -8,7 +8,7 @@ from ekratia.delegates import api as delegates
 
 urlpatterns = patterns(
     '',
-    # Threads CRUD
+    # Conversations CRUD
     url(r'^conversations/$', conversations.ThreadList.as_view()),
     url(r'^conversations/(?P<pk>[0-9]+)/$',
         conversations.ThreadDetail.as_view()),
