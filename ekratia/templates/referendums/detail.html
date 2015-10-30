@@ -14,7 +14,7 @@
         </div>
         {% if request.user.is_authenticated and request.user == object.user %}
         <div class="referendum-vote text-center top20">
-            <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }})" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
+            <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }}, '{% url 'referendums:open' object.slug %}')" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
         </div>
         {% endif %}
     </div>

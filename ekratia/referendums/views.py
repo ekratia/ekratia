@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, RedirectView
+from django.contrib import messages
 
 from braces.views import LoginRequiredMixin
 
@@ -59,3 +60,16 @@ class ReferendumDetailView(DetailView):
         context = super(ReferendumDetailView, self).get_context_data(**kwargs)
         context['form_comment'] = ReferendumCommentForm
         return context
+
+
+class ReferendumOpenView(RedirectView):
+    """
+    Open Referendum and redirects back to Referendum
+    """
+    permanent = False
+    pattern_name = 'referendums:detail'
+
+    def get_redirect_url(self, *args, **kwargs):
+        # referendum = get_object_or_404(Referendum, pk=kwargs['pk'])
+        messages.success(self.request, 'Referendum Ready to Vote!')
+        return super(ReferendumOpenView, self).get_redirect_url(*args, **kwargs)
