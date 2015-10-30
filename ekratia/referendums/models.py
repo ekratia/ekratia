@@ -69,3 +69,13 @@ class Referendum(models.Model):
             'slug': self.slug,
         }
         return reverse('referendums:detail', kwargs=kwargs)
+
+
+class ReferendumUserVote(models.Model):
+    """
+    ReferendumUserVote Model:
+    Stores votes from users to Referendums
+    """
+    user = models.ForeignKey(common.AUTH_USER_MODEL)
+    referendum = models.ForeignKey(Referendum)
+    value = models.FloatField(default=1)

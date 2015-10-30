@@ -43,6 +43,12 @@ class User(AbstractUser):
         else:
             return self.username
 
+    def vote_count_for_referendum(self, referendum):
+        """
+        Calculates vote value depending on Delegates
+        """
+        return 1  # TODO: Implement Calculation
+
     def change_picture_size(self, url, width=70, height=70):
         """
         Change the facebook url to use a thumbnail
