@@ -16,6 +16,7 @@ var app = angular
     'nl2br',
     'ngLoadingSpinner',
     'ngSanitize',
+    'ngBootbox',
   ]);
 
 app.config(['$resourceProvider', function($resourceProvider) {
