@@ -13,9 +13,10 @@ angular.module('Ekratia')
     ['$scope', '$ngBootbox', '$window',
     function ($scope, $ngBootbox, $window) {
         $scope.referendumId = null;
-        $scope.referendumInit = function(referendumId){
+        $scope.referendumInit = function(referendumId, openURL){
             $scope.referendumId = referendumId;
             $scope.customDialogOptions.title = 'Open referendum ' + referendumId +' for voting';
+            $scope.openURL = openURL;
         };
 
         $scope.customDialogOptions = {
@@ -38,7 +39,7 @@ angular.module('Ekratia')
                     label: "Open for Voting Now",
                     className: "btn-primary",
                     callback: function() {
-                        $window.location.href = 'http://www.google.com';
+                        $window.location.href = $scope.openURL;
                     }
                 }
             }
