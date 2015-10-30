@@ -12,9 +12,11 @@
             <div  class="referendum-rule-title top20">{% trans "Text that this referendum will add to our rules" %}:</div>
             <p ng-bind-html="'{{object.text_add_rules }}' | nl2p"></p>
         </div>
+        {% if request.user.is_authenticated and request.user == object.user %}
         <div class="referendum-vote text-center top20">
             <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }})" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
         </div>
+        {% endif %}
     </div>
     <div class="row top20" ng-controller="CommentsController" data-ng-init="initThread('referendum', {{object.id}}, {{ object.comment_id}})">
         <div class="col-md-12">
