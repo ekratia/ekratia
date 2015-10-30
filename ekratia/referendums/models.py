@@ -2,10 +2,13 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from config.settings import common
-
+from django.conf import settings
 from ekratia.threads.models import Comment
+
+import datetime
 
 
 class Referendum(models.Model):
@@ -23,8 +26,42 @@ class Referendum(models.Model):
         verbose_name=_('Text that this referendum will add to our rules'))
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
+    open_time = models.DateTimeField(null=True, blank=True)
 
     comment = models.OneToOneField(Comment, null=True, blank=True)
+
+    def is_open(self):
+        """
+        Method to establish id Referendum is open for vote.
+        """
+        if not self.open_time:
+            return False
+        else:
+            return True if self.open_remaining_time() >\
+                datetime.timedelta() else False
+
+    def is_finished(self):
+        """
+        Method to establish id Referendum is open for vote.
+        """
+        if not self.open_time:
+            return False
+        else:
+            return True if not self.is_open() else False
+
+    def open_remaining_time(self):
+        """
+        Returns the remaining time for vote.
+        """
+        end_time = self.end_time()
+        now = timezone.now()
+        remaining_time = end_time - now if end_time > now\
+            else datetime.timedelta()
+        return remaining_time
+
+    def end_time(self):
+        return self.open_time\
+            + datetime.timedelta(hours=settings.REFERENDUM_EXPIRE_HOURS)
 
     def __unicode__(self):
         return self.title
@@ -45,3 +82,14 @@ class Referendum(models.Model):
             'slug': self.slug,
         }
         return reverse('referendums:detail', kwargs=kwargs)
+
+
+class ReferendumUserVote(models.Model):
+    """
+    ReferendumUserVote Model:
+    Stores votes from users to Referendums
+    """
+    user = models.ForeignKey(common.AUTH_USER_MODEL)
+    referendum = models.ForeignKey(Referendum)
+    value = models.FloatField(default=1)
+    date = models.DateTimeField(default=timezone.now())

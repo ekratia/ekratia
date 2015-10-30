@@ -30,7 +30,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 
     # Useful template tags:
-    # 'django.contrib.humanize',
+    'django.contrib.humanize',
 
     # Admin
     'django.contrib.admin',
@@ -294,3 +294,4 @@ LOGGING = {
 }
 
 # Your common stuff: Below this line define 3rd party library settings
+REFERENDUM_EXPIRE_HOURS = 72
