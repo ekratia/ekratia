@@ -1,11 +1,15 @@
 from django.views.generic import ListView, DetailView, CreateView, RedirectView
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext as _
 
 from braces.views import LoginRequiredMixin
 
 from .models import Referendum
 from ekratia.threads.models import Comment
 from .forms import ReferendumForm, ReferendumCommentForm
+
+import datetime
 
 
 class ReferendumListView(ListView):
@@ -70,6 +74,13 @@ class ReferendumOpenView(RedirectView):
     pattern_name = 'referendums:detail'
 
     def get_redirect_url(self, *args, **kwargs):
-        # referendum = get_object_or_404(Referendum, pk=kwargs['pk'])
-        messages.success(self.request, 'Referendum Ready to Vote!')
-        return super(ReferendumOpenView, self).get_redirect_url(*args, **kwargs)
+        referendum = get_object_or_404(Referendum, slug=kwargs['slug'])
+        if not referendum.is_open():
+            referendum.open_time = datetime.datetime.now()
+            referendum.save()
+            messages.success(self.request, _('Referendum Ready to Vote!'))
+        else:
+            messages.error(self.request, _('Referendum is already Open'))
+
+        return super(ReferendumOpenView, self).\
+            get_redirect_url(*args, **kwargs)
