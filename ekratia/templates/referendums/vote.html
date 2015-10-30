@@ -14,11 +14,11 @@
         </div>
     </div>
 
-    <div class="row referendum-vote">
-        <div class="col-md-1 col-md-offset-5 text-center">
+    <div class="row referendum-vote top20">
+        <div class="col-md-1 col-xs-3 col-md-offset-5 col-xs-offset-3 text-center">
             <a class="btn btn-success btn-lg" href="{% url 'referendums:process_vote' object.slug 'yes' %}">YES</a>
         </div>
-        <div class="col-md-1 text-center">
+        <div class="col-md-1 col-xs-3 text-center">
             <a class="btn btn-danger btn-lg" href="{% url 'referendums:process_vote' object.slug 'no' %}">NO</a>
         </div>
     </div>

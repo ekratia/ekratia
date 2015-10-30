@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 from avatar.util import get_primary_avatar
 
+from ekratia.referendums.models import ReferendumUserVote
+
 
 class User(AbstractUser):
 
@@ -48,6 +50,14 @@ class User(AbstractUser):
         Calculates vote value depending on Delegates
         """
         return 1  # TODO: Implement Calculation
+
+    def get_vote_referendum(self, referendum):
+        try:
+            vote = ReferendumUserVote.objects.get(referendum=referendum,
+                                                  user=self)
+            return vote
+        except ReferendumUserVote.DoesNotExist:
+            return None
 
     def change_picture_size(self, url, width=70, height=70):
         """

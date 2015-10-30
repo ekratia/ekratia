@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from config.settings import common
-
+from django.conf import settings
 from ekratia.threads.models import Comment
 
 import datetime
@@ -44,11 +44,15 @@ class Referendum(models.Model):
         """
         Returns the remaining time for vote.
         """
-        end_time = self.open_time + datetime.timedelta(hours=72)
+        end_time = self.end_time()
         now = timezone.now()
         remaining_time = end_time - now if end_time > now\
             else datetime.timedelta()
         return remaining_time
+
+    def end_time(self):
+        return self.open_time\
+            + datetime.timedelta(hours=settings.REFERENDUM_EXPIRE_HOURS)
 
     def __unicode__(self):
         return self.title
@@ -79,3 +83,4 @@ class ReferendumUserVote(models.Model):
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     referendum = models.ForeignKey(Referendum)
     value = models.FloatField(default=1)
+    date = models.DateTimeField(default=timezone.now())

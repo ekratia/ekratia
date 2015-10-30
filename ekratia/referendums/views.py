@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from braces.views import LoginRequiredMixin
 
@@ -66,6 +67,10 @@ class ReferendumDetailView(DetailView):
         """
         context = super(ReferendumDetailView, self).get_context_data(**kwargs)
         context['form_comment'] = ReferendumCommentForm
+        if self.request.user.is_authenticated():
+            context['user_vote'] = self.request.user.\
+                get_vote_referendum(self.object)
+
         return context
 
 
@@ -128,6 +133,7 @@ class ReferendumProcessVoteView(RedirectView):
             vote, created = ReferendumUserVote.objects.\
                 get_or_create(referendum=referendum, user=self.request.user)
             vote.value = vote_value
+            vote.date = timezone.now()
             vote.save()
 
             messages.success(self.request, _('We got your Vote. Thanks!'))

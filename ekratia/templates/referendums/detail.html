@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load bootstrap3 i18n %}
+{% load bootstrap3 i18n humanize %}
 {% block title %}{% trans "Referendum" %}: {{ object.title }}{% endblock title %}
 {% block content %}
 <div class="container threads">
@@ -18,13 +18,31 @@
         </div>
         {% endif %}
         {% if object.is_open %}
+        <div class="horizontal-line top20"></div>
         <div class="referendum-vote text-center top20">
-            <a class="btn btn-primary btn-md" href="{% url 'referendums:vote' object.slug %}" >{% trans "Vote Now" %}</a>
+        <h2>{% trans "Vote for this Referendum" %}</h2>
+            {% if user_vote.value %}
+                <a class="btn btn-primary btn-lg top20" href="{% url 'referendums:vote' object.slug %}" >
+                    {% trans "Change Vote" %}
+                </a>
+                <div class="top20">{% trans "You voted" %} 
+                {% if user_vote.value > 0 %}
+                    <strong>"{% trans "Yes" %}"</strong>
+                {% else %}
+                    <strong>"{% trans "No" %}"</strong>
+                {% endif %} {{ user_vote.date | naturaltime }}
+                </div>
+            {% else %}
+                <a class="btn btn-primary btn-lg top20" href="{% url 'referendums:vote' object.slug %}" >
+                    {% trans "Vote Now" %}
+                </a>
+            {% endif %}
+            <div>{% trans "Expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></div>
         </div>
         {% endif %}
     </div>
     <div class="row top20" ng-controller="CommentsController" data-ng-init="initThread('referendum', {{object.id}}, {{ object.comment_id}})">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             <ul class="root-comment-list">
                 <li class="first-level" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'" on-last-repeat>
                 </li>
