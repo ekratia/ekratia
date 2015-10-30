@@ -12,7 +12,7 @@
             <div  class="referendum-rule-title top20">{% trans "Text that this referendum will add to our rules" %}:</div>
             <p ng-bind-html="'{{object.text_add_rules }}' | nl2p"></p>
         </div>
-        {% if request.user.is_authenticated and request.user == object.user and not object.is_open %}
+        {% if request.user.is_authenticated and request.user == object.user and not object.is_open and not object.open_time %}
         <div class="referendum-vote text-center top20">
             <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }}, '{% url 'referendums:open' object.slug %}')" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
         </div>
@@ -39,6 +39,11 @@
             {% endif %}
             <div>{% trans "Expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></div>
         </div>
+        {% endif %}
+        {% if object.is_finished %}
+            <div class="alert alert-warning alert-dismissible text-center top20" role="alert">
+              {% trans "This Referendum has ended" %}
+            </div>
         {% endif %}
     </div>
     <div class="row top20" ng-controller="CommentsController" data-ng-init="initThread('referendum', {{object.id}}, {{ object.comment_id}})">

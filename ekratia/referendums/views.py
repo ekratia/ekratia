@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.http import Http404
+from django.http import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
@@ -74,7 +75,7 @@ class ReferendumDetailView(DetailView):
         return context
 
 
-class ReferendumOpenView(RedirectView):
+class ReferendumOpenView(LoginRequiredMixin, RedirectView):
     """
     Open Referendum and redirects back to Referendum
     """
@@ -83,6 +84,10 @@ class ReferendumOpenView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         referendum = get_object_or_404(Referendum, slug=kwargs['slug'])
+
+        if referendum.user != self.request.user:
+            raise HttpResponseForbidden
+
         if not referendum.is_open():
             referendum.open_time = datetime.datetime.now()
             referendum.save()
@@ -94,7 +99,7 @@ class ReferendumOpenView(RedirectView):
             get_redirect_url(*args, **kwargs)
 
 
-class ReferendumVoteView(ReferendumDetailView):
+class ReferendumVoteView(LoginRequiredMixin, ReferendumDetailView):
     """
     Detail View for a Referendum
     """
@@ -108,7 +113,7 @@ class ReferendumVoteView(ReferendumDetailView):
         return context
 
 
-class ReferendumProcessVoteView(RedirectView):
+class ReferendumProcessVoteView(LoginRequiredMixin, RedirectView):
     """
     Open Referendum and redirects back to Referendum
     """

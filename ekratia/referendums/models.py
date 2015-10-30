@@ -40,6 +40,15 @@ class Referendum(models.Model):
             return True if self.open_remaining_time() >\
                 datetime.timedelta() else False
 
+    def is_finished(self):
+        """
+        Method to establish id Referendum is open for vote.
+        """
+        if not self.open_time:
+            return False
+        else:
+            return True if not self.is_open() else False
+
     def open_remaining_time(self):
         """
         Returns the remaining time for vote.
