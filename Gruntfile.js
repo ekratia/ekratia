@@ -111,7 +111,7 @@ module.exports = function (grunt) {
         bg: true
       },
       runDjango: {
-        cmd: 'python <%= paths.manageScript %> runserver 0.0.0.0:8000'
+        cmd: 'python <%= paths.manageScript %> runserver 0.0.0.0:9000'
       },
       
     },
@@ -130,6 +130,7 @@ module.exports = function (grunt) {
               'bower_components/angular-nl2br/angular-nl2br.js',
               'bower_components/bootstrap/dist/js/bootstrap.js',
               'bower_components/bootbox.js/bootbox.js',
+              'bower_components/ngBootbox/dist/ngBootbox.js',
               'bower_components/pluralize/pluralize.js',
               'bower_components/spin.js/spin.js',
               'bower_components/angular-spinner/angular-spinner.js',
