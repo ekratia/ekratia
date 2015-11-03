@@ -243,8 +243,13 @@ div.threads .referendum-rule-title {
   margin: 0px; }
 
 .vote-button {
-  font-size: 60px; }
-  .vote-button.up {
-    color: green; }
-  .vote-button.down {
-    color: red; }
+  font-size: 60px;
+  color: #ccc; }
+  .vote-button.up.active {
+    color: #109D58; }
+  .vote-button.up:hover {
+    color: #0b6f3e; }
+  .vote-button.down.active {
+    color: #E11B22; }
+  .vote-button.down:hover {
+    color: #b3161b; }
