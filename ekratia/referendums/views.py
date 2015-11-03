@@ -71,7 +71,9 @@ class ReferendumDetailView(DetailView):
         if self.request.user.is_authenticated():
             context['user_vote'] = self.request.user.\
                 get_vote_referendum(self.object)
-
+            # vote_count_for_referendum
+            context['user_vote_value'] = self.request.user.\
+                vote_count_for_referendum(self.object)
         return context
 
 

@@ -23,10 +23,10 @@
         <h2>{% trans "Vote for this Referendum" %}</h2>
             <div class="row referendum-vote top20">
                 <div class="col-md-1 col-xs-3 col-md-offset-5 col-xs-offset-3 text-center">
-                    <a class="vote-button up {% if user_vote.value > 0 %}active{% endif %}" href="{% url 'referendums:process_vote' object.slug 'yes' %}"><i class="fa fa-arrow-circle-up"></i></a>
+                    <a class="vote-button up {% if user_vote.value and user_vote.value > 0 %}active{% endif %}" href="{% url 'referendums:process_vote' object.slug 'yes' %}"><i class="fa fa-arrow-circle-up"></i></a>
                 </div>
                 <div class="col-md-1 col-xs-3 text-center">
-                    <a class="vote-button down {% if user_vote.value < 0 %}active{% endif %}" href="{% url 'referendums:process_vote' object.slug 'no' %}"><i class="fa fa-arrow-circle-down"></i></a>
+                    <a class="vote-button down {% if user_vote.value and user_vote.value < 0 %}active{% endif %}" href="{% url 'referendums:process_vote' object.slug 'no' %}"><i class="fa fa-arrow-circle-down"></i></a>
                 </div>
             </div>
             {% if user_vote.value %}
@@ -38,6 +38,8 @@
                     {% else %}
                         <strong>"{% trans "No" %}"</strong>
                     {% endif %} {{ user_vote.date | naturaltime }}
+                    <br>
+                    <small>{% trans "Because of your delegation, your vote value is: " %} <strong>{{ user_vote_value|floatformat:"2"|intcomma }}</strong></small>
                 </div>
             </div>
             {% endif %}
