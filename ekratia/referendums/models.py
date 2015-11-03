@@ -92,4 +92,4 @@ class ReferendumUserVote(models.Model):
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     referendum = models.ForeignKey(Referendum)
     value = models.FloatField(default=1)
-    date = models.DateTimeField(default=timezone.now())
+    date = models.DateTimeField(default=timezone.now)

@@ -4,6 +4,7 @@ from config.settings import common
 from ekratia.threads.models import Comment
 from django.utils.text import slugify
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 
 class Thread(models.Model):
@@ -16,7 +17,7 @@ class Thread(models.Model):
     slug = models.SlugField(max_length=50, db_index=True, unique=True)
     description = models.TextField(max_length=1000, blank=False,
                                    verbose_name=_('Message'))
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
 
     comment = models.OneToOneField(Comment, null=True, blank=True)
