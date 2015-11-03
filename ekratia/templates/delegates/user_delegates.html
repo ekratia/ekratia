@@ -21,7 +21,7 @@
                 </div>
                 {% verbatim %}
                 <div class="row top20">
-                    <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates">
+                    <div class="delegate active col-xs-6 col-sm-3 col-md-2" ng-repeat="user in assigned_delegates" ng-cloak >
                         <div class="thumbnail">
                             <div class="img-container">
                                 <div class="delegate-action color-red">
@@ -31,6 +31,7 @@
                             </div>
                             <div class="caption">
                                 <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
+                                <small>({{ user.rank| number:2 }})</small>
                             </div>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
                 </div>
                 {% verbatim %}
                 <div class="row top20">
-                    <div class="delegate active col-xs-6 col-sm-3 col-md-2 " ng-repeat="user in available_delegates">
+                    <div class="delegate active col-xs-6 col-sm-3 col-md-2 " ng-repeat="user in available_delegates" ng-cloak>
                         <div class="thumbnail">
                             <div class="img-container">
                                 <div class="delegate-action">
@@ -64,7 +65,8 @@
                                 <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
                             </div>
                             <div class="caption">
-                                <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
+                                <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }} </h4>
+                                <small>({{ user.rank| number:2 }})</small>
                             </div>
                         </div>
                     </div>
