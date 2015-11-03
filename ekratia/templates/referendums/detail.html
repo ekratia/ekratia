@@ -21,25 +21,38 @@
         <div class="horizontal-line top20"></div>
         <div class="referendum-vote text-center top20">
         <h2>{% trans "Vote for this Referendum" %}</h2>
-            {% if user_vote.value %}
-                <a class="btn btn-primary btn-lg top20" href="{% url 'referendums:vote' object.slug %}" >
-                    {% trans "Change Vote" %}
-                </a>
-                <div class="top20">{% trans "You voted" %} 
-                {% if user_vote.value > 0 %}
-                    <strong>"{% trans "Yes" %}"</strong>
-                {% else %}
-                    <strong>"{% trans "No" %}"</strong>
-                {% endif %} {{ user_vote.date | naturaltime }}
+            <div class="row referendum-vote top20">
+                <div class="col-md-1 col-xs-3 col-md-offset-5 col-xs-offset-3 text-center">
+                    <a class="vote-button up" href="{% url 'referendums:process_vote' object.slug 'yes' %}"><i class="fa fa-arrow-circle-up"></i></a>
                 </div>
-            {% else %}
-                <a class="btn btn-primary btn-lg top20" href="{% url 'referendums:vote' object.slug %}" >
-                    {% trans "Vote Now" %}
-                </a>
+                <div class="col-md-1 col-xs-3 text-center">
+                    <a class="vote-button down" href="{% url 'referendums:process_vote' object.slug 'no' %}"><i class="fa fa-arrow-circle-down"></i></a>
+                </div>
+            </div>
+            {% if user_vote.value %}
+            <div class="row">
+                <div class="col-xs-12">
+                    {% trans "You voted" %} 
+                    {% if user_vote.value > 0 %}
+                        <strong>"{% trans "Yes" %}"</strong>
+                    {% else %}
+                        <strong>"{% trans "No" %}"</strong>
+                    {% endif %} {{ user_vote.date | naturaltime }}
+                </div>
+            </div>
             {% endif %}
-            <div>{% trans "Expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    {% trans "Expires in" %} <strong>{{ object.end_time | naturaltime }}</strong>
+                </div>
+            </div>
         </div>
+
+
         {% endif %}
+
+        <div class="top20">
+        </div>
         {% if object.is_finished %}
             <div class="alert alert-warning alert-dismissible text-center top20" role="alert">
               {% trans "This Referendum has ended" %}

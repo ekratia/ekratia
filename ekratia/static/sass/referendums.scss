@@ -1,0 +1,11 @@
+.vote-button{
+    font-size: 60px;
+
+    &.up{
+        color: green;
+    }
+
+    &.down{
+        color: red;
+    }
+}

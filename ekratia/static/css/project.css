@@ -241,3 +241,10 @@ div.threads .referendum-rule-title {
   white-space: nowrap;
   font-size: 1em;
   margin: 0px; }
+
+.vote-button {
+  font-size: 60px; }
+  .vote-button.up {
+    color: green; }
+  .vote-button.down {
+    color: red; }
