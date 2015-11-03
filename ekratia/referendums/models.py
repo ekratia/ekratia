@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.db.models import Sum
 
 from config.settings import common
 from django.conf import settings
@@ -27,6 +28,7 @@ class Referendum(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     open_time = models.DateTimeField(null=True, blank=True)
+    points = models.FloatField(default=0)
 
     comment = models.OneToOneField(Comment, null=True, blank=True)
 
@@ -62,6 +64,58 @@ class Referendum(models.Model):
     def end_time(self):
         return self.open_time\
             + datetime.timedelta(hours=settings.REFERENDUM_EXPIRE_HOURS)
+
+    def calculate_votes(self):
+        """
+        Calculates total votes based on ReferendumUserVote
+        """
+        self.points = ReferendumUserVote.objects.filter(referendum=self)\
+            .aggregate(count=Sum('value'))['count']
+        if self.points is None:
+            self.points = 0.0
+        self.save()
+        return self.points
+
+    def get_count_votes(self):
+        """
+        Calculates total votes for referenudm
+        """
+        return ReferendumUserVote.objects.filter(referendum=self).count()
+
+    def get_total_votes(self):
+        """
+        Calculates total votes for referenudm
+        """
+        return self.calculate_votes()
+
+    def get_num_positive_votes(self):
+        """
+        Get positive votes
+        """
+        votes = ReferendumUserVote.objects.filter(
+            referendum=self,
+            value__gt=0).aggregate(count=Sum('value'))['count']
+        return votes if votes else 0
+
+    def get_num_negative_votes(self):
+        """
+        Get negative votes
+        """
+        votes = ReferendumUserVote.objects.filter(
+            referendum=self,
+            value__lt=0).aggregate(count=Sum('value'))['count']
+        return -votes if votes else 0
+
+    def get_total_votes_absolute(self):
+        return self.get_num_positive_votes() + self.get_num_negative_votes()
+
+    # def get_num_positive_votes_percentage(self):
+    #     """
+    #     Get positive votes percentage
+    #     """
+    #     votes = self.get_num_negative_votes()
+    #     total = self.get_total_votes_absolute()
+    #     return votes/total if total > 0 else 0
 
     def __unicode__(self):
         return self.title

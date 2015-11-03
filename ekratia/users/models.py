@@ -8,7 +8,6 @@ from avatar.util import get_primary_avatar
 from ekratia.referendums.models import ReferendumUserVote
 
 import networkx as nx
-from django.db.models import Q
 
 from ekratia.delegates.models import Delegate
 
