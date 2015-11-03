@@ -53,7 +53,7 @@ class User(AbstractUser):
         """
         Calculates vote value depending on Delegates
         """
-        return 1 + self.get_pagerank()
+        return self.get_pagerank()
 
     def get_vote_referendum(self, referendum):
         try:
