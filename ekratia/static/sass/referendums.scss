@@ -1,0 +1,22 @@
+.vote-button{
+    font-size: 60px;
+    color: $color_vote_inactive;
+
+    &.up{
+        &.active{
+            color: $color_vote_up;
+        }
+        &:hover{
+            color: darken($color_vote_up, 10%);
+        }
+    }
+
+    &.down{
+        &.active{
+            color: $color_vote_down;
+        }
+        &:hover{
+            color: darken($color_vote_down, 10%);
+        }
+    }
+}

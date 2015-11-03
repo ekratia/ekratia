@@ -8,7 +8,6 @@ from avatar.util import get_primary_avatar
 from ekratia.referendums.models import ReferendumUserVote
 
 import networkx as nx
-from django.db.models import Q
 
 from ekratia.delegates.models import Delegate
 
@@ -54,7 +53,7 @@ class User(AbstractUser):
         """
         Calculates vote value depending on Delegates
         """
-        return 1  # TODO: Implement Calculation
+        return 1 + self.get_pagerank()
 
     def get_vote_referendum(self, referendum):
         try:
@@ -77,7 +76,7 @@ class User(AbstractUser):
         until we need to optimize it with a better data structure.
         """
         graph = nx.DiGraph()
-        
+
         visited, queue = set(), [self.id]
         while queue:
             current = queue.pop(0)
@@ -97,4 +96,3 @@ class User(AbstractUser):
 
                 visited.add(current)
         return nx.pagerank_numpy(graph)[self.id]*len(visited)
-        
