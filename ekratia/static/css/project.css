@@ -75,6 +75,9 @@ ul {
 .top20, .page-content {
   margin-top: 20px; }
 
+.text-strike {
+  text-decoration: line-through; }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   h1 {
