@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum
+from django.utils import timezone
 
 from config.settings import common
 
 from treebeard.mp_tree import MP_Node, MP_NodeManager
 from collections import OrderedDict
-import datetime
 
 
 class CommentManager(MP_NodeManager):
@@ -66,7 +66,7 @@ class Comment(MP_Node):
                                verbose_name=_('Comment'))
     # thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
-    date = models.DateTimeField(default=datetime.datetime.now)
+    date = models.DateTimeField(default=timezone.now)
     points = models.IntegerField(default=0)
     objects = CommentManager()
 
