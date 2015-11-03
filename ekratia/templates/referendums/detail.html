@@ -43,16 +43,12 @@
             {% endif %}
             <div class="row">
                 <div class="col-xs-12">
-                    {% trans "Referendum expires in" %} <strong>{{ object.end_time | naturaltime }}</strong>
+                    <small>{% trans "Referendum expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></small>
                 </div>
             </div>
         </div>
-
-
         {% endif %}
 
-        <div class="top20">
-        </div>
         {% if object.is_finished %}
             <div class="alert alert-warning alert-dismissible text-center top20" role="alert">
               {% trans "This Referendum has ended" %}
