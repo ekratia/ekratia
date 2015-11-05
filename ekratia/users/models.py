@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 from avatar.util import get_primary_avatar
 
@@ -13,9 +14,10 @@ from ekratia.delegates.models import Delegate
 
 
 class User(AbstractUser):
+    rank = models.FloatField(default=0.0)
 
     def __unicode__(self):
-        return self.get_full_name_or_username()
+        return self.username
 
     def get_data_dictionary(self):
         return {
@@ -70,6 +72,9 @@ class User(AbstractUser):
         return url.split('?')[0] + u'?width=%i&height=%i' % (width, height)
 
     def get_pagerank(self):
+        return self.rank if self.rank > 0 else self.compute_pagerank()
+
+    def compute_pagerank(self):
         """
         Creates a graph and calculates the pagerank for this node.
         This will not be efficient in any manner, but should suffice
@@ -95,4 +100,11 @@ class User(AbstractUser):
                     queue.append(delegate.user.id)
 
                 visited.add(current)
-        return nx.pagerank_numpy(graph)[self.id]*len(visited)
+
+        pagerank_values = nx.pagerank_numpy(graph)
+        num_visited = len(visited)
+        for user_id, rank in pagerank_values.iteritems():
+            User.objects.filter(pk=user_id).update(rank=rank*num_visited)
+
+        self.rank = pagerank_values[self.id]*num_visited
+        return self.rank

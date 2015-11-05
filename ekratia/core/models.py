@@ -12,12 +12,13 @@ def my_callback(sender, **kwargs):
 def process_model_saved(sender, instance, **kwargs):
     if sender == Delegate:
         print "Delgate created"
-        print "Update user pagerank"
+        instance.user.compute_pagerank()
 
 
-def process_model_deleted(sender, **kwargs):
+def process_model_deleted(sender, instance, **kwargs):
     if sender == Delegate:
         print "Delgate deleted"
+        instance.user.compute_pagerank()
 
 
 # Signals
