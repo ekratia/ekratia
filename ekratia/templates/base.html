@@ -65,7 +65,16 @@
                       <li><a href="{% url 'rules' %}">{% trans "Rules" %}</a></li>
                       {% if request.user.is_authenticated %}
                         <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>
-                        <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                          <img ng-src="{{request.user.get_avatar}}" alt="{{ request.user.full_name }}" width="25" class="img-circle">
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'users:detail' request.user.username %}">{% trans "Profile" %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+                          </ul>
+                        </li>
                       {% else %}
                         <li><a  class=""href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
                       {% endif %}
@@ -101,11 +110,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
-      <!-- Latest JQuery -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       {% compress js %}
       {% comment %}
       <script src="{% static 'js/main.js' %}"></script>
@@ -116,6 +120,7 @@
       <!-- Your stuff: Third-party javascript libraries go here -->
 
       <!-- place project specific Javascript in this file -->
+      <script src="{% static "dist/components.min.js" %}"></script>
 
       <!-- Plugin JavaScript -->
       <script src="{% static 'vendor/creative-theme/js/jquery.easing.min.js' %}"></script>
@@ -125,7 +130,6 @@
       <!-- Custom Theme JavaScript -->
       <script src="{% static 'vendor/creative-theme/js/creative.js' %}"></script>
 
-      <script src="{% static "dist/components.min.js" %}"></script>
       <script src="{% static "scripts/app.js" %}"></script>
       <script src="{% static "scripts/controllers/comment.js" %}"></script>
       <script src="{% static "scripts/controllers/conversation.js" %}"></script>

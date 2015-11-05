@@ -95,3 +95,16 @@ ol {
   border-color: #eed3d7;
 }
 
+
+// MENU
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: $color_vote_hover;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #fff;
+    background-color: $color_vote_hover;
+}
