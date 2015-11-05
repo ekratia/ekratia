@@ -53,6 +53,7 @@ LOCAL_APPS = (
     'ekratia.users',  # custom users app
     # Your stuff: custom apps go here
     # 'app_main' Old main app
+    'ekratia.core',
     'ekratia.threads',
     'ekratia.topics',
     'ekratia.delegates',
