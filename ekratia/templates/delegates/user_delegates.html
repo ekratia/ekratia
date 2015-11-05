@@ -2,15 +2,14 @@
 {% load i18n humanize %}
 {% block title %}{% trans "My Delegates" %}{% endblock title %}
 {% block content %}
-    <div ng-controller="DelegatesController" data-ng-init="loadDelegates()">
+    <div ng-controller="DelegatesController" data-ng-init="init({{ request.user.id }})">
         <span us-spinner="{radius:30, width:8, length: 16}"></span>
         <div class="row">
             <div class="col-md-12">
                 <h1>{% trans "My Delegates" %}</h1>
-
-                <small>{% trans "Because of your delegation, your vote value is: " %} <strong>{{ request.user.get_pagerank|floatformat:"2"|intcomma }}</strong></small>
-                <h2>{% trans "Your Current Delegates" %} {% verbatim %}({{ assigned_delegates.length }})</h2>
-                {% endverbatim %}
+                <small>{% trans "Because of your delegation, your vote value is: " %} {% verbatim %}<strong>{{ user.rank| number:2 }}</strong></small>
+                <h2>{% endverbatim %}{% trans "Your Current Delegates" %} {% verbatim %}({{ assigned_delegates.length }}){% endverbatim %}</h2>
+                
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="alert alert-warning alert-dismissible" role="alert" ng-hide="assigned_delegates.length>0">

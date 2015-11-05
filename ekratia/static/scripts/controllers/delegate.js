@@ -10,10 +10,17 @@
  */
 angular.module('Ekratia')
   .controller('DelegatesController',
-    ['$scope', 'AvailableDelegate', 'AssignedDelegate',
-    function ($scope, AvailableDelegate, AssignedDelegate) {
+    ['$scope', 'AvailableDelegate', 'AssignedDelegate', 'User',
+    function ($scope, AvailableDelegate, AssignedDelegate, User) {
         $scope.delegates = [];
         $scope.filter_name = '';
+        $scope.user = null;
+        $scope.current_user_id = null;
+
+        $scope.init = function(current_user_id){
+            $scope.current_user_id = current_user_id;
+            $scope.loadDelegates();
+        };
 
         $scope.loadDelegates = function(){
             $scope.loadAssignedDelegates();
@@ -23,6 +30,9 @@ angular.module('Ekratia')
         $scope.loadAssignedDelegates = function(){
             var data = AssignedDelegate.query(function(){
                 $scope.assigned_delegates = data;
+                var user_data = User.get({id:$scope.current_user_id},function(){
+                    $scope.user = user_data;
+                });
             });
         };
 
