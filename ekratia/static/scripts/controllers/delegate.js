@@ -37,6 +37,9 @@ angular.module('Ekratia')
                 $scope.assigned_delegates.push(user);
                 var idx = $scope.available_delegates.indexOf(user);
                 $scope.available_delegates.splice(idx,1);
+                // Needed to show new weight value
+                $scope.loadAssignedDelegates();
+                $scope.loadAvailableDelegates();
             });
 
         };
@@ -46,6 +49,9 @@ angular.module('Ekratia')
                 $scope.available_delegates.push(user);
                 var idx = $scope.assigned_delegates.indexOf(user);
                 $scope.assigned_delegates.splice(idx,1);
+                // Needed to show new weight value
+                $scope.loadAssignedDelegates();
+                $scope.loadAvailableDelegates();
             });
         };
 

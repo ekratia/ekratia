@@ -15,7 +15,7 @@ from ekratia.delegates.models import Delegate
 class User(AbstractUser):
 
     def __unicode__(self):
-        return self.username
+        return self.get_full_name_or_username()
 
     def get_data_dictionary(self):
         return {

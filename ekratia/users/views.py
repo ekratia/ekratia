@@ -8,6 +8,7 @@ from braces.views import LoginRequiredMixin
 
 from .forms import UserForm
 from .models import User
+from ekratia.delegates.models import Delegate
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -15,6 +16,17 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     # These next two lines tell the view to index lookups by username
     slug_field = "username"
     slug_url_kwarg = "username"
+
+    def get_context_data(self, **kwargs):
+        """
+        Insert the single object into the context dict.
+        """
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['delegaters'] = Delegate.objects.filter(
+            delegate=self.get_object()).prefetch_related('user')
+        context['delegateds'] = Delegate.objects.filter(
+            user=self.get_object()).prefetch_related('delegate')
+        return context
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):

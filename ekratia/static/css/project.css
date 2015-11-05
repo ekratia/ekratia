@@ -75,6 +75,9 @@ ul {
 .top20, .page-content {
   margin-top: 20px; }
 
+.top30 {
+  margin-top: 30px; }
+
 .text-strike {
   text-decoration: line-through; }
 
@@ -146,6 +149,15 @@ ol {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7; }
+
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: rgba(0, 102, 153, 0.7); }
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+  color: #fff;
+  background-color: rgba(0, 102, 153, 0.7); }
 
 .conversation-create-btn {
   margin-top: 24px; }

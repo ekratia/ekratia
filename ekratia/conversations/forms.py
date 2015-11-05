@@ -8,7 +8,7 @@ class ThreadForm(forms.ModelForm):
     """
     class Meta:
         model = Thread
-        exclude = ('user', 'slug',)
+        exclude = ('user', 'slug', 'comment', 'date')
 
     def __init__(self, *args, **kwargs):
         super(ThreadForm, self).__init__(*args, **kwargs)
