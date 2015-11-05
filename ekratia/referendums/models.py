@@ -12,6 +12,23 @@ from ekratia.threads.models import Comment
 import datetime
 
 
+class ReferendumVotesManager(models.Manager):
+    def open_votes(self, user, positive=True):
+        expiration_time = timezone.now() - datetime.timedelta(
+            hours=settings.REFERENDUM_EXPIRE_HOURS)
+        queryset = self.get_queryset()
+        queryset = queryset.filter(user=user)
+        queryset = queryset.filter(
+            referendum__open_time__isnull=False,
+            referendum__open_time__gt=expiration_time)
+        if positive:
+            queryset = queryset.filter(value__gt=0)
+        else:
+            queryset = queryset.filter(value__lt=0)
+
+        return queryset
+
+
 class Referendum(models.Model):
     """
     Referendum model:
@@ -90,7 +107,7 @@ class Referendum(models.Model):
 
     def get_num_positive_votes(self):
         """
-        Get positive votes
+        Returns total positive votes
         """
         votes = ReferendumUserVote.objects.filter(
             referendum=self,
@@ -99,7 +116,7 @@ class Referendum(models.Model):
 
     def get_num_negative_votes(self):
         """
-        Get negative votes
+        Return the total negative votes
         """
         votes = ReferendumUserVote.objects.filter(
             referendum=self,
@@ -107,15 +124,10 @@ class Referendum(models.Model):
         return -votes if votes else 0
 
     def get_total_votes_absolute(self):
+        """
+        Returns Total ov votes for the referendum
+        """
         return self.get_num_positive_votes() + self.get_num_negative_votes()
-
-    # def get_num_positive_votes_percentage(self):
-    #     """
-    #     Get positive votes percentage
-    #     """
-    #     votes = self.get_num_negative_votes()
-    #     total = self.get_total_votes_absolute()
-    #     return votes/total if total > 0 else 0
 
     def __unicode__(self):
         return self.title
@@ -147,3 +159,6 @@ class ReferendumUserVote(models.Model):
     referendum = models.ForeignKey(Referendum)
     value = models.FloatField(default=1)
     date = models.DateTimeField(default=timezone.now)
+
+    # Custom manager
+    objects = ReferendumVotesManager()

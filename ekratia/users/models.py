@@ -104,7 +104,20 @@ class User(AbstractUser):
         pagerank_values = nx.pagerank_numpy(graph)
         num_visited = len(visited)
         for user_id, rank in pagerank_values.iteritems():
-            User.objects.filter(pk=user_id).update(rank=rank*num_visited)
+            user = User.objects.get(pk=user_id)
+            new_rank = rank * num_visited
+            if user.rank != new_rank:
+                user.rank = new_rank
+                user.save()
 
         self.rank = pagerank_values[self.id]*num_visited
         return self.rank
+
+    def update_votes(self):
+        # Update Votes on Referendums
+        ReferendumUserVote.objects.open_votes(user=self, positive=True)\
+            .update(value=self.rank)
+        ReferendumUserVote.objects.open_votes(user=self, positive=False)\
+            .update(value=-self.rank)
+
+        # TODO: Update votes on comments
