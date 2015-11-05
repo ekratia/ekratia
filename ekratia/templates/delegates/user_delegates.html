@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-
-{% load i18n %}
+{% load i18n humanize %}
 {% block title %}{% trans "My Delegates" %}{% endblock title %}
 {% block content %}
     <div ng-controller="DelegatesController" data-ng-init="loadDelegates()">
@@ -9,7 +8,7 @@
             <div class="col-md-12">
                 <h1>{% trans "My Delegates" %}</h1>
 
-                
+                <small>{% trans "Because of your delegation, your vote value is: " %} <strong>{{ request.user.get_pagerank|floatformat:"2"|intcomma }}</strong></small>
                 <h2>{% trans "Your Current Delegates" %} {% verbatim %}({{ assigned_delegates.length }})</h2>
                 {% endverbatim %}
                 <div class="row">
@@ -27,7 +26,9 @@
                                 <div class="delegate-action color-red">
                                     <a href="" title="Undelegate" ng-click="undelegate(user)"><i class="fa fa-times-circle"></i></a>
                                 </div>
+                                <a href="/users/{{ user.username }}">
                                 <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
+                                </a>
                             </div>
                             <div class="caption">
                                 <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }}</h4>
@@ -61,8 +62,9 @@
                                 <div class="delegate-action">
                                     <a href="" title="Delegate User" ng-click="addDelegate(user)"><i class="fa fa-plus-circle"></i></a>
                                 </div>
-
+                                <a href="/users/{{ user.username }}">
                                 <img ng-src="{{ user.avatar }}" alt="{{ user.full_name | capitalize }}" width="75" class="img-circle">
+                                </a>
                             </div>
                             <div class="caption">
                                 <h4 title="{{ user.full_name | capitalize }}">{{ user.full_name | capitalize }} </h4>
