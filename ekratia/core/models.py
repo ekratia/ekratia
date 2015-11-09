@@ -6,12 +6,9 @@ from ekratia.users.models import User
 
 # Callback functions
 def process_model_saved(sender, instance, **kwargs):
-    print "post_save"
     if sender == Delegate:
-        print "Delgate created"
         instance.user.compute_pagerank()
     if sender == User:
-        print "User modified"
         instance.update_votes()
 
 
