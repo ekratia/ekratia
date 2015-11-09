@@ -29,9 +29,23 @@ class Referendum(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     open_time = models.DateTimeField(null=True, blank=True)
+
+    # Total Value of the Referndum
     points = models.FloatField(default=0)
 
+    # Total Values for Stats
+    total_yes = models.FloatField(default=0.0)
+    total_no = models.FloatField(default=0.0)
+    total_votes = models.FloatField(default=0.0)
+    total_users = models.IntegerField(default=0)
+
+    # True If approved, False if not approved, None not set yet
+    approved = models.NullBooleanField(null=True, blank=True)
+
+    # Comment thread
     comment = models.OneToOneField(Comment, null=True, blank=True)
+    # Rating due to the comments, used to establish trendy referendums
+    comment_points = models.FloatField(default=0.0)
 
     def is_open(self):
         """
@@ -112,6 +126,18 @@ class Referendum(models.Model):
         Returns Total ov votes for the referendum
         """
         return self.get_num_positive_votes() + self.get_num_negative_votes()
+
+    def update_totals(self):
+        """
+        Update totals in the Database
+        Returns the updated referendum
+        """
+        self.total_yes = self.get_num_positive_votes()
+        self.total_no = self.get_num_negative_votes()
+        self.total_votes = self.total_yes + self.total_no
+        self.total_users = self.get_count_votes()
+        self.save()
+        return self
 
     def __unicode__(self):
         return self.title
