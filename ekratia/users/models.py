@@ -12,6 +12,9 @@ import networkx as nx
 
 from ekratia.delegates.models import Delegate
 
+import logging
+logger = logging.getLogger('ekratia')
+
 
 class User(AbstractUser):
     rank = models.FloatField(default=0.0)
@@ -80,32 +83,35 @@ class User(AbstractUser):
         This will not be efficient in any manner, but should suffice
         until we need to optimize it with a better data structure.
         """
+
+        logger.debug("Calculate pagerank for %s" % self)
         graph = nx.DiGraph()
 
         visited, queue, user_ids = set(), [self.id], []
 
         if referendum:
-            user_ids = ReferendumUserVote.objects.\
-                        filter(referendum=referendum)\
-                        .exclude(user=self).values_list('user_id', flat=True)
+            logger.debug("Referendum: %s" % referendum.title)
+            user_ids = ReferendumUserVote.objects\
+                .filter(referendum=referendum)\
+                .exclude(user=self)\
+                .values_list('user_id', flat=True)
+            logger.debug("Users with votes: %s" % str(user_ids))
 
         while queue:
             current = queue.pop(0)
-            # if current in user_ids:
-            #     visited.add(current)
-            #     count_exclude_users += 1
-            #     continue
-
             if current not in visited:
                 graph.add_node(current)
-                delegates = Delegate.objects.filter(user__id=current)
+                logger.debug('Current to graph: %s' % current)
+
+                delegates = Delegate.objects\
+                    .filter(user__id=current).filter(delegate_id__in=user_ids)
                 for delegate in delegates:
                     graph.add_node(delegate.delegate.id)
                     graph.add_edge(current, delegate.delegate.id)
                     queue.append(delegate.delegate.id)
 
                 delegated_to_me = Delegate.objects\
-                    .filter(delegate__id=current).exclude(user_id__in=user_ids)
+                    .filter(delegate__id=current).filter(user_id__in=user_ids)
 
                 for delegate in delegated_to_me:
                     graph.add_node(delegate.user.id)
@@ -131,6 +137,7 @@ class User(AbstractUser):
             else:
                 user = User.objects.get(pk=user_id)
                 new_rank = rank * num_visited
+                logger.debug('New rank for %s: %s' % (user.username, new_rank))
                 if user.rank != new_rank:
                     user.rank = new_rank
                     user.save()
@@ -139,6 +146,8 @@ class User(AbstractUser):
             referendum.update_totals()
 
         self.rank = pagerank_values[self.id] * num_visited
+        if not referendum:
+            self.save()
         return self.rank
 
     def update_votes(self):

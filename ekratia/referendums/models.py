@@ -137,6 +137,7 @@ class Referendum(models.Model):
             self.total_no = self.get_num_negative_votes()
             self.total_votes = self.total_yes + self.total_no
             self.total_users = self.get_count_votes()
+            self.points = self.calculate_votes()
             self.save()
         return self
 
