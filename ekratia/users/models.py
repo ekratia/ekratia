@@ -55,7 +55,7 @@ class User(AbstractUser):
         """
         Calculates vote value depending on Delegates
         """
-        return self.get_pagerank()
+        return self.compute_pagerank(referendum)
 
     def get_vote_referendum(self, referendum):
         try:
@@ -74,7 +74,7 @@ class User(AbstractUser):
     def get_pagerank(self):
         return self.rank if self.rank > 0 else self.compute_pagerank()
 
-    def compute_pagerank(self):
+    def compute_pagerank(self, referendum=None):
         """
         Creates a graph and calculates the pagerank for this node.
         This will not be efficient in any manner, but should suffice
@@ -82,9 +82,20 @@ class User(AbstractUser):
         """
         graph = nx.DiGraph()
 
-        visited, queue = set(), [self.id]
+        visited, queue, user_ids = set(), [self.id], []
+
+        if referendum:
+            user_ids = ReferendumUserVote.objects.\
+                        filter(referendum=referendum)\
+                        .exclude(user=self).values_list('user_id', flat=True)
+
         while queue:
             current = queue.pop(0)
+            # if current in user_ids:
+            #     visited.add(current)
+            #     count_exclude_users += 1
+            #     continue
+
             if current not in visited:
                 graph.add_node(current)
                 delegates = Delegate.objects.filter(user__id=current)
@@ -93,7 +104,9 @@ class User(AbstractUser):
                     graph.add_edge(current, delegate.delegate.id)
                     queue.append(delegate.delegate.id)
 
-                delegated_to_me = Delegate.objects.filter(delegate__id=current)
+                delegated_to_me = Delegate.objects\
+                    .filter(delegate__id=current).exclude(user_id__in=user_ids)
+
                 for delegate in delegated_to_me:
                     graph.add_node(delegate.user.id)
                     graph.add_edge(delegate.user.id, current)
@@ -103,14 +116,29 @@ class User(AbstractUser):
 
         pagerank_values = nx.pagerank_numpy(graph)
         num_visited = len(visited)
-        for user_id, rank in pagerank_values.iteritems():
-            user = User.objects.get(pk=user_id)
-            new_rank = rank * num_visited
-            if user.rank != new_rank:
-                user.rank = new_rank
-                user.save()
 
-        self.rank = pagerank_values[self.id]*num_visited
+        # Update pagerank where necessary
+        for user_id, rank in pagerank_values.iteritems():
+            if referendum:
+                try:
+                    vote = ReferendumUserVote.objects.get(
+                            user_id=user_id,
+                            referendum=referendum)
+                    vote.value = rank if vote.value > 0 else -rank
+                    vote.save()
+                except ReferendumUserVote.DoesNotExist:
+                    pass
+            else:
+                user = User.objects.get(pk=user_id)
+                new_rank = rank * num_visited
+                if user.rank != new_rank:
+                    user.rank = new_rank
+                    user.save()
+
+        if referendum:
+            referendum.update_totals()
+
+        self.rank = pagerank_values[self.id] * num_visited
         return self.rank
 
     def update_votes(self):

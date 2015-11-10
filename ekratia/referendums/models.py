@@ -132,11 +132,12 @@ class Referendum(models.Model):
         Update totals in the Database
         Returns the updated referendum
         """
-        self.total_yes = self.get_num_positive_votes()
-        self.total_no = self.get_num_negative_votes()
-        self.total_votes = self.total_yes + self.total_no
-        self.total_users = self.get_count_votes()
-        self.save()
+        if self.is_open():
+            self.total_yes = self.get_num_positive_votes()
+            self.total_no = self.get_num_negative_votes()
+            self.total_votes = self.total_yes + self.total_no
+            self.total_users = self.get_count_votes()
+            self.save()
         return self
 
     def __unicode__(self):

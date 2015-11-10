@@ -1,4 +1,4 @@
 {% load i18n humanize percentage %}
-<strong>{% trans "Yes" %}:</strong> {{ object.get_num_positive_votes|floatformat:"2"|intcomma }} ({{ object.get_num_positive_votes|percentage:object.get_total_votes_absolute}})<br>
-<strong>{% trans "No" %}:</strong> {{ object.get_num_negative_votes|floatformat:"2"|intcomma }} ({{ object.get_num_negative_votes|percentage:object.get_total_votes_absolute}})<br>
-<strong>{% trans "Total" %}:</strong> {{ object.get_total_votes_absolute|floatformat:"2"|intcomma }} <br>
+<strong>{% trans "Yes" %}:</strong> {{ object.total_yes|floatformat:"2"|intcomma }} ({{ object.total_yes|percentage:object.total_votes}})<br>
+<strong>{% trans "No" %}:</strong> {{ object.total_no|floatformat:"2"|intcomma }} ({{ object.total_no|percentage:object.total_votes}})<br>
+<strong>{% trans "Total" %}:</strong> {{ object.total_votes|floatformat:"2"|intcomma }} <br>

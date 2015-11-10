@@ -74,6 +74,9 @@ class ReferendumDetailView(DetailView):
             # vote_count_for_referendum
             context['user_vote_value'] = self.request.user.\
                 vote_count_for_referendum(self.object)
+
+        context['object'] = self.object.update_totals()
+
         return context
 
 
