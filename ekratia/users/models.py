@@ -42,6 +42,18 @@ class User(AbstractUser):
         """
         return Delegate.objects.create(user=self, delegate=user)
 
+    def undelegate_to(self, user):
+        """
+        Creates a delegated user
+        Return the Delegate object
+        """
+        try:
+            delegate = Delegate.objects.get(user=self, delegate=user)
+            delegate.delete()
+        except Delegate.DoesNotExist:
+            return False
+        return True
+
     @property
     def get_avatar(self):
         """

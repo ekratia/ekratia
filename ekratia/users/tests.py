@@ -1,5 +1,6 @@
 from django.test import TestCase, RequestFactory, Client
 from ekratia.users.models import User
+from ekratia.users.models import Delegate
 
 import networkx as nx
 import logging
@@ -27,6 +28,16 @@ class UserTestCase(TestCase):
         self.assertEqual(self.user1.get_full_name_or_username, 'user1')
         self.assertEqual(
             self.user2.get_full_name_or_username, 'Andres Gonzalez')
+
+    def test_delegate_user(self):
+        delegate = self.user1.delegate_to(self.user2)
+        self.assertIsInstance(delegate, Delegate)
+
+    def test_undelegate_user(self):
+        self.user1.delegate_to(self.user2)
+        result = self.user1.undelegate_to(self.user2)
+        self.assertTrue(result)
+        self.assertFalse(Delegate.objects.filter(user=self.user1).exists())
 
 
 class UserGraphTestCase(TestCase):

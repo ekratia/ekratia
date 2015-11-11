@@ -1,3 +1,7 @@
+from django.test import TestCase
+from .graphs import get_graph_value
+
+import networkx as nx
 
 
 class GraphTestCase(TestCase):
@@ -34,17 +38,6 @@ class GraphTestCase(TestCase):
         G.add_edge(3, 1)
         G.add_edge(4, 1)
         G.add_edge(4, 2)
-        self.assertEqual(get_graph_value(G, 1), 2.5)
-        self.assertEqual(get_graph_value(G, 2), 1.5)
-        self.assertEqual(get_graph_value(G, 3), 1)
-        self.assertEqual(get_graph_value(G, 4), 1)
-
-    def test_graph_circular(self):
-        G = self.G
-        G.add_edge(3, 1)
-        G.add_edge(4, 1)
-        G.add_edge(4, 2)
-        G.add_edge(1, 4)
         self.assertEqual(get_graph_value(G, 1), 2.5)
         self.assertEqual(get_graph_value(G, 2), 1.5)
         self.assertEqual(get_graph_value(G, 3), 1)
