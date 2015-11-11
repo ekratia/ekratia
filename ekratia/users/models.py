@@ -11,6 +11,7 @@ from ekratia.referendums.models import ReferendumUserVote
 import networkx as nx
 
 from ekratia.delegates.models import Delegate
+from ekratia.core.graphs import get_graph_value
 
 import logging
 logger = logging.getLogger('ekratia')
@@ -23,6 +24,9 @@ class User(AbstractUser):
         return self.username
 
     def get_data_dictionary(self):
+        """
+        Return dictionary with basic information of the user
+        """
         return {
                 'id': self.id,
                 'username': self.username,
@@ -30,6 +34,13 @@ class User(AbstractUser):
                 'last_name': self.last_name,
                 'full_name': self.get_full_name(),
                }
+
+    def delegate_to(self, user):
+        """
+        Creates a delegated user
+        Return the Delegate object
+        """
+        return Delegate.objects.create(user=self, delegate=user)
 
     @property
     def get_avatar(self):
@@ -92,7 +103,7 @@ class User(AbstractUser):
         visited, queue = set(), [self.id]
         while queue:
             current = queue.pop(0)
-            logger.debug('Current to graph: %s' % current)
+            logger.debug('Current graph: %s' % current)
             if current not in visited:
                 graph.add_node(current)
                 delegates = Delegate.objects.filter(user__id=current)
@@ -150,7 +161,7 @@ class User(AbstractUser):
             current = queue.pop(0)
             if current not in visited:
                 graph.add_node(current)
-                logger.debug('Current to graph: %s' % current)
+                logger.debug('Current graph: %s' % current)
 
                 if current in user_ids:
                     count_missing_vote -= 1
@@ -223,3 +234,93 @@ class User(AbstractUser):
             .update(value=-self.rank)
 
         # TODO: Update votes on comments
+
+    def get_graph(self):
+        """
+        Creates a graph and calculates the pagerank for this node.
+        This will not be efficient in any manner, but should suffice
+        until we need to optimize it with a better data structure.
+        """
+        logger.debug("Get graph for %s" % self)
+        graph = nx.DiGraph()
+
+        visited, queue = set(), [self.id]
+        while queue:
+            current = queue.pop(0)
+            logger.debug('Current graph: %s' % current)
+            logger.debug('Visited: %s' % visited)
+            if current not in visited:
+                graph.add_node(current)
+                delegates = Delegate.objects.filter(user__id=current)
+                for delegate in delegates:
+                    graph.add_node(delegate.delegate.id)
+                    graph.add_edge(current, delegate.delegate.id)
+                    queue.append(delegate.delegate.id)
+
+                delegated_to_me = Delegate.objects.filter(delegate__id=current)
+                for delegate in delegated_to_me:
+                    graph.add_node(delegate.user.id)
+                    graph.add_edge(delegate.user.id, current)
+                    queue.append(delegate.user.id)
+                visited.add(current)
+            else:
+                logger.debug('Skipping Visited: %s' % current)
+
+            logger.debug('Edges: %s' % graph.edges())
+
+        return graph
+
+    def get_graph_referendum(self, referendum):
+        logger.debug("Get graph for %s and referendum " % (self, referendum))
+        graph = nx.DiGraph()
+
+        vote_user_ids = ReferendumUserVote.objects\
+            .filter(referendum=referendum)\
+            .exclude(user=self)\
+            .values_list('user_id', flat=True)
+        logger.debug("Users with votes: %s" % str(vote_user_ids))
+
+        visited, queue = set(), [self.id]
+        while queue:
+            current = queue.pop(0)
+            logger.debug('Current graph: %s' % current)
+            logger.debug('Visited: %s' % visited)
+            if current not in visited and current not in vote_user_ids:
+                graph.add_node(current)
+                delegates = Delegate.objects.filter(user__id=current)\
+                    .exclude(delegate_id__in=vote_user_ids)
+                for delegate in delegates:
+                    graph.add_node(delegate.delegate.id)
+                    graph.add_edge(current, delegate.delegate.id)
+                    queue.append(delegate.delegate.id)
+
+                delegated_to_me = Delegate.objects\
+                    .filter(delegate__id=current)\
+                    .exclude(user_id__in=vote_user_ids)
+                for delegate in delegated_to_me:
+                    graph.add_node(delegate.user.id)
+                    graph.add_edge(delegate.user.id, current)
+                    queue.append(delegate.user.id)
+                visited.add(current)
+            else:
+                logger.debug('Skipping Visited: %s' % current)
+
+            logger.debug('Edges: %s' % graph.edges())
+
+        return graph
+
+    def get_graph_value(self):
+        graph = self.get_graph()
+        return get_graph_value(graph, self.id)
+
+    def get_graph_pagerank(self):
+        graph = self.get_graph()
+        return nx.pagerank_numpy(graph)
+
+    def get_pagerank_value(self):
+        values = self.get_graph_pagerank()
+        return values[self.id] * len(values)
+
+    def get_hybridrank_value(self):
+        pagerank_values = self.get_graph_pagerank().values()
+        return sum(pagerank_values) * (len(pagerank_values) - 1)
