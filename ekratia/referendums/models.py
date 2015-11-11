@@ -141,6 +141,9 @@ class Referendum(models.Model):
             self.save()
         return self
 
+    def get_votes_list(self):
+        return ReferendumUserVote.objects.filter(referendum=self)
+
     def __unicode__(self):
         return self.title
 

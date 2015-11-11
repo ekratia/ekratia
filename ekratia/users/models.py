@@ -58,7 +58,7 @@ class User(AbstractUser):
         """
         Calculates vote value depending on Delegates
         """
-        return self.compute_pagerank(referendum)
+        return self.compute_pagerank_referendum(referendum)
 
     def get_vote_referendum(self, referendum):
         try:
@@ -77,17 +77,66 @@ class User(AbstractUser):
     def get_pagerank(self):
         return self.rank if self.rank > 0 else self.compute_pagerank()
 
-    def compute_pagerank(self, referendum=None):
+    def compute_pagerank(self):
+        rank, values = self.compute_pagerank_tuple()
+
+    def compute_pagerank_tuple(self):
         """
         Creates a graph and calculates the pagerank for this node.
         This will not be efficient in any manner, but should suffice
         until we need to optimize it with a better data structure.
         """
+        graph = nx.DiGraph()
+        logger.debug("Calculate pagerank for %s" % self)
 
+        visited, queue = set(), [self.id]
+        while queue:
+            current = queue.pop(0)
+            logger.debug('Current to graph: %s' % current)
+            if current not in visited:
+                graph.add_node(current)
+                delegates = Delegate.objects.filter(user__id=current)
+                for delegate in delegates:
+                    graph.add_node(delegate.delegate.id)
+                    graph.add_edge(current, delegate.delegate.id)
+                    queue.append(delegate.delegate.id)
+
+                delegated_to_me = Delegate.objects.filter(delegate__id=current)
+                for delegate in delegated_to_me:
+                    graph.add_node(delegate.user.id)
+                    graph.add_edge(delegate.user.id, current)
+                    queue.append(delegate.user.id)
+
+                visited.add(current)
+
+        pagerank_values = nx.pagerank_numpy(graph)
+        num_visited = len(visited)
+        for user_id, rank in pagerank_values.iteritems():
+            user = User.objects.get(pk=user_id)
+            new_rank = rank * num_visited
+            if user.rank != new_rank:
+                user.rank = new_rank
+                user.save()
+
+        self.rank = pagerank_values[self.id]*num_visited
+        return self.rank, pagerank_values
+
+    def compute_pagerank_referendum(self, referendum=None):
+        delegaters = Delegate.objects.filter(delegate=self)
+        user_ids = ReferendumUserVote.objects\
+            .filter(referendum=referendum)\
+            .exclude(user=self)\
+            .values_list('user_id', flat=True)
+        delegaters = delegaters.exclude(delegate_id__in=user_ids)
+        count_excluded_delegaters = delegaters.count()
+        rank, values = self.compute_pagerank_tuple()
+        return rank * (len(values) - count_excluded_delegaters + 1)
+
+    def compute_pagerank_referendum_2(self, referendum=None):
         logger.debug("Calculate pagerank for %s" % self)
         graph = nx.DiGraph()
 
-        visited, queue, user_ids = set(), [self.id], []
+        visited, queue, user_ids, count_missing_vote = set(), [self.id], [], 0
 
         if referendum:
             logger.debug("Referendum: %s" % referendum.title)
@@ -103,25 +152,41 @@ class User(AbstractUser):
                 graph.add_node(current)
                 logger.debug('Current to graph: %s' % current)
 
+                if current in user_ids:
+                    count_missing_vote -= 1
+
                 delegates = Delegate.objects\
-                    .filter(user__id=current).filter(delegate_id__in=user_ids)
+                    .filter(user__id=current)
                 for delegate in delegates:
-                    graph.add_node(delegate.delegate.id)
-                    graph.add_edge(current, delegate.delegate.id)
-                    queue.append(delegate.delegate.id)
+                    logger.debug("Current Delegate: %s" % delegate.delegate.id)
+                    if len(user_ids) > 0 and delegate.delegate.id in user_ids:
+                        count_missing_vote += 1
+                        logger.info("delegate in user_ids")
+                    else:
+                        graph.add_node(delegate.delegate.id)
+                        graph.add_edge(current, delegate.delegate.id)
+                        queue.append(delegate.delegate.id)
 
                 delegated_to_me = Delegate.objects\
-                    .filter(delegate__id=current).filter(user_id__in=user_ids)
+                    .filter(delegate__id=current)
 
                 for delegate in delegated_to_me:
-                    graph.add_node(delegate.user.id)
-                    graph.add_edge(delegate.user.id, current)
-                    queue.append(delegate.user.id)
+                    logger.debug("Current Delegated: %s" % delegate.user.id)
+                    if len(user_ids) > 0 and delegate.user.id in user_ids:
+                        count_missing_vote += 1
+                        logger.info("delegated_to_me in user_ids")
+                    else:
+                        graph.add_node(delegate.user.id)
+                        graph.add_edge(delegate.user.id, current)
+                        queue.append(delegate.user.id)
 
                 visited.add(current)
 
         pagerank_values = nx.pagerank_numpy(graph)
-        num_visited = len(visited)
+        num_visited = len(visited) + count_missing_vote
+
+        logger.debug("Pagerank values: %s" % str(pagerank_values))
+        logger.debug("Visited: %s" % num_visited)
 
         # Update pagerank where necessary
         for user_id, rank in pagerank_values.iteritems():
@@ -130,7 +195,8 @@ class User(AbstractUser):
                     vote = ReferendumUserVote.objects.get(
                             user_id=user_id,
                             referendum=referendum)
-                    vote.value = rank if vote.value > 0 else -rank
+                    rank_value = rank * num_visited
+                    vote.value = rank_value if vote.value > 0 else -rank_value
                     vote.save()
                 except ReferendumUserVote.DoesNotExist:
                     pass
@@ -144,7 +210,6 @@ class User(AbstractUser):
 
         if referendum:
             referendum.update_totals()
-
         self.rank = pagerank_values[self.id] * num_visited
         if not referendum:
             self.save()

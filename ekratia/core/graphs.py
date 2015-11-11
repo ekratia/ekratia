@@ -1,3 +1,4 @@
+import networkx as nx
 import logging
 logger = logging.getLogger('ekratia')
 
@@ -39,3 +40,4 @@ def get_graph_value(G, node):
                 compute_graph_total(G, node)
 
     return value
+

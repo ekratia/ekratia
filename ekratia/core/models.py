@@ -20,7 +20,8 @@ def process_model_saved(sender, instance, **kwargs):
 def process_model_deleted(sender, instance, **kwargs):
     logger.debug('process_model_deleted')
     if sender == Delegate:
-        logger.debug('Delegate Deleted signal by : %s' % instance.user.username)
+        logger.debug(
+            'Delegate Deleted signal by : %s' % instance.user.username)
         logger.debug('Delegate deleted : %s' % instance.delegate.username)
         instance.user.compute_pagerank()
         instance.delegate.compute_pagerank()
