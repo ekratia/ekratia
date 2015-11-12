@@ -20,3 +20,14 @@
         }
     }
 }
+
+div.referendum-list{
+    div.open{
+        a{
+            background-color: $color_list_element_highlighted;
+            &:hover{
+            background-color: $color_list_element_highlighted_hover;
+            }
+        }
+    }
+}

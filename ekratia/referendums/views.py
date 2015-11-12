@@ -1,11 +1,12 @@
-from django.views.generic import ListView, DetailView, CreateView, RedirectView
+from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import HttpResponseForbidden
-from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.utils.translation import ugettext as _
+from django.views.generic import ListView, DetailView, CreateView, RedirectView
 
 from braces.views import LoginRequiredMixin
 
@@ -13,8 +14,10 @@ from .models import Referendum, ReferendumUserVote
 from ekratia.threads.models import Comment
 from .forms import ReferendumForm, ReferendumCommentForm
 
-
+import logging
 import datetime
+
+logger = logging.getLogger('ekratia')
 
 
 class ReferendumListView(ListView):
@@ -74,6 +77,14 @@ class ReferendumDetailView(DetailView):
             # vote_count_for_referendum
             context['user_vote_value'] = self.request.user.\
                 vote_count_for_referendum(self.object)
+
+        context['object'] = self.object.update_totals()
+
+        if settings.DEBUG:
+            logger.debug("Vote details for %s" % self.object.title)
+            for vote in self.object.get_votes_list():
+                logger.debug("User: %s  Value: %s" % (vote.user, vote.value))
+
         return context
 
 
@@ -123,25 +134,36 @@ class ReferendumProcessVoteView(LoginRequiredMixin, RedirectView):
     pattern_name = 'referendums:detail'
 
     def get_redirect_url(self, *args, **kwargs):
+        logger.debug("Procesing Vote")
         referendum = get_object_or_404(Referendum, slug=kwargs['slug'])
 
-        # # Accepts yes or no
+        # Accepts yes or no
         vote_answer = kwargs['value']
 
+        logger.debug(
+            "Procesing Vote %s, Value %s" % (referendum.title, vote_answer))
+
         if vote_answer != 'yes' and vote_answer != 'no':
+            logger.error("Invalid Vote Value")
             raise Http404
 
         if referendum.is_open():
+            logger.debug("Referendum is open")
             # Get votes count based on delegates
             vote_count = self.request.user.\
-                            vote_count_for_referendum(referendum)
+                vote_count_for_referendum(referendum)
+
             # Positive or negative depending on answer
             vote_value = vote_count if vote_answer == 'yes' else -vote_count
+
             vote, created = ReferendumUserVote.objects.\
                 get_or_create(referendum=referendum, user=self.request.user)
             vote.value = vote_value
             vote.date = timezone.now()
             vote.save()
+            logger.debug(
+                'Current user(%s) vote value for referendum: %s'
+                % (self.request.user.username, vote.value))
 
             messages.success(self.request, _('We got your Vote. Thanks!'))
         else:

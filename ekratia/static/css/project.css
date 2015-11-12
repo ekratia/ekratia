@@ -179,7 +179,7 @@ div.threads div.comment-vote {
   font-size: x-large;
   padding: 0 15px; }
   div.threads div.comment-vote a {
-    color: #ccc; }
+    color: #c2c2c2; }
   div.threads div.comment-vote a.active {
     color: #006699; }
   div.threads div.comment-vote a:hover {
@@ -259,7 +259,7 @@ div.threads .referendum-rule-title {
 
 .vote-button {
   font-size: 60px;
-  color: #ccc; }
+  color: #c2c2c2; }
   .vote-button.up.active {
     color: #109D58; }
   .vote-button.up:hover {
@@ -268,3 +268,8 @@ div.threads .referendum-rule-title {
     color: #E11B22; }
   .vote-button.down:hover {
     color: #b3161b; }
+
+div.referendum-list div.open a {
+  background-color: rgba(0, 153, 153, 0.1); }
+  div.referendum-list div.open a:hover {
+    background-color: #e8e8e8; }

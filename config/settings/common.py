@@ -276,20 +276,45 @@ LOGGING = {
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
         }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '[%(levelname)s] %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'generic': {
+            'format': '%(asctime)s [%(process)d] [%(levelname)s] %(message)s',
+            # 'datefmt': '%Y-%m-%d %H:%M:%S',
+            'class': 'logging.Formatter',
+        },
+        'simple': {
+            'format': '[%(levelname)s] %(message)s'
+        },
     },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'generic',
+        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'ekratia': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
         },
     }
 }
