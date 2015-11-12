@@ -12,7 +12,11 @@ def process_model_saved(sender, instance, **kwargs):
     if sender == Delegate:
         logger.debug('Delegate Saved signal by : %s' % instance.user.username)
         logger.debug('Delegate added : %s' % instance.delegate.username)
+        # Updates Rank of User
         instance.delegate.compute_pagerank()
+        # Updates Votes across application
+        instance.delegate.update_votes()
+
     if sender == User:
         instance.update_votes()
 

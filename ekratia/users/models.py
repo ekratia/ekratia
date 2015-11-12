@@ -5,13 +5,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from avatar.util import get_primary_avatar
-
-from ekratia.referendums.models import ReferendumUserVote
-
 import networkx as nx
 
-from ekratia.delegates.models import Delegate
 from ekratia.core.graphs import get_graph_value
+from ekratia.delegates.models import Delegate
+from ekratia.referendums.models import Referendum, ReferendumUserVote
 
 import logging
 logger = logging.getLogger('ekratia')
@@ -81,7 +79,8 @@ class User(AbstractUser):
         """
         Calculates vote value depending on Delegates
         """
-        return self.compute_pagerank_referendum(referendum)
+        graph = self.get_graph_referendum(referendum)
+        return nx.pagerank_numpy(graph)[self.id]
 
     def get_vote_referendum(self, referendum):
         try:
@@ -101,7 +100,8 @@ class User(AbstractUser):
         return self.rank if self.rank > 0 else self.compute_pagerank()
 
     def compute_pagerank(self):
-        rank, values = self.compute_pagerank_tuple()
+        self.rank = self.get_pagerank_value()
+        self.save()
 
     def compute_pagerank_tuple(self):
         """
@@ -240,10 +240,13 @@ class User(AbstractUser):
 
     def update_votes(self):
         # Update Votes on Referendums
-        ReferendumUserVote.objects.open_votes(user=self, positive=True)\
-            .update(value=self.rank)
-        ReferendumUserVote.objects.open_votes(user=self, positive=False)\
-            .update(value=-self.rank)
+        referendum_ids = ReferendumUserVote.objects.open_votes(user=self)\
+            .values_list('referendum_id', flat=True)
+        referendums = Referendum.objects.filter(id__in=referendum_ids)
+
+        for referendum in referendums:
+            referendum.update_user_vote(self)
+
 
         # TODO: Update votes on comments
 
@@ -283,7 +286,7 @@ class User(AbstractUser):
         return graph
 
     def get_graph_referendum(self, referendum):
-        logger.debug("Get graph for %s and referendum " % (self, referendum))
+        logger.debug("Get graph for %s and referendum %s" % (self, referendum))
         graph = nx.DiGraph()
 
         vote_user_ids = ReferendumUserVote.objects\

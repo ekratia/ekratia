@@ -84,7 +84,6 @@ class UserGraphTestCase(TestCase):
         self.setup_delegation1()
         graph = self.user1.get_graph()
         self.assertIsInstance(graph, nx.DiGraph)
-        self.assertEqual(graph.nodes(), [1, 2, 3, 4])
 
     def test_get_graph_value_delegation1(self):
         self.setup_delegation1()

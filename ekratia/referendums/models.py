@@ -80,6 +80,21 @@ class Referendum(models.Model):
         return self.open_time\
             + datetime.timedelta(hours=settings.REFERENDUM_EXPIRE_HOURS)
 
+    def vote_process(self, user, value):
+        """
+        Processes a vote for the referendum
+        returns the vote object
+        """
+        if value != -1 and value != 1:
+            raise ValueError
+
+        vote, created = ReferendumUserVote.objects.get_or_create(
+                referendum=self,
+                user=user,
+                value=user.get_pagerank_value() * value
+            )
+        return vote, created
+
     def calculate_votes(self):
         """
         Calculates total votes based on ReferendumUserVote
@@ -143,6 +158,11 @@ class Referendum(models.Model):
 
     def get_votes_list(self):
         return ReferendumUserVote.objects.filter(referendum=self)
+
+    def update_user_vote(self, user):
+        user_vote_value = user.vote_count_for_referendum(self)
+        vote = ReferendumUserVote.objects.get(referendum=self, user=user)
+        vote.value = user_vote_value
 
     def __unicode__(self):
         return self.title

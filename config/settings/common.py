@@ -301,7 +301,6 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'console': {
-            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'generic',
         },
