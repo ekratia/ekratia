@@ -314,6 +314,7 @@ LOGGING = {
         'ekratia': {
             'handlers': ['console'],
             'level': 'DEBUG',
+            'filters': ['require_debug_true'],
         },
     }
 }

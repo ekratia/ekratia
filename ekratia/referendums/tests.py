@@ -74,7 +74,6 @@ class PagerankTestCase(TestCase):
     def setup_delegates_scenario1(self):
         self.user2.delegate_to(self.user1)
         self.user3.delegate_to(self.user1)
-        # logger.debug("user1 pagerank: %s" % self.user1.get_pagerank_value())
 
     def test_referendum_count_votes(self):
         self.setup_votes_scenario1()

@@ -47,6 +47,9 @@ class Referendum(models.Model):
     # Rating due to the comments, used to establish trendy referendums
     comment_points = models.FloatField(default=0.0)
 
+    class Meta:
+        ordering = ['open_time', '-date']
+
     def is_open(self):
         """
         Method to establish id Referendum is open for vote.
