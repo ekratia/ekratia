@@ -166,6 +166,7 @@ class Referendum(models.Model):
         user_vote_value = user.vote_count_for_referendum(self)
         vote = ReferendumUserVote.objects.get(referendum=self, user=user)
         vote.value = user_vote_value
+        vote.save()
 
     def __unicode__(self):
         return self.title

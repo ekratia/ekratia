@@ -176,8 +176,6 @@ class ReferendumVoteTestCase(TestCase):
         self.user3.delegate_to(self.user1)
 
 
-
-
 # get_total_votes_absolute
 class ReferendumsTestCase(TestCase):
     def setUp(self):
