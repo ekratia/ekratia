@@ -8,9 +8,9 @@
         <h1>{{ object.title }}</h1>
         <div class="referendums-head">
             <div class="referendum-rule-title top20">{% trans "Text that this referendum will remove from our rules" %}:</div>
-            <p ng-bind-html="'{{object.text_remove_rules }}' | nl2p"></p>
+            <p ng-bind-html="'{{object.text_remove_rules }}' | nl2p" class="text-strike"></p>
             <div  class="referendum-rule-title top20">{% trans "Text that this referendum will add to our rules" %}:</div>
-            <p ng-bind-html="'{{object.text_add_rules }}' | nl2p" class="text-strike"></p>
+            <p ng-bind-html="'{{object.text_add_rules }}' | nl2p" class=""></p>
         </div>
         {% if request.user.is_authenticated and request.user == object.user and not object.is_open and not object.open_time %}
         <div class="referendum-vote text-center top20">
