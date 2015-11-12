@@ -79,8 +79,28 @@ class User(AbstractUser):
         """
         Calculates vote value depending on Delegates
         """
-        graph = self.get_graph_referendum(referendum)
-        return nx.pagerank_numpy(graph)[self.id]
+        # My weight vote value
+        count = self.get_pagerank_value_referendum(referendum)
+
+        # value given by users that delegated to me
+        for user in self.get_users_delegated_to_me():
+            count = count + user.get_pagerank_value_referendum(referendum)
+
+        # value given by delegates
+        for user in self.get_users_delegated_by_me():
+            count = count + user.get_pagerank_value_referendum(referendum)
+
+        return count
+
+    def get_users_delegated_to_me(self):
+        return User.objects.filter(
+            id__in=Delegate.objects.filter(
+                delegate=self).values_list('user_id'))
+
+    def get_users_delegated_by_me(self):
+        return User.objects.filter(
+            id__in=Delegate.objects.filter(
+                user=self).values_list('user_id'))
 
     def get_vote_referendum(self, referendum):
         try:
@@ -335,6 +355,11 @@ class User(AbstractUser):
     def get_pagerank_value(self):
         values = self.get_graph_pagerank()
         return values[self.id] * len(values)
+
+    def get_pagerank_value_referendum(self, referendum):
+        graph = self.get_graph_referendum(referendum)
+        pagerank_values = nx.pagerank_numpy(graph)
+        return pagerank_values[self.id] * len(pagerank_values)
 
     def get_hybridrank_value(self):
         pagerank_values = self.get_graph_pagerank().values()
