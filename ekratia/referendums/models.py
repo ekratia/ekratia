@@ -29,9 +29,26 @@ class Referendum(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     open_time = models.DateTimeField(null=True, blank=True)
+
+    # Total Value of the Referndum
     points = models.FloatField(default=0)
 
+    # Total Values for Stats
+    total_yes = models.FloatField(default=0.0)
+    total_no = models.FloatField(default=0.0)
+    total_votes = models.FloatField(default=0.0)
+    total_users = models.IntegerField(default=0)
+
+    # True If approved, False if not approved, None not set yet
+    approved = models.NullBooleanField(null=True, blank=True)
+
+    # Comment thread
     comment = models.OneToOneField(Comment, null=True, blank=True)
+    # Rating due to the comments, used to establish trendy referendums
+    comment_points = models.FloatField(default=0.0)
+
+    class Meta:
+        ordering = ['open_time', '-date']
 
     def is_open(self):
         """
@@ -65,6 +82,21 @@ class Referendum(models.Model):
     def end_time(self):
         return self.open_time\
             + datetime.timedelta(hours=settings.REFERENDUM_EXPIRE_HOURS)
+
+    def vote_process(self, user, value):
+        """
+        Processes a vote for the referendum
+        returns the vote object
+        """
+        if value != -1 and value != 1:
+            raise ValueError
+
+        vote, created = ReferendumUserVote.objects.get_or_create(
+                referendum=self,
+                user=user,
+                value=user.get_pagerank_value() * value
+            )
+        return vote, created
 
     def calculate_votes(self):
         """
@@ -112,6 +144,28 @@ class Referendum(models.Model):
         Returns Total ov votes for the referendum
         """
         return self.get_num_positive_votes() + self.get_num_negative_votes()
+
+    def update_totals(self):
+        """
+        Update totals in the Database
+        Returns the updated referendum
+        """
+        if self.is_open():
+            self.total_yes = self.get_num_positive_votes()
+            self.total_no = self.get_num_negative_votes()
+            self.total_votes = self.total_yes + self.total_no
+            self.total_users = self.get_count_votes()
+            self.points = self.calculate_votes()
+            self.save()
+        return self
+
+    def get_votes_list(self):
+        return ReferendumUserVote.objects.filter(referendum=self)
+
+    def update_user_vote(self, user):
+        user_vote_value = user.vote_count_for_referendum(self)
+        vote = ReferendumUserVote.objects.get(referendum=self, user=user)
+        vote.value = user_vote_value
 
     def __unicode__(self):
         return self.title

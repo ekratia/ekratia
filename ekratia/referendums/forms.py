@@ -9,7 +9,8 @@ class ReferendumForm(forms.ModelForm):
     """
     class Meta:
         model = Referendum
-        exclude = ('user', 'slug', 'title', 'points')
+        # exclude = ('user', 'slug', 'title', 'points')
+        fields = ('text_remove_rules', 'text_add_rules')
 
     def __init__(self, *args, **kwargs):
         super(ReferendumForm, self).__init__(*args, **kwargs)

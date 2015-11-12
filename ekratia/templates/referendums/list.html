@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load i18n humanize %}
 {% block title %}{% trans "Referendums" %}{% endblock title %}
 {% block content %}
       
@@ -17,13 +17,35 @@
 	</div>
 
 
-	<div class="row page-content">
+	<div class="row page-content referendum-list">
 		<div class="col-xs-12">
   	{% for thread in object_list %}
-			
-			<div class="list-group">
-				<a href="{% url "referendums:detail" slug=thread.slug %}" class="list-group-item">{{ thread.title }}</a>
+  			{% if not thread.is_finished %}
+  			{# TODO: Filter by database. Add signals to update finished field when required #}
+			<div class="list-group {% if thread.is_open %}open{% endif %}">
+				<a href="{% url "referendums:detail" slug=thread.slug %}" class="list-group-item">
+				<div class="row">
+					<div class="col-sm-8">
+						{{ thread.title }}
+					</div>
+					<div class="col-sm-4 text-right">
+						{% if thread.is_open %}
+							<small>
+							<strong>{% trans "Open for voting" %}</strong>
+							<br>
+							{% trans "Expires in" %} <strong>{{ thread.end_time | naturaltime }}</strong></small>
+						{% else %}
+						<small>
+							{% trans "Created" %} {{ thread.date | naturaltime }}
+						</small>
+						{% endif %}
+					</div>
+				</div>
+
+				</a>
+
 			</div>
+  			{% endif %}
 
   	{% endfor %}
 		</div>
