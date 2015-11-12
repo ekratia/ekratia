@@ -1,5 +1,6 @@
 from django.test import TestCase, RequestFactory, Client
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 from ekratia.users.models import User
 from ekratia.delegates.models import Delegate
@@ -7,6 +8,52 @@ from ekratia.referendums.models import Referendum, ReferendumUserVote
 
 import logging
 logger = logging.getLogger('ekratia')
+
+
+class ReferendumViewsTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user1 = User.objects.create_user(
+            'user1', 'user@email.com', 'password')
+        self.user2 = User.objects.create_user(
+            'user2', 'user@email.com', 'password')
+        self.user3 = User.objects.create_user(
+            'user3', 'user@email.com', 'password')
+
+        self.referendum1 = Referendum.objects.create(
+            text_add_rules='add rules',
+            text_remove_rules='remove rules',
+            user=self.user1,
+            )
+
+        self.referendum2 = Referendum.objects.create(
+            text_add_rules='add rules 2',
+            text_remove_rules='remove rules 2',
+            user=self.user2,
+            open_time=timezone.now()
+            )
+
+        self.referendum3 = Referendum.objects.create(
+            text_add_rules='add rules 3',
+            text_remove_rules='remove rules 3',
+            user=self.user3,
+            )
+        self.referendum1.save()
+        self.referendum2.save()
+        self.referendum3.save()
+
+    def test_list_referendums(self):
+        response = self.client.get(reverse('referendums:list'))
+        self.assertEqual(response.status_code, 200)
+        object_list = response.context[-1]['object_list']
+        self.assertEqual(len(object_list), Referendum.objects.count())
+
+    def test_list_referendums_order(self):
+        response = self.client.get(reverse('referendums:list'))
+        object_list = response.context[-1]['object_list']
+        self.assertEqual(object_list[0], self.referendum2)
+        self.assertEqual(object_list[1], self.referendum3)
+        self.assertEqual(object_list[2], self.referendum1)
 
 
 class PagerankTestCase(TestCase):

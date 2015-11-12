@@ -171,6 +171,8 @@ class Referendum(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        if not self.title:
+            self.title = u'Referendum %s' % self.id
         if not self.slug:
             title = self.title
             self.slug = original_slug = slugify(title)
