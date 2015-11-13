@@ -32,7 +32,7 @@ django-autoslug==1.7.2
 # Time zones support
 pytz==2015.4
 
-django-extensions==1.5.5
+django-extensions==1.5.9
 
 # Your custom requirements go here
 django-discover-runner
