@@ -154,22 +154,22 @@ class ReferendumVoteTestCase(TestCase):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
         logger.debug("DELEGATE 1: %s" % self.user1.get_pagerank_value())
-        self.assertEqual(self.referendum.calculate_votes(), 1)
+        self.assertEqual(self.referendum.calculate_votes(), 3.0)
 
     def test_referendum_num_positive_votes(self):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
-        self.assertEqual(self.referendum.get_num_positive_votes(), 2)
+        self.assertEqual(self.referendum.get_num_positive_votes(), 4.0)
 
     def test_referendum_num_negative_votes(self):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
-        self.assertEqual(self.referendum.get_num_negative_votes(), 1)
+        self.assertEqual(self.referendum.get_num_negative_votes(), 1.0)
 
     def test_referendum_total_votes_absolute(self):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
-        self.assertEqual(self.referendum.get_total_votes_absolute(), 3)
+        self.assertEqual(self.referendum.get_total_votes_absolute(), 5.0)
 
     def setup_delegates_scenario2(self):
         self.user2.delegate_to(self.user1)
