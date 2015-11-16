@@ -139,31 +139,18 @@ class ReferendumProcessVoteView(LoginRequiredMixin, RedirectView):
 
         # Accepts yes or no
         vote_answer = kwargs['value']
+        if vote_answer != 'yes' and vote_answer != 'no':
+            logger.error("Invalid Vote Value")
+            raise Http404("Invalid Vote Value")
 
         logger.debug(
             "Procesing Vote %s, Value %s" % (referendum.title, vote_answer))
 
-        if vote_answer != 'yes' and vote_answer != 'no':
-            logger.error("Invalid Vote Value")
-            raise Http404
-
         if referendum.is_open():
             logger.debug("Referendum is open")
-            # Get votes count based on delegates
-            vote_count = self.request.user.\
-                vote_count_for_referendum(referendum)
-
             # Positive or negative depending on answer
-            vote_value = vote_count if vote_answer == 'yes' else -vote_count
-
-            vote, created = ReferendumUserVote.objects.\
-                get_or_create(referendum=referendum, user=self.request.user)
-            vote.value = vote_value
-            vote.date = timezone.now()
-            vote.save()
-            logger.debug(
-                'Current user(%s) vote value for referendum: %s'
-                % (self.request.user.username, vote.value))
+            vote_value = 1 if vote_answer == 'yes' else -1
+            referendum.vote_process(self.request.user, vote_value)
 
             messages.success(self.request, _('We got your Vote. Thanks!'))
         else:
