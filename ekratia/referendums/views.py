@@ -4,13 +4,12 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, DetailView, CreateView, RedirectView
 
 from braces.views import LoginRequiredMixin
 
-from .models import Referendum, ReferendumUserVote
+from .models import Referendum
 from ekratia.threads.models import Comment
 from .forms import ReferendumForm, ReferendumCommentForm
 
@@ -128,7 +127,7 @@ class ReferendumVoteView(LoginRequiredMixin, ReferendumDetailView):
 
 class ReferendumProcessVoteView(LoginRequiredMixin, RedirectView):
     """
-    Open Referendum and redirects back to Referendum
+    Process refrendum vote and redirects back to Referendum
     """
     permanent = False
     pattern_name = 'referendums:detail'
@@ -150,6 +149,9 @@ class ReferendumProcessVoteView(LoginRequiredMixin, RedirectView):
             logger.debug("Referendum is open")
             # Positive or negative depending on answer
             vote_value = 1 if vote_answer == 'yes' else -1
+            # Method receives (1 or -1).
+            # It already calculates the vote value depending on delegation
+            # and other referendum votes
             referendum.vote_process(self.request.user, vote_value)
 
             messages.success(self.request, _('We got your Vote. Thanks!'))
