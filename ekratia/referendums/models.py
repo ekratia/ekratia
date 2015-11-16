@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.db.models import Sum
+from django.core.exceptions import PermissionDenied
 
 from config.settings import common
 from django.conf import settings
@@ -11,6 +12,8 @@ from ekratia.threads.models import Comment
 
 from .managers import ReferendumVotesManager
 import datetime
+import logging
+logger = logging.getLogger('ekratia')
 
 
 class Referendum(models.Model):
@@ -91,12 +94,46 @@ class Referendum(models.Model):
         if value != -1 and value != 1:
             raise ValueError
 
+        if not self.is_open():
+            raise PermissionDenied("Referendum is not Open for voting")
+
         vote, created = ReferendumUserVote.objects.get_or_create(
                 referendum=self,
-                user=user,
-                value=user.get_pagerank_value() * value
+                user=user
             )
+        vote_deleted = False
+        if not created:
+            # If the vote is the same: Delete it
+            if (value < 0 and vote.value < 0)\
+                    or (value > 0 and vote.value > 0):
+                vote.delete()
+                vote_deleted = True
+                self.update_user_vote(user)
+        if not vote_deleted:
+            vote.value = user.get_pagerank_value_referendum(self) * value
+            vote.save()
+
+        # Update other vote values that got affected
+        affected_users = self.get_users_with_votes_on_referendum(
+            exclude_user=user)
+        for affected_user in affected_users:
+            logger.debug("Update user vote: %s" % affected_user)
+            self.update_user_vote(affected_user)
+
+        self.update_totals()
         return vote, created
+
+    def get_users_with_votes_on_referendum(self, exclude_user=None):
+        from ekratia.users.models import User
+        queryset = User.objects.filter(
+            id__in=ReferendumUserVote.objects
+                                     .open_votes()
+                                     .filter(referendum=self)
+                                     .values_list('user_id'))
+        if exclude_user:
+            queryset = queryset.exclude(id=exclude_user.id)
+
+        return queryset
 
     def calculate_votes(self):
         """
@@ -164,9 +201,12 @@ class Referendum(models.Model):
 
     def update_user_vote(self, user):
         user_vote_value = user.vote_count_for_referendum(self)
-        vote = ReferendumUserVote.objects.get(referendum=self, user=user)
-        vote.value = user_vote_value
-        vote.save()
+        try:
+            vote = ReferendumUserVote.objects.get(referendum=self, user=user)
+            vote.value = user_vote_value
+            vote.save()
+        except ReferendumUserVote.DoesNotExist:
+            logger.debug("No Votes to update")
 
     def __unicode__(self):
         return self.title

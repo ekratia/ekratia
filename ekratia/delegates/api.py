@@ -23,17 +23,12 @@ class AssignedDelegates(mixins.ListModelMixin, generics.GenericAPIView):
         return self.list(request, *args, **kwargs)
 
     def get_queryset(self):
-        return User.objects.filter(
-                    id__in=Delegate.objects.filter(user=self.request.user)
-                           .values_list('delegate_id'))
+        return self.request.user.get_users_delegated_by_me()
 
     def post(self, request):
         serializer = UserDelegateSerializer(data=request.data)
-
         if(serializer.is_valid()):
-            delegate, created = Delegate.objects.get_or_create(
-                delegate_id=serializer.data['delegate'],
-                user_id=request.user.id)
+            request.user.delegate_to(serializer.data['delegate'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,
@@ -52,16 +47,8 @@ class AvailableDelegates(generics.ListAPIView):
         Lists the users of the system
         name: Optional name to filter the user
         """
-        queryset = User.objects.exclude(
-                        id__in=Delegate.objects.filter(
-                            user_id=self.request.user.id)
-                        .values_list('delegate_id'))\
-                       .exclude(id=self.request.user.id)
-
         name = self.request.query_params.get('name', None)
-        if name is not None:
-            queryset = queryset.filter(username__icontains=name)
-        return queryset
+        return self.request.user.get_available_delegates(name)
 
 
 class UserDelegateDetail(generics.GenericAPIView):
@@ -92,5 +79,6 @@ class UserDelegateDetail(generics.GenericAPIView):
         except Http404:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        delegate.delete()
+        request.user.undelegate_to(delegate.delegate)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
