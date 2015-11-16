@@ -33,6 +33,26 @@ class User(AbstractUser):
                 'full_name': self.get_full_name(),
                }
 
+    def get_available_delegates(self, name=None):
+        queryset = User.objects.exclude(
+                                id__in=Delegate.objects.filter(
+                                    user_id=self.id)
+                                .values_list('delegate_id'))\
+                               .exclude(id=self.id)
+        if name is not None:
+            queryset = queryset.filter(username__icontains=name)
+        return queryset
+
+    def get_users_delegated_to_me(self):
+        return User.objects.filter(
+            id__in=Delegate.objects.filter(
+                delegate=self).values_list('user_id'))
+
+    def get_users_delegated_by_me(self):
+        return User.objects.filter(
+            id__in=Delegate.objects.filter(
+                user=self).values_list('delegate_id'))
+
     def delegate_to(self, user):
         """
         Creates a delegated user
@@ -107,16 +127,6 @@ class User(AbstractUser):
             count = count + user.get_pagerank_value_referendum(referendum)
 
         return count
-
-    def get_users_delegated_to_me(self):
-        return User.objects.filter(
-            id__in=Delegate.objects.filter(
-                delegate=self).values_list('user_id'))
-
-    def get_users_delegated_by_me(self):
-        return User.objects.filter(
-            id__in=Delegate.objects.filter(
-                user=self).values_list('user_id'))
 
     def get_vote_referendum(self, referendum):
         try:
