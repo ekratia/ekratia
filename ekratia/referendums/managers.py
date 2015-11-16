@@ -5,11 +5,12 @@ import datetime
 
 
 class ReferendumVotesManager(models.Manager):
-    def open_votes(self, user, positive=True):
+    def open_votes(self, user=None, positive=True):
         expiration_time = timezone.now() - datetime.timedelta(
             hours=settings.REFERENDUM_EXPIRE_HOURS)
         queryset = self.get_queryset()
-        queryset = queryset.filter(user=user)
+        if user:
+            queryset = queryset.filter(user=user)
         queryset = queryset.filter(
             referendum__open_time__isnull=False,
             referendum__open_time__gt=expiration_time)

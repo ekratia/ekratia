@@ -11,6 +11,8 @@ from ekratia.threads.models import Comment
 
 from .managers import ReferendumVotesManager
 import datetime
+import logging
+logger = logging.getLogger('ekratia')
 
 
 class Referendum(models.Model):
@@ -97,7 +99,26 @@ class Referendum(models.Model):
             )
         vote.value = user.get_pagerank_value_referendum(self) * value
         vote.save()
+
+        # Update other vote values that got affected
+        affected_users = self.get_users_with_votes_on_referendum(
+            exclude_user=user)
+        for affected_user in affected_users:
+            logger.debug("Update user vote: %s" % affected_user)
+            self.update_user_vote(affected_user)
         return vote, created
+
+    def get_users_with_votes_on_referendum(self, exclude_user=None):
+        from ekratia.users.models import User
+        queryset = User.objects.filter(
+            id__in=ReferendumUserVote.objects
+                                     .open_votes()
+                                     .filter(referendum=self)
+                                     .values_list('user_id'))
+        if exclude_user:
+            queryset = queryset.exclude(id=exclude_user.id)
+
+        return queryset
 
     def calculate_votes(self):
         """
@@ -204,4 +225,3 @@ class ReferendumUserVote(models.Model):
 
     # Custom manager
     objects = ReferendumVotesManager()
-
