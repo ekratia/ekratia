@@ -44,15 +44,18 @@ class ReferendumViewsTestCase(TestCase):
     def test_list_referendums(self):
         response = self.client.get(reverse('referendums:list'))
         self.assertEqual(response.status_code, 200)
-        object_list = response.context[-1]['object_list']
-        self.assertEqual(len(object_list), Referendum.objects.count())
+        referendums_open = response.context[-1]['referendums_open']
+        referendums_created = response.context[-1]['referendums_created']
+        self.assertEqual(len(referendums_open),
+                         Referendum.objects.open().count())
+        self.assertEqual(len(referendums_created),
+                         Referendum.objects.created().count())
 
     def test_list_referendums_order(self):
         response = self.client.get(reverse('referendums:list'))
-        object_list = response.context[-1]['object_list']
-        self.assertEqual(object_list[0], self.referendum2)
-        self.assertEqual(object_list[1], self.referendum3)
-        self.assertEqual(object_list[2], self.referendum1)
+        referendums_created = response.context[-1]['referendums_created']
+        self.assertEqual(referendums_created[0], self.referendum3)
+        self.assertEqual(referendums_created[1], self.referendum1)
 
 
 class ReferendumVoteTestCase(TestCase):
