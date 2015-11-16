@@ -76,16 +76,10 @@ class ReferendumVoteTestCase(TestCase):
             open_time=timezone.now()
             )
 
-    def test_process_vote(self):
-        vote, created = self.referendum.vote_process(self.user1, 1)
-        self.assertIsInstance(vote, ReferendumUserVote)
-        with self.assertRaises(ValueError):
-            vote = self.referendum.vote_process(self.user1, 100)
-
     def setup_votes_scenario1(self):
         self.referendum.vote_process(self.user1, 1)
-        self.referendum.vote_process(self.user2, -1)
         self.referendum.vote_process(self.user3, 1)
+        self.referendum.vote_process(self.user2, -1)
 
     def setup_votes_scenario2(self):
         self.referendum.vote_process(self.user1, 1)
@@ -109,9 +103,9 @@ class ReferendumVoteTestCase(TestCase):
         user3_vote_value = self.user3\
             .vote_count_for_referendum(self.referendum)
 
-        self.assertEqual(round(user1_vote_value, 1), 3.0)
-        self.assertEqual(round(user2_vote_value, 1), 1.3)
-        self.assertEqual(round(user3_vote_value, 1), 1.3)
+        self.assertEqual(round(user1_vote_value, 1), 1.7)
+        self.assertEqual(round(user2_vote_value, 1), 0.6)
+        self.assertEqual(round(user3_vote_value, 1), 0.6)
 
     def test_referendum_vote_value_scenario1_1(self):
         # Delegation 1 - Votes 1
@@ -125,9 +119,9 @@ class ReferendumVoteTestCase(TestCase):
         user3_vote_value = self.user3\
             .vote_count_for_referendum(self.referendum)
 
-        self.assertEqual(user1_vote_value, 3.0)
-        self.assertEqual(user2_vote_value, 2.0)
-        self.assertEqual(user3_vote_value, 2.0)
+        self.assertEqual(user1_vote_value, 1.0)
+        self.assertEqual(user2_vote_value, 1.0)
+        self.assertEqual(user3_vote_value, 1.0)
 
     def test_referendum_vote_value_scenario1_2(self):
         # Delegation 1 - Vote 1
@@ -141,9 +135,9 @@ class ReferendumVoteTestCase(TestCase):
         user3_vote_value = self.user3\
             .vote_count_for_referendum(self.referendum)
 
-        self.assertEqual(user1_vote_value, 3.0)
-        self.assertEqual(user2_vote_value, 2.0)
-        self.assertEqual(user3_vote_value, 2.0)
+        self.assertEqual(user1_vote_value, 1.0)
+        self.assertEqual(user2_vote_value, 1.0)
+        self.assertEqual(user3_vote_value, 1.0)
 
     def test_referendum_count_votes(self):
         self.setup_votes_scenario1()
@@ -154,22 +148,22 @@ class ReferendumVoteTestCase(TestCase):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
         logger.debug("DELEGATE 1: %s" % self.user1.get_pagerank_value())
-        self.assertEqual(self.referendum.calculate_votes(), 1)
+        self.assertEqual(self.referendum.calculate_votes(), 3.0)
 
     def test_referendum_num_positive_votes(self):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
-        self.assertEqual(self.referendum.get_num_positive_votes(), 2)
+        self.assertEqual(self.referendum.get_num_positive_votes(), 3.0)
 
     def test_referendum_num_negative_votes(self):
-        self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
-        self.assertEqual(self.referendum.get_num_negative_votes(), 1)
+        self.setup_votes_scenario1()
+        self.assertEqual(self.referendum.get_num_negative_votes(), 1.0)
 
     def test_referendum_total_votes_absolute(self):
         self.setup_votes_scenario1()
         self.setup_delegates_scenario1()
-        self.assertEqual(self.referendum.get_total_votes_absolute(), 3)
+        self.assertEqual(self.referendum.get_total_votes_absolute(), 3.0)
 
     def setup_delegates_scenario2(self):
         self.user2.delegate_to(self.user1)

@@ -7,7 +7,7 @@ from django.db import models
 from avatar.util import get_primary_avatar
 import networkx as nx
 
-from ekratia.core.graphs import get_graph_value
+from ekratia.core import graphs
 from ekratia.delegates.models import Delegate
 from ekratia.referendums.models import Referendum, ReferendumUserVote
 
@@ -33,18 +33,56 @@ class User(AbstractUser):
                 'full_name': self.get_full_name(),
                }
 
+    def get_available_delegates(self, name=None):
+        queryset = User.objects.exclude(
+                                id__in=Delegate.objects.filter(
+                                    user_id=self.id)
+                                .values_list('delegate_id'))\
+                               .exclude(id=self.id)
+        if name is not None:
+            queryset = queryset.filter(username__icontains=name)
+        return queryset
+
+    def get_users_delegated_to_me(self):
+        return User.objects.filter(
+            id__in=Delegate.objects.filter(
+                delegate=self).values_list('user_id'))
+
+    def get_users_delegated_by_me(self):
+        return User.objects.filter(
+            id__in=Delegate.objects.filter(
+                user=self).values_list('delegate_id'))
+
     def delegate_to(self, user):
         """
         Creates a delegated user
         Return the Delegate object
         """
+        if isinstance(user, int):
+            try:
+                user = User.objects.get(id=user)
+            except User.DoesNotExist:
+                raise ValueError("User not found")
+        elif not isinstance(user, User):
+            raise ValueError("Not an User instance")
+        elif self == user:
+            raise ValueError("User can not delegate itself")
+
         return Delegate.objects.create(user=self, delegate=user)
 
     def undelegate_to(self, user):
         """
-        Creates a delegated user
-        Return the Delegate object
+        Undelegate an user
+        Returns True if success
         """
+        if isinstance(user, int):
+            try:
+                user = User.objects.get(id=user)
+            except User.DoesNotExist:
+                raise ValueError("User not found")
+        elif not isinstance(user, User):
+            raise ValueError("Not an User instance")
+
         try:
             delegate = Delegate.objects.get(user=self, delegate=user)
             delegate.delete()
@@ -82,25 +120,15 @@ class User(AbstractUser):
         # My weight vote value
         count = self.get_pagerank_value_referendum(referendum)
 
-        # value given by users that delegated to me
-        for user in self.get_users_delegated_to_me():
-            count = count + user.get_pagerank_value_referendum(referendum)
+        # # value given by users that delegated to me
+        # for user in self.get_users_delegated_to_me():
+        #     count = count + user.get_pagerank_value_referendum(referendum)
 
-        # value given by delegates
-        for user in self.get_users_delegated_by_me():
-            count = count + user.get_pagerank_value_referendum(referendum)
+        # # value given by delegates
+        # for user in self.get_users_delegated_by_me():
+        #     count = count + user.get_pagerank_value_referendum(referendum)
 
         return count
-
-    def get_users_delegated_to_me(self):
-        return User.objects.filter(
-            id__in=Delegate.objects.filter(
-                delegate=self).values_list('user_id'))
-
-    def get_users_delegated_by_me(self):
-        return User.objects.filter(
-            id__in=Delegate.objects.filter(
-                user=self).values_list('user_id'))
 
     def get_vote_referendum(self, referendum):
         try:
@@ -346,7 +374,7 @@ class User(AbstractUser):
 
     def get_graph_value(self):
         graph = self.get_graph()
-        return get_graph_value(graph, self.id)
+        return graphs.get_graph_value(graph, self.id)
 
     def get_graph_pagerank(self):
         graph = self.get_graph()
@@ -356,10 +384,18 @@ class User(AbstractUser):
         values = self.get_graph_pagerank()
         return values[self.id] * len(values)
 
+    # def get_pagerank_value(self):
+    #     graph = self.get_graph()
+    #     return 1 + graphs.count_total_predecessors(graph, self.id)
+
     def get_pagerank_value_referendum(self, referendum):
         graph = self.get_graph_referendum(referendum)
         pagerank_values = nx.pagerank_numpy(graph)
         return pagerank_values[self.id] * len(pagerank_values)
+
+    # def get_pagerank_value_referendum(self, referendum):
+    #     graph = self.get_graph_referendum(referendum)
+    #     return 1 + graphs.count_total_predecessors(graph, self.id)
 
     def get_hybridrank_value(self):
         pagerank_values = self.get_graph_pagerank().values()
