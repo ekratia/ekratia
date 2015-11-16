@@ -7,7 +7,7 @@ from django.db import models
 from avatar.util import get_primary_avatar
 import networkx as nx
 
-from ekratia.core.graphs import get_graph_value
+from ekratia.core import graphs
 from ekratia.delegates.models import Delegate
 from ekratia.referendums.models import Referendum, ReferendumUserVote
 
@@ -38,13 +38,29 @@ class User(AbstractUser):
         Creates a delegated user
         Return the Delegate object
         """
+        if isinstance(user, int):
+            try:
+                user = User.objects.get(id=user)
+            except User.DoesNotExist:
+                raise ValueError
+        elif not isinstance(user, User):
+            raise ValueError
+
         return Delegate.objects.create(user=self, delegate=user)
 
     def undelegate_to(self, user):
         """
-        Creates a delegated user
-        Return the Delegate object
+        Undelegate an user
+        Returns True if success
         """
+        if isinstance(user, int):
+            try:
+                user = User.objects.get(id=user)
+            except User.DoesNotExist:
+                raise ValueError
+        elif not isinstance(user, User):
+            raise ValueError
+
         try:
             delegate = Delegate.objects.get(user=self, delegate=user)
             delegate.delete()
@@ -346,20 +362,28 @@ class User(AbstractUser):
 
     def get_graph_value(self):
         graph = self.get_graph()
-        return get_graph_value(graph, self.id)
+        return graphs.get_graph_value(graph, self.id)
 
     def get_graph_pagerank(self):
         graph = self.get_graph()
         return nx.pagerank_numpy(graph)
 
+    # def get_pagerank_value(self):
+        # values = self.get_graph_pagerank()
+        # return values[self.id] * len(values)
+
     def get_pagerank_value(self):
-        values = self.get_graph_pagerank()
-        return values[self.id] * len(values)
+        graph = self.get_graph()
+        return 1 + graphs.count_total_predecessors(graph, self.id)
+
+    # def get_pagerank_value_referendum(self, referendum):
+    #     graph = self.get_graph_referendum(referendum)
+    #     pagerank_values = nx.pagerank_numpy(graph)
+    #     return pagerank_values[self.id] * len(pagerank_values)
 
     def get_pagerank_value_referendum(self, referendum):
         graph = self.get_graph_referendum(referendum)
-        pagerank_values = nx.pagerank_numpy(graph)
-        return pagerank_values[self.id] * len(pagerank_values)
+        return 1 + graphs.count_total_predecessors(graph, self.id)
 
     def get_hybridrank_value(self):
         pagerank_values = self.get_graph_pagerank().values()
