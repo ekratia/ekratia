@@ -56,7 +56,7 @@ class GraphPagerankCase(TestCase):
         G.add_node(3)
         G.add_edge(2, 1)
         G.add_edge(3, 1)
-        self.assertEqual(graphs.graph_pagerank_node_value(G, 1), 3.0)
+        self.assertEqual(round(graphs.graph_pagerank_node_value(G, 1), 1), 3.0)
 
     def test_graph_1(self):
         G = self.G
