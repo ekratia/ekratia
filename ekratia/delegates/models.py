@@ -13,10 +13,5 @@ class Delegate(models.Model):
                               MinValueValidator(0.0),
                               MaxValueValidator(1.0)], default=0.0)
 
-    @staticmethod
-    def delegates(user_id):
-        return Delegate.objects.filter(user=user_id)
-
-    @staticmethod
-    def topic_delegates(user_id, topic_id):
-        return Delegate.objects.filter(user=user_id, topic_id=topic_id)
+    def __unicode__(self):
+        return "%s delegates to %s" % (self.user, self.delegate)

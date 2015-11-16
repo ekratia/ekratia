@@ -62,9 +62,11 @@ class User(AbstractUser):
             try:
                 user = User.objects.get(id=user)
             except User.DoesNotExist:
-                raise ValueError
+                raise ValueError("User not found")
         elif not isinstance(user, User):
-            raise ValueError
+            raise ValueError("Not an User instance")
+        elif self == user:
+            raise ValueError("User can not delegate itself")
 
         return Delegate.objects.create(user=self, delegate=user)
 
@@ -77,9 +79,9 @@ class User(AbstractUser):
             try:
                 user = User.objects.get(id=user)
             except User.DoesNotExist:
-                raise ValueError
+                raise ValueError("User not found")
         elif not isinstance(user, User):
-            raise ValueError
+            raise ValueError("Not an User instance")
 
         try:
             delegate = Delegate.objects.get(user=self, delegate=user)
@@ -118,13 +120,13 @@ class User(AbstractUser):
         # My weight vote value
         count = self.get_pagerank_value_referendum(referendum)
 
-        # value given by users that delegated to me
-        for user in self.get_users_delegated_to_me():
-            count = count + user.get_pagerank_value_referendum(referendum)
+        # # value given by users that delegated to me
+        # for user in self.get_users_delegated_to_me():
+        #     count = count + user.get_pagerank_value_referendum(referendum)
 
-        # value given by delegates
-        for user in self.get_users_delegated_by_me():
-            count = count + user.get_pagerank_value_referendum(referendum)
+        # # value given by delegates
+        # for user in self.get_users_delegated_by_me():
+        #     count = count + user.get_pagerank_value_referendum(referendum)
 
         return count
 
@@ -378,22 +380,22 @@ class User(AbstractUser):
         graph = self.get_graph()
         return nx.pagerank_numpy(graph)
 
-    # def get_pagerank_value(self):
-        # values = self.get_graph_pagerank()
-        # return values[self.id] * len(values)
-
     def get_pagerank_value(self):
-        graph = self.get_graph()
-        return 1 + graphs.count_total_predecessors(graph, self.id)
+        values = self.get_graph_pagerank()
+        return values[self.id] * len(values)
 
-    # def get_pagerank_value_referendum(self, referendum):
-    #     graph = self.get_graph_referendum(referendum)
-    #     pagerank_values = nx.pagerank_numpy(graph)
-    #     return pagerank_values[self.id] * len(pagerank_values)
+    # def get_pagerank_value(self):
+    #     graph = self.get_graph()
+    #     return 1 + graphs.count_total_predecessors(graph, self.id)
 
     def get_pagerank_value_referendum(self, referendum):
         graph = self.get_graph_referendum(referendum)
-        return 1 + graphs.count_total_predecessors(graph, self.id)
+        pagerank_values = nx.pagerank_numpy(graph)
+        return pagerank_values[self.id] * len(pagerank_values)
+
+    # def get_pagerank_value_referendum(self, referendum):
+    #     graph = self.get_graph_referendum(referendum)
+    #     return 1 + graphs.count_total_predecessors(graph, self.id)
 
     def get_hybridrank_value(self):
         pagerank_values = self.get_graph_pagerank().values()

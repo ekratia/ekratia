@@ -93,9 +93,10 @@ class Referendum(models.Model):
 
         vote, created = ReferendumUserVote.objects.get_or_create(
                 referendum=self,
-                user=user,
-                value=user.get_pagerank_value() * value
+                user=user
             )
+        vote.value = user.get_pagerank_value_referendum(self) * value
+        vote.save()
         return vote, created
 
     def calculate_votes(self):
@@ -203,3 +204,4 @@ class ReferendumUserVote(models.Model):
 
     # Custom manager
     objects = ReferendumVotesManager()
+

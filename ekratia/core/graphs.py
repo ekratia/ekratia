@@ -59,7 +59,7 @@ def count_total_predecessors(G, node, visited=None):
         visited = []
     logger.debug("On: %s" % node)
     logger.debug("Visited: %s" % visited)
-    count = 0
+    count = 0.0
     visited.append(node)
     for subnode in predecessors_not_visited(G, node, visited):
         count += 1.0 + count_total_predecessors(G, subnode, visited)\
