@@ -10,7 +10,7 @@ from config.settings import common
 from django.conf import settings
 from ekratia.threads.models import Comment
 
-from .managers import ReferendumVotesManager
+from .managers import ReferendumVotesManager, ReferendumManager
 import datetime
 import logging
 logger = logging.getLogger('ekratia')
@@ -49,6 +49,11 @@ class Referendum(models.Model):
     comment = models.OneToOneField(Comment, null=True, blank=True)
     # Rating due to the comments, used to establish trendy referendums
     comment_points = models.FloatField(default=0.0)
+
+    # Options: created, open, finished
+    # status = models.CharField(max_length=10, default='created')
+
+    objects = ReferendumManager()
 
     class Meta:
         ordering = ['open_time', '-date']
@@ -212,8 +217,8 @@ class Referendum(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if not self.title:
-            self.title = u'Referendum %s' % self.id
+        # if not self.title:
+        #     self.title = u'Referendum %s' % self.id
         if not self.slug:
             title = self.title
             self.slug = original_slug = slugify(title)

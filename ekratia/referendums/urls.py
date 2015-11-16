@@ -7,11 +7,12 @@ from django.conf.urls.static import static
 
 from .views import ReferendumListView, ReferendumCreateView,\
     ReferendumDetailView, ReferendumOpenView, ReferendumVoteView,\
-    ReferendumProcessVoteView
+    ReferendumProcessVoteView, ReferendumArchivedListView
 
 
 urlpatterns = [
     url(r'^$', ReferendumListView.as_view(), name="list"),
+    url(r'^archived/$', ReferendumArchivedListView.as_view(), name="archived"),
     url(r'^(?P<slug>[\w\-\:\.0-9\s]+)/$', ReferendumDetailView.as_view(),
         name='detail'),
     url(r'^create$', ReferendumCreateView.as_view(), name="create"),

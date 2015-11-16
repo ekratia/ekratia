@@ -5,7 +5,7 @@ from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
-from django.views.generic import ListView, DetailView, CreateView, RedirectView
+from django.views.generic import ListView, DetailView, CreateView, RedirectView, TemplateView
 
 from braces.views import LoginRequiredMixin
 
@@ -19,12 +19,28 @@ import datetime
 logger = logging.getLogger('ekratia')
 
 
-class ReferendumListView(ListView):
+class ReferendumListView(TemplateView):
+    """
+    List of Referendums
+    """
+    template_name = 'referendums/list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ReferendumListView, self).get_context_data(**kwargs)
+        context['referendums_created'] = Referendum.objects\
+            .created().order_by('-date')
+        context['referendums_open'] = Referendum.objects\
+            .open().order_by('open_time')
+        return context
+
+
+class ReferendumArchivedListView(ListView):
     """
     List of Referendums
     """
     model = Referendum
-    template_name = 'referendums/list.html'
+    template_name = 'referendums/archived.html'
+    queryset = Referendum.objects.finished().order_by('open_time')
 
 
 class ReferendumCreateView(LoginRequiredMixin, CreateView):

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% load i18n humanize %}
-{% block title %}{% trans "Referendums" %}{% endblock title %}
+{% block title %}{% trans "Finished Referendums" %}{% endblock title %}
 {% block content %}
       
 	<div class="row">
 		<div class="col-xs-8">
-			<h1>{% trans "Referendums" %}</h1>
+			<h1>{% trans "Finished Referendums" %}</h1>
 		</div>
 		<div class="col-xs-4 text-right">
 			<a class="btn btn-primary conversation-create-btn" href="{% url 'referendums:create' %}">
@@ -19,26 +19,7 @@
 
 	<div class="row page-content referendum-list">
 		<div class="col-xs-12">
-  	{% for referendum in referendums_open %}
-		  	<div class="list-group open">
-				<a href="{% url "referendums:detail" slug=referendum.slug %}" class="list-group-item">
-				<div class="row">
-					<div class="col-sm-8">
-						{{ referendum.title }}
-					</div>
-					<div class="col-sm-4 text-right">
-						<small>
-						<strong>{% trans "Open for voting" %}</strong>
-						<br>
-						{% trans "Expires in" %} <strong>{{ referendum.end_time | naturaltime }}</strong></small>
-					</div>
-				</div>
-
-				</a>
-
-			</div>
-  	{% endfor %}
-  	{% for referendum in referendums_created %}
+  	{% for referendum in object_list %}
 		  	<div class="list-group">
 				<a href="{% url "referendums:detail" slug=referendum.slug %}" class="list-group-item">
 				<div class="row">
@@ -47,7 +28,7 @@
 					</div>
 					<div class="col-sm-4 text-right">
 						<small>
-							{% trans "Created" %} {{ referendum.date | naturaltime }}
+							{% trans "Finished" %} {{ referendum.end_time | naturaltime }}
 						</small>
 					</div>
 				</div>
@@ -58,7 +39,7 @@
 		</div>
 		<div class="col-xs-12 text-center">
 			<small>
-			[<a href="{% url 'referendums:archived' %}">{% trans "Finished Referendums" %}</a>]
+			[<a href="{% url 'referendums:list' %}">{% trans "Active Referendums" %}</a>]
 			</small>
 		</div>
 	</div>
