@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n humanize percentage %}
+{% block title %}{% trans "Referendum" %}: {{ object.title }}{% endblock title %}
+{% block content %}
+<div class="container threads">
+    <div class="referendum" ng-controller="ReferendumController">
+        <span us-spinner="{radius:30, width:8, length: 16}"></span>
+        <h1>{{ object.title }}</h1>
+        <div class="referendums-head">
+            <div class="referendum-rule-title top20">{% trans "Text that this referendum will remove from our rules" %}:</div>
+            <p ng-bind-html="'{{object.text_remove_rules }}' | nl2p" class="text-strike"></p>
+            <div  class="referendum-rule-title top20">{% trans "Text that this referendum will add to our rules" %}:</div>
+            <p ng-bind-html="'{{object.text_add_rules }}' | nl2p" class=""></p>
+        </div>
+
+
+    </div>
+</div>
+{% endblock content %}

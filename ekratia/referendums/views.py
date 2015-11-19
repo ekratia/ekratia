@@ -106,6 +106,33 @@ class ReferendumDetailView(DetailView):
         return context
 
 
+class ReferendumResultsView(DetailView):
+    """
+    Referendum results
+    """
+    model = Referendum
+    template_name = "referendums/results.html"
+
+    def get_context_data(self, **kwargs):
+        """
+        Insert the single object into the context dict.
+        """
+        context = super(ReferendumResultsView, self).get_context_data(**kwargs)
+
+        context['object'] = self.object.update_totals()
+
+        if settings.DEBUG:
+            logger.debug("Vote details for %s" % self.object.title)
+            for vote in self.object.get_votes_list():
+                logger.debug("User: %s  Value: %s" % (vote.user, vote.value))
+
+        self.object.check_status()
+
+        context['votes'] = self.object.get_votes_list()
+
+        return context
+
+
 class ReferendumOpenView(LoginRequiredMixin, RedirectView):
     """
     Open Referendum and redirects back to Referendum
