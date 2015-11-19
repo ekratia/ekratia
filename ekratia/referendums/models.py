@@ -51,12 +51,35 @@ class Referendum(models.Model):
     comment_points = models.FloatField(default=0.0)
 
     # Options: created, open, finished
-    # status = models.CharField(max_length=10, default='created')
+    status = models.CharField(max_length=10, default='created')
 
     objects = ReferendumManager()
 
     class Meta:
         ordering = ['open_time', '-date']
+
+    def check_status(self):
+        """
+        Method used to update status when necessary
+        """
+        if self.status == 'created':
+            if self.is_open():
+                self.status = 'open'
+                self.save()
+            if self.is_finished():
+                self.status = 'finished'
+                self.save()
+        elif self.status == 'open':
+            if self.is_finished():
+                self.status = 'finished'
+                self.save()
+
+    def is_approved(self):
+        """
+        Get partial results and determines if It's approved or not
+        """
+        logger.debug("POINTS: %s" % self.points)
+        return True if self.points > 0 else False
 
     def is_open(self):
         """
@@ -217,8 +240,6 @@ class Referendum(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        # if not self.title:
-        #     self.title = u'Referendum %s' % self.id
         if not self.slug:
             title = self.title
             self.slug = original_slug = slugify(title)

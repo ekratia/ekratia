@@ -273,3 +273,10 @@ div.referendum-list div.open a {
   background-color: rgba(0, 153, 153, 0.1); }
   div.referendum-list div.open a:hover {
     background-color: #e8e8e8; }
+
+div.referendum-results .fa {
+  font-size: 40px; }
+  div.referendum-results .fa.fa-arrow-circle-up {
+    color: #109D58; }
+  div.referendum-results .fa.fa-arrow-circle-down {
+    color: #E11B22; }
