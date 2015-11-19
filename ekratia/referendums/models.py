@@ -58,6 +58,22 @@ class Referendum(models.Model):
     class Meta:
         ordering = ['open_time', '-date']
 
+    def check_status(self):
+        """
+        Method used to update status when necessary
+        """
+        if self.status == 'created':
+            if self.is_open():
+                self.status = 'open'
+                self.save()
+            if self.is_finished():
+                self.status = 'finished'
+                self.save()
+        elif self.status == 'open':
+            if self.is_finished():
+                self.status = 'finished'
+                self.save()
+
     def is_open(self):
         """
         Method to establish id Referendum is open for vote.

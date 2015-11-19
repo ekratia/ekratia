@@ -5,7 +5,8 @@ from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
-from django.views.generic import ListView, DetailView, CreateView, RedirectView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView,\
+    RedirectView, TemplateView
 
 from braces.views import LoginRequiredMixin
 
@@ -99,6 +100,8 @@ class ReferendumDetailView(DetailView):
             logger.debug("Vote details for %s" % self.object.title)
             for vote in self.object.get_votes_list():
                 logger.debug("User: %s  Value: %s" % (vote.user, vote.value))
+
+        self.object.check_status()
 
         return context
 
