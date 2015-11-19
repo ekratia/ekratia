@@ -51,7 +51,7 @@ class Referendum(models.Model):
     comment_points = models.FloatField(default=0.0)
 
     # Options: created, open, finished
-    # status = models.CharField(max_length=10, default='created')
+    status = models.CharField(max_length=10, default='created')
 
     objects = ReferendumManager()
 
