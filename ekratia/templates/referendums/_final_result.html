@@ -1,0 +1,10 @@
+{% load i18n humanize percentage %}
+            <div class="referendum-results text-center top20">
+            {% if object.is_approved %}
+                <i class="fa fa-arrow-circle-up"></i> <br>
+                <span class="message">{% trans "Referendum was approved" %}</span>
+            {% else %}
+                <i class="fa fa-arrow-circle-down"></i> <br>
+                <span class="message">{% trans "Referendum was notapproved" %}</span>
+            {% endif %}
+            </div>

@@ -74,6 +74,13 @@ class Referendum(models.Model):
                 self.status = 'finished'
                 self.save()
 
+    def is_approved(self):
+        """
+        Get partial results and determines if It's approved or not
+        """
+        logger.debug("POINTS: %s" % self.points)
+        return True if self.points > 0 else False
+
     def is_open(self):
         """
         Method to establish id Referendum is open for vote.

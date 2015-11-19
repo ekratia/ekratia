@@ -31,3 +31,15 @@ div.referendum-list{
         }
     }
 }
+
+div.referendum-results{
+    .fa{
+        font-size: 40px;
+        &.fa-arrow-circle-up{
+            color: $color_vote_up;
+        }
+        &.fa-arrow-circle-down{
+            color: $color_vote_down;
+        }
+    }
+}

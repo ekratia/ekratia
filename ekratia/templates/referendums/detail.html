@@ -17,7 +17,7 @@
             <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }}, '{% url 'referendums:open' object.slug %}')" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
         </div>
         {% endif %}
-        {% if object.is_open %}
+        {% if request.user.is_authenticated and object.is_open %}
         <div class="horizontal-line top20"></div>
         <div class="referendum-vote text-center top20">
         <h2>{% trans "Vote for this Referendum" %}</h2>
@@ -51,14 +51,24 @@
                 <div class="col-xs-12">
                     <h2>{% trans "Partial Results" %}</h2>
                     {% include "referendums/_results.html" %}
+                    <a href="{% url 'referendums:results' object.slug %}">{% trans "View Results" %}</a>
                 </div>
             </div>
-        {% if object.is_finished %}
-            <div class="alert alert-warning alert-dismissible text-center top20" role="alert">
-              {% trans "This Referendum has ended" %}
-            </div>
-        {% endif %}
         </div>
+        {% endif %}
+        {% if not request.user.is_authenticated and  object.is_open %}
+            <div class="alert alert-success alert-dismissible text-center top20" role="alert">
+              {% trans "Referendum is open for voting. " %}
+              <a href="{% url 'account_login' %}?next={{ request.path }}">{% trans "Log in to vote!" %}</a>
+            </div>            
+        {% endif %}
+        {% if object.is_finished %}
+            {% include "referendums/_final_result.html" %}
+            <div class="alert alert-warning alert-dismissible text-center top20" role="alert">
+              {% trans "This Referendum has ended" %}.
+              <a href="{% url 'referendums:results' object.slug %}">{% trans "View Results" %}</a>
+            </div>
+
         {% endif %}
 
     </div>

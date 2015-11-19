@@ -13,5 +13,40 @@
             <p ng-bind-html="'{{object.text_add_rules }}' | nl2p" class=""></p>
         </div>
     </div>
+
+    <div class="results">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6 text-center">
+                <h2>{% trans "Results" %}</h2>
+                {% if object.is_finished %}
+                {% include "referendums/_final_result.html" %}
+                <br>
+                {% endif %}
+                {% include "referendums/_results.html" %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">{% trans "Vote Details" %}</h2>
+            </div>
+        </div>
+        {% for vote in votes %}
+            <div class="row top20">
+                <div class="col-md-offset-3 col-md-2 text-center">
+                    <a href="/users/{{ vote.user.username }}">
+                    <img ng-src="{{vote.user.get_avatar}}" alt="{{ vote.user.full_name }}" width="75" class="img-circle">
+                    </a>
+                </div>
+                <div class="col-md-2 top20 text-center">
+                    {{ vote.user.get_full_name_or_username }}
+                </div>
+                <div class="col-md-2 text-right top20" style="vertical-align:middle">
+                    {{ vote.value|floatformat:2 }}
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
 </div>
 {% endblock content %}
