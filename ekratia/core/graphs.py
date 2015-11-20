@@ -1,6 +1,63 @@
+from ekratia.delegates.models import Delegate
 import networkx as nx
 import logging
 logger = logging.getLogger('ekratia')
+
+
+class GraphEkratia(nx.DiGraph):
+
+    visited = set()
+    queue = []
+
+    def add_users_ids(self, users_ids):
+        for user_id in users_ids:
+            self.add_user_id(user_id)
+
+    def add_user_id(self, user_id):
+        logger.debug("Add User %i" % user_id)
+        self.queue_node(user_id)
+        while self.queue:
+            current = self.retrieve_node()
+            if current not in self.visited:
+                self.add_node(current)
+                self.attach_predecessors(current)
+                self.attach_succesors(current)
+                self.visit_node(current)
+
+    def visit_node(self, node):
+        logger.debug("Visited %i" % node)
+        self.visited.add(node)
+        logger.debug("New Visited %s" % self.visited)
+
+    def queue_node(self, node):
+        logger.debug("Queued %i" % node)
+        self.queue.append(node)
+        logger.debug("New Queue %s" % self.queue)
+
+    def retrieve_node(self):
+        return self.queue.pop(0)
+
+    def attach_predecessors(self, node):
+        predecessors = self.get_user_id_delegates(node)
+        for predecessor in predecessors:
+            self.add_node(predecessor)
+            self.add_edge(predecessor, node)
+            self.queue_node(predecessor)
+
+    def attach_succesors(self, node):
+        successors = self.get_user_id_delegates_to_me(node)
+        for successor in successors:
+            self.add_node(successor)
+            self.add_edge(node, successor)
+            self.queue_node(successor)
+
+    def get_user_id_delegates(self, user_id):
+        return Delegate.objects.filter(user__id=user_id)\
+            .values_list('delegate__id')
+
+    def get_user_id_delegates_to_me(self, user_id):
+        return Delegate.objects.filter(delegate__id=user_id)\
+            .values_list('user__id')
 
 
 def compute_graph_total(G, node):
@@ -73,3 +130,20 @@ def predecessors_not_visited(G, node, visited):
         if subnode not in visited:
             predecessors.append(subnode)
     return predecessors
+
+
+def graph_users_list(users_ids):
+    graph = nx.DiGraph()
+    visited, queue = set(), users_ids
+
+    while queue:
+        current = queue.pop(0)
+        if current not in visited:
+            graph.add_node(current)
+            # Update graph with predecessors
+            graph, queue = attach_predecessors(
+                graph, current, get_user_id_delegates(current))
+            # Update graph with successors
+            graph, queue = attach_succesors(
+                graph, current, get_user_id_delegates(current))
+            visited.add(current)
