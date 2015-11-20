@@ -6,8 +6,10 @@ logger = logging.getLogger('ekratia')
 
 class GraphEkratia(nx.DiGraph):
 
-    visited = set()
-    queue = []
+    def __init__(self, *args, **kwargs):
+        super(GraphEkratia, self).__init__(*args, **kwargs)
+        self.visited = set()
+        self.queue = []
 
     def add_users_ids(self, users_ids):
         for user_id in users_ids:
@@ -17,6 +19,7 @@ class GraphEkratia(nx.DiGraph):
         logger.debug("Add User %i" % user_id)
         self.queue_node(user_id)
         while self.queue:
+            logger.debug("while on %s" % self.queue)
             current = self.retrieve_node()
             if current not in self.visited:
                 self.add_node(current)
@@ -38,6 +41,7 @@ class GraphEkratia(nx.DiGraph):
         return self.queue.pop(0)
 
     def attach_predecessors(self, node):
+        logger.debug("attach_predecessors")
         predecessors = self.get_user_id_delegates(node)
         for predecessor in predecessors:
             self.add_node(predecessor)
@@ -45,6 +49,7 @@ class GraphEkratia(nx.DiGraph):
             self.queue_node(predecessor)
 
     def attach_succesors(self, node):
+        logger.debug("attach_succesors")
         successors = self.get_user_id_delegates_to_me(node)
         for successor in successors:
             self.add_node(successor)
@@ -53,11 +58,40 @@ class GraphEkratia(nx.DiGraph):
 
     def get_user_id_delegates(self, user_id):
         return Delegate.objects.filter(user__id=user_id)\
-            .values_list('delegate__id')
+            .values_list('delegate__id', flat=True)
 
     def get_user_id_delegates_to_me(self, user_id):
         return Delegate.objects.filter(delegate__id=user_id)\
-            .values_list('user__id')
+            .values_list('user__id', flat=True)
+
+    def get_sigma_representation(self):
+        nodes = []
+        edges = []
+        for node in self.nodes():
+            node_dict = {
+                          "id": str(node),
+                          "label": "Node %i" % node,
+                          "x": 0,
+                          "y": 0,
+                          "size": 3
+                        }
+            nodes.append(node_dict)
+
+        for edge in self.edges():
+            edge_dict = {
+                          "id": "e%i-%i" % edge,
+                          "source": edge[0],
+                          "target": edge[1]
+                        }
+
+            edges.append(edge_dict)
+
+        sigma_dict = {
+            'nodes': nodes,
+            'edges': edges
+        }
+
+        return sigma_dict
 
 
 def compute_graph_total(G, node):
@@ -130,20 +164,3 @@ def predecessors_not_visited(G, node, visited):
         if subnode not in visited:
             predecessors.append(subnode)
     return predecessors
-
-
-def graph_users_list(users_ids):
-    graph = nx.DiGraph()
-    visited, queue = set(), users_ids
-
-    while queue:
-        current = queue.pop(0)
-        if current not in visited:
-            graph.add_node(current)
-            # Update graph with predecessors
-            graph, queue = attach_predecessors(
-                graph, current, get_user_id_delegates(current))
-            # Update graph with successors
-            graph, queue = attach_succesors(
-                graph, current, get_user_id_delegates(current))
-            visited.add(current)
