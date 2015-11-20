@@ -1,6 +1,103 @@
+from ekratia.delegates.models import Delegate
 import networkx as nx
 import logging
 logger = logging.getLogger('ekratia')
+
+
+class GraphEkratia(nx.DiGraph):
+
+    def __init__(self, *args, **kwargs):
+        super(GraphEkratia, self).__init__(*args, **kwargs)
+        self.visited = set()
+        self.queue = []
+
+    def add_users_ids(self, users_ids):
+        for user_id in users_ids:
+            self.add_user_id(user_id)
+
+    def add_user_id(self, user_id):
+        logger.debug("Add User %i" % user_id)
+        self.queue_node(user_id)
+        while self.queue:
+            logger.debug("while on %s" % self.queue)
+            current = self.retrieve_node()
+            if current not in self.visited:
+                self.add_node(current)
+                self.attach_predecessors(current)
+                self.attach_succesors(current)
+                self.visit_node(current)
+
+    def visit_node(self, node):
+        logger.debug("Visited %i" % node)
+        self.visited.add(node)
+        logger.debug("New Visited %s" % self.visited)
+
+    def queue_node(self, node):
+        logger.debug("Queued %i" % node)
+        self.queue.append(node)
+        logger.debug("New Queue %s" % self.queue)
+
+    def retrieve_node(self):
+        return self.queue.pop(0)
+
+    def attach_predecessors(self, node):
+        logger.debug("attach_predecessors")
+        predecessors = self.get_user_id_delegates(node)
+        for predecessor in predecessors:
+            self.add_node(predecessor)
+            self.add_edge(predecessor, node)
+            self.queue_node(predecessor)
+
+    def attach_succesors(self, node):
+        logger.debug("attach_succesors")
+        successors = self.get_user_id_delegates_to_me(node)
+        for successor in successors:
+            self.add_node(successor)
+            self.add_edge(node, successor)
+            self.queue_node(successor)
+
+    def get_user_id_delegates(self, user_id):
+        return Delegate.objects.filter(user__id=user_id)\
+            .values_list('delegate__id', flat=True)
+
+    def get_user_id_delegates_to_me(self, user_id):
+        return Delegate.objects.filter(delegate__id=user_id)\
+            .values_list('user__id', flat=True)
+
+    def get_sigma_representation(self):
+        from ekratia.users.models import User
+        nodes = []
+        edges = []
+        count = 0
+        for node in self.nodes():
+            count += 1
+            # TODO: Very nasty
+            user = User.objects.get(id=node)
+            node_dict = {
+                          "id": str(node),
+                          "label": user.get_full_name_or_username,
+                          "x": count,
+                          "y": count,
+                          "size": user.rank * 10
+                        }
+            nodes.append(node_dict)
+
+        for edge in self.edges():
+            edge_dict = {
+                          "id": "e%i-%i" % edge,
+                          "source": str(edge[0]),
+                          "target": str(edge[1]),
+                          "type": "curved arrow"
+                        }
+
+            edges.append(edge_dict)
+
+        sigma_dict = {
+            'nodes': nodes,
+            'edges': edges
+        }
+
+        return sigma_dict
 
 
 def compute_graph_total(G, node):

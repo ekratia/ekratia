@@ -109,3 +109,10 @@ class ReferendumComments(APIView):
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReferendumVoteGraph(APIView):
+    def get(self, request, pk, format=None):
+        referendum = Referendum.objects.get(pk=pk)
+        graph = referendum.get_graph()
+        return Response(graph.get_sigma_representation())
