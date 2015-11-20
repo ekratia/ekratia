@@ -65,23 +65,29 @@ class GraphEkratia(nx.DiGraph):
             .values_list('user__id', flat=True)
 
     def get_sigma_representation(self):
+        from ekratia.users.models import User
         nodes = []
         edges = []
+        count = 0
         for node in self.nodes():
+            count += 1
+            # TODO: Very nasty
+            user = User.objects.get(id=node)
             node_dict = {
                           "id": str(node),
-                          "label": "Node %i" % node,
-                          "x": 0,
-                          "y": 0,
-                          "size": 3
+                          "label": user.get_full_name_or_username,
+                          "x": count,
+                          "y": count,
+                          "size": user.rank * 10
                         }
             nodes.append(node_dict)
 
         for edge in self.edges():
             edge_dict = {
                           "id": "e%i-%i" % edge,
-                          "source": edge[0],
-                          "target": edge[1]
+                          "source": str(edge[0]),
+                          "target": str(edge[1]),
+                          "type": "curved arrow"
                         }
 
             edges.append(edge_dict)
