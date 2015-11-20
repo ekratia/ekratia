@@ -21,6 +21,9 @@ urlpatterns = patterns(
     # Referendums Comments
     url(r'^comments/referendum/(?P<pk>[0-9]+)/$',
         referendums.ReferendumComments.as_view()),
+    # ReferendumVoteGraph
+    url(r'^referendum/(?P<pk>[0-9]+)/graph/$',
+        referendums.ReferendumVoteGraph.as_view(), name="graph"),
     # Comments
     url(r'^comments/(?P<pk>[0-9]+)/$', threads.CommentDetail.as_view()),
     url(r'^comments/votes/$', threads.ThreadCommentsVotes.as_view()),

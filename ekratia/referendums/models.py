@@ -9,6 +9,7 @@ from django.core.exceptions import PermissionDenied
 from config.settings import common
 from django.conf import settings
 from ekratia.threads.models import Comment
+from ekratia.core.graphs import GraphEkratia
 
 from .managers import ReferendumVotesManager, ReferendumManager
 import datetime
@@ -68,10 +69,12 @@ class Referendum(models.Model):
                 self.save()
             if self.is_finished():
                 self.status = 'finished'
+                self.approved = self.is_approved()
                 self.save()
         elif self.status == 'open':
             if self.is_finished():
                 self.status = 'finished'
+                self.approved = self.is_approved()
                 self.save()
 
     def is_approved(self):
@@ -210,6 +213,16 @@ class Referendum(models.Model):
         """
         return self.get_num_positive_votes() + self.get_num_negative_votes()
 
+    def get_votes_list(self):
+        return ReferendumUserVote.objects.filter(referendum=self)
+
+    def get_graph(self):
+        users_ids = self.get_votes_list().values_list('user_id', flat=True)
+        graph = GraphEkratia()
+        graph.add_users_ids(users_ids)
+        return graph
+
+
     def update_totals(self):
         """
         Update totals in the Database
@@ -223,9 +236,6 @@ class Referendum(models.Model):
             self.points = self.calculate_votes()
             self.save()
         return self
-
-    def get_votes_list(self):
-        return ReferendumUserVote.objects.filter(referendum=self)
 
     def update_user_vote(self, user):
         user_vote_value = user.vote_count_for_referendum(self)
