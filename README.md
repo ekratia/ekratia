@@ -42,3 +42,7 @@ The command below solved this
 ``
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ``
+
+## Releases
+
+0.5.2 November 22/2015
