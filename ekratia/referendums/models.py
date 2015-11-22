@@ -219,6 +219,7 @@ class Referendum(models.Model):
     def get_graph(self):
         users_ids = self.get_votes_list().values_list('user_id', flat=True)
         graph = GraphEkratia()
+        graph.name = self.title
         graph.add_users_ids(users_ids)
         return graph
 

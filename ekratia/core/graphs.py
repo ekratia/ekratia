@@ -83,19 +83,26 @@ class GraphEkratia(nx.DiGraph):
         from ekratia.users.models import User
         nodes = []
         edges = []
-        count = 0
-        for node in self.nodes():
-            count += 1
+        x, y = 0, 0
+        for node in self.in_degree().keys():
             # TODO: Very nasty
             user = User.objects.get(id=node)
             node_dict = {
                           "id": str(node),
                           "label": user.get_full_name_or_username,
-                          "x": count,
-                          "y": count,
+                          "x": x,
+                          "y": y,
                           "size": user.rank * 10
                         }
             nodes.append(node_dict)
+
+            x += 1
+            if y == 0:
+                y = -1
+            elif y > 0:
+                y = -1
+            elif y < 0:
+                y = 1
 
         for edge in self.edges():
             edge_dict = {
@@ -113,10 +120,6 @@ class GraphEkratia(nx.DiGraph):
         }
 
         return sigma_dict
-
-
-class Node:
-    pass
 
 
 def compute_graph_total(G, node):
