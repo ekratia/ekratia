@@ -1,6 +1,7 @@
 from ekratia.delegates.models import Delegate
 import networkx as nx
 import logging
+import random
 logger = logging.getLogger('ekratia')
 
 
@@ -10,6 +11,7 @@ class GraphEkratia(nx.DiGraph):
         super(GraphEkratia, self).__init__(*args, **kwargs)
         self.visited = set()
         self.queue = []
+        self.exclude = []
 
     def add_users_ids(self, users_ids):
         for user_id in users_ids:
@@ -19,42 +21,44 @@ class GraphEkratia(nx.DiGraph):
         logger.debug("Add User %i" % user_id)
         self.queue_node(user_id)
         while self.queue:
-            logger.debug("while on %s" % self.queue)
             current = self.retrieve_node()
-            if current not in self.visited:
+            if current not in self.visited and current not in self.exclude:
                 self.add_node(current)
                 self.attach_predecessors(current)
                 self.attach_succesors(current)
                 self.visit_node(current)
 
+    def set_exclude_list(self, users_ids):
+        self.exclude = users_ids
+
     def visit_node(self, node):
         logger.debug("Visited %i" % node)
         self.visited.add(node)
-        logger.debug("New Visited %s" % self.visited)
 
     def queue_node(self, node):
         logger.debug("Queued %i" % node)
         self.queue.append(node)
-        logger.debug("New Queue %s" % self.queue)
 
     def retrieve_node(self):
         return self.queue.pop(0)
 
     def attach_predecessors(self, node):
         logger.debug("attach_predecessors")
-        predecessors = self.get_user_id_delegates(node)
+        predecessors = self.get_user_id_delegates_to_me(node)
         for predecessor in predecessors:
-            self.add_node(predecessor)
-            self.add_edge(predecessor, node)
-            self.queue_node(predecessor)
+            if predecessor not in self.exclude:
+                self.add_node(predecessor)
+                self.add_edge(predecessor, node)
+                self.queue_node(predecessor)
 
     def attach_succesors(self, node):
         logger.debug("attach_succesors")
-        successors = self.get_user_id_delegates_to_me(node)
+        successors = self.get_user_id_delegates(node)
         for successor in successors:
-            self.add_node(successor)
-            self.add_edge(node, successor)
-            self.queue_node(successor)
+            if successor not in self.exclude:
+                self.add_node(successor)
+                self.add_edge(node, successor)
+                self.queue_node(successor)
 
     def get_user_id_delegates(self, user_id):
         return Delegate.objects.filter(user__id=user_id)\
@@ -64,21 +68,58 @@ class GraphEkratia(nx.DiGraph):
         return Delegate.objects.filter(delegate__id=user_id)\
             .values_list('user__id', flat=True)
 
-    def get_sigma_representation(self):
+    def get_pagerank_values(self):
+        return nx.pagerank_numpy(self)
+
+    def set_nodes_pagerank(self):
+        values = nx.pagerank_numpy(self)
+        for key in values.keys():
+            self.node[key]['pagerank'] = values[key]
+        return values
+
+    def set_nodes_pagerank_normalized(self):
+        count = self.number_of_nodes()
+        pageranks = self.set_nodes_pagerank()
+        for key in pageranks.keys():
+            self.node[key]['pagerank_normalized'] = pageranks[key] * count
+
+    def set_vote_value(self, user_id):
+        values = self.get_pagerank_values()
+        # self.node[user_id]['rank'] = values[user_id] * self.number_of_nodes()
+
+        for key in values.keys():
+            if 'rank' not in self.node[key]:
+                self.node[key]['rank'] = values[key] * self.number_of_nodes()
+
+    def get_node_users(self):
         from ekratia.users.models import User
+        users = User.objects.filter(id__in=self.nodes())
+        return users
+
+    def set_users_properties(self):
+        for user in self.get_node_users():
+            self.node[user.id]['name'] = user.get_full_name_or_username
+            self.node[user.id]['avatar'] = user.get_avatar
+
+    def get_sigma_representation(self):
+        self.set_users_properties()
+
         nodes = []
         edges = []
-        count = 0
-        for node in self.nodes():
-            count += 1
+        for node in self.in_degree().keys():
             # TODO: Very nasty
-            user = User.objects.get(id=node)
+            rank = self.node[node]['rank'] if 'rank' in self.node[node] else 0
+            color = "green" if 'voted' in self.node[node] else "#ccc"
             node_dict = {
                           "id": str(node),
-                          "label": user.get_full_name_or_username,
-                          "x": count,
-                          "y": count,
-                          "size": user.rank * 10
+                          "label": "%s(%0.2f)" % (self.node[node]['name'],
+                                                  rank),
+                          "type": "image",
+                          "url": self.node[node]['avatar'],
+                          "x": random.random(),
+                          "y": random.random(),
+                          "size": 16,
+                          "color": color
                         }
             nodes.append(node_dict)
 
@@ -87,7 +128,7 @@ class GraphEkratia(nx.DiGraph):
                           "id": "e%i-%i" % edge,
                           "source": str(edge[0]),
                           "target": str(edge[1]),
-                          "type": "curved arrow"
+                          "type": "curvedArrow",
                         }
 
             edges.append(edge_dict)

@@ -280,3 +280,7 @@ div.referendum-results .fa {
     color: #109D58; }
   div.referendum-results .fa.fa-arrow-circle-down {
     color: #E11B22; }
+
+#graph-container {
+  width: 100%;
+  height: 500px; }
