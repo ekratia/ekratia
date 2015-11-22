@@ -14,6 +14,7 @@ from ekratia.core.graphs import GraphEkratia
 from .managers import ReferendumVotesManager, ReferendumManager
 import datetime
 import logging
+import networkx as nx
 logger = logging.getLogger('ekratia')
 
 
@@ -217,10 +218,15 @@ class Referendum(models.Model):
         return ReferendumUserVote.objects.filter(referendum=self)
 
     def get_graph(self):
-        users_ids = self.get_votes_list().values_list('user_id', flat=True)
+        votes = self.get_votes_list()
         graph = GraphEkratia()
+        for vote in votes:
+            user_graph = vote.user.get_graph_referendum(self)
+            user_graph.node[vote.user_id]['voted'] = True
+            user_graph.set_vote_value(vote.user_id)
+
+            graph = nx.compose(graph, user_graph)
         graph.name = self.title
-        graph.add_users_ids(users_ids)
         return graph
 
     def update_totals(self):

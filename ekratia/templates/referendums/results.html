@@ -49,20 +49,136 @@
 
     </div>
 </div>
+<h2>{% trans "Graph Representation" %}</h2>
+  <div id="graph-container"></div>
+  <div>Ekratia.org</div>
+  <style>
+    #graph-container {
+        width: 100%;
+        height: 500px;
+    }
 
-<div id="container" style="width:100%; height:500px"></div>
+  </style>
 {% endblock content %}
-
 {% block extra_js %}
       <script src="{% static "lib/sigma.min.js" %}"></script>
       <script src="{% static "lib/plugins/sigma.parsers.json.min.js" %}"></script>
+      <script src="{% static "lib/plugins/sigma.plugins.dragNodes.min.js" %}"></script>
 <script>
-  sigma.parsers.json("{% url 'api:graph' object.id %}", {
-    container: 'container',
-    settings: {
-      defaultNodeColor: '#006699'
+sigma.utils.pkg('sigma.canvas.nodes');
+sigma.canvas.nodes.image = (function() {
+  var _cache = {},
+      _loading = {},
+      _callbacks = {};
+
+  // Return the renderer itself:
+  var renderer = function(node, context, settings) {
+    var args = arguments,
+        prefix = settings('prefix') || '',
+        size = node[prefix + 'size'],
+        color = node.color || settings('defaultNodeColor'),
+        url = node.url;
+
+    if (_cache[url]) {
+      context.save();
+
+      // Draw the clipping disc:
+      context.beginPath();
+      context.arc(
+        node[prefix + 'x'],
+        node[prefix + 'y'],
+        node[prefix + 'size'],
+        0,
+        Math.PI * 2,
+        true
+      );
+      context.closePath();
+      context.clip();
+
+      // Draw the image
+      context.drawImage(
+        _cache[url],
+        node[prefix + 'x'] - size,
+        node[prefix + 'y'] - size,
+        2 * size,
+        2 * size
+      );
+
+      // Quit the "clipping mode":
+      context.restore();
+
+      // Draw the border:
+      context.beginPath();
+      context.arc(
+        node[prefix + 'x'],
+        node[prefix + 'y'],
+        node[prefix + 'size'],
+        0,
+        Math.PI * 2,
+        true
+      );
+      context.lineWidth = size / 5;
+      context.strokeStyle = node.color || settings('defaultNodeColor');
+      context.stroke();
+    } else {
+      sigma.canvas.nodes.image.cache(url);
+      sigma.canvas.nodes.def.apply(
+        sigma.canvas.nodes,
+        args
+      );
     }
+  };
+
+  // Let's add a public method to cache images, to make it possible to
+  // preload images before the initial rendering:
+  renderer.cache = function(url, callback) {
+    if (callback)
+      _callbacks[url] = callback;
+
+    if (_loading[url])
+      return;
+
+    var img = new Image();
+
+    img.onload = function() {
+      _loading[url] = false;
+      _cache[url] = img;
+
+      if (_callbacks[url]) {
+        _callbacks[url].call(this, img);
+        delete _callbacks[url];
+      }
+    };
+
+    _loading[url] = true;
+    img.src = url;
+  };
+
+  return renderer;
+})();
+
+sigma.renderers.def = sigma.renderers.canvas;
+s = new sigma({
+          renderer: {
+            // IMPORTANT:
+            // This works only with the canvas renderer, so the
+            // renderer type set as "canvas" is necessary here.
+            container: document.getElementById('graph-container'),
+            type: 'canvas'
+          },
+          settings: {
+            minNodeSize: 10,
+            maxNodeSize: 16,
+          }
   });
+
+sigma.parsers.json(
+  "{% url 'api:graph' object.id %}",
+  s,
+  function() {
+    s.refresh();
+  }
+);
 </script>
 
 {% endblock extra_js %}

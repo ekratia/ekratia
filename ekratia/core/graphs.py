@@ -1,6 +1,7 @@
 from ekratia.delegates.models import Delegate
 import networkx as nx
 import logging
+import random
 logger = logging.getLogger('ekratia')
 
 
@@ -67,49 +68,67 @@ class GraphEkratia(nx.DiGraph):
         return Delegate.objects.filter(delegate__id=user_id)\
             .values_list('user__id', flat=True)
 
+    def get_pagerank_values(self):
+        return nx.pagerank_numpy(self)
+
     def set_nodes_pagerank(self):
         values = nx.pagerank_numpy(self)
         for key in values.keys():
-            self.nodes[key]['pagerank'] = values[key]
+            self.node[key]['pagerank'] = values[key]
         return values
 
     def set_nodes_pagerank_normalized(self):
         count = self.number_of_nodes()
-        pageranks = self.nodes_pagerank()
+        pageranks = self.set_nodes_pagerank()
         for key in pageranks.keys():
-            self.nodes[key]['pagerank_normalized'] = pageranks[key] * count
+            self.node[key]['pagerank_normalized'] = pageranks[key] * count
+
+    def set_vote_value(self, user_id):
+        values = self.get_pagerank_values()
+        # self.node[user_id]['rank'] = values[user_id] * self.number_of_nodes()
+
+        for key in values.keys():
+            if 'rank' not in self.node[key]:
+                self.node[key]['rank'] = values[key] * self.number_of_nodes()
+
+    def get_node_users(self):
+        from ekratia.users.models import User
+        users = User.objects.filter(id__in=self.nodes())
+        return users
+
+    def set_users_properties(self):
+        for user in self.get_node_users():
+            self.node[user.id]['name'] = user.get_full_name_or_username
+            self.node[user.id]['avatar'] = user.get_avatar
 
     def get_sigma_representation(self):
-        from ekratia.users.models import User
+        self.set_users_properties()
+
         nodes = []
         edges = []
-        x, y = 0, 0
         for node in self.in_degree().keys():
             # TODO: Very nasty
-            user = User.objects.get(id=node)
+            rank = self.node[node]['rank'] if 'rank' in self.node[node] else 0
+            color = "green" if 'voted' in self.node[node] else "#ccc"
             node_dict = {
                           "id": str(node),
-                          "label": user.get_full_name_or_username,
-                          "x": x,
-                          "y": y,
-                          "size": user.rank * 10
+                          "label": "%s(%0.2f)" % (self.node[node]['name'],
+                                                  rank),
+                          "type": "image",
+                          "url": self.node[node]['avatar'],
+                          "x": random.random(),
+                          "y": random.random(),
+                          "size": random.random(),
+                          "color": color
                         }
             nodes.append(node_dict)
-
-            x += 1
-            if y == 0:
-                y = -1
-            elif y > 0:
-                y = -1
-            elif y < 0:
-                y = 1
 
         for edge in self.edges():
             edge_dict = {
                           "id": "e%i-%i" % edge,
                           "source": str(edge[0]),
                           "target": str(edge[1]),
-                          "type": "curved arrow"
+                          "type": "curvedArrow",
                         }
 
             edges.append(edge_dict)
