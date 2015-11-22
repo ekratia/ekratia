@@ -7,7 +7,7 @@ from django.db import models
 from avatar.util import get_primary_avatar
 import networkx as nx
 
-from ekratia.core import graphs
+from ekratia.core.graphs import get_graph_value, GraphEkratia
 from ekratia.delegates.models import Delegate
 from ekratia.referendums.models import Referendum, ReferendumUserVote
 
@@ -295,42 +295,15 @@ class User(AbstractUser):
         for referendum in referendums:
             referendum.update_user_vote(self)
 
-
         # TODO: Update votes on comments
 
     def get_graph(self):
         """
-        Creates a graph and calculates the pagerank for this node.
-        This will not be efficient in any manner, but should suffice
-        until we need to optimize it with a better data structure.
+        Creates a graph for the user based on Delegation
         """
         logger.debug("Get graph for %s" % self)
-        graph = nx.DiGraph()
-
-        visited, queue = set(), [self.id]
-        while queue:
-            current = queue.pop(0)
-            logger.debug('Current graph: %s' % current)
-            logger.debug('Visited: %s' % visited)
-            if current not in visited:
-                graph.add_node(current)
-                delegates = Delegate.objects.filter(user__id=current)
-                for delegate in delegates:
-                    graph.add_node(delegate.delegate.id)
-                    graph.add_edge(current, delegate.delegate.id)
-                    queue.append(delegate.delegate.id)
-
-                delegated_to_me = Delegate.objects.filter(delegate__id=current)
-                for delegate in delegated_to_me:
-                    graph.add_node(delegate.user.id)
-                    graph.add_edge(delegate.user.id, current)
-                    queue.append(delegate.user.id)
-                visited.add(current)
-            else:
-                logger.debug('Skipping Visited: %s' % current)
-
-            logger.debug('Edges: %s' % graph.edges())
-
+        graph = GraphEkratia()
+        graph.add_user_id(self.id)
         return graph
 
     def get_graph_referendum(self, referendum):
@@ -374,7 +347,7 @@ class User(AbstractUser):
 
     def get_graph_value(self):
         graph = self.get_graph()
-        return graphs.get_graph_value(graph, self.id)
+        return get_graph_value(graph, self.id)
 
     def get_graph_pagerank(self):
         graph = self.get_graph()

@@ -42,7 +42,7 @@ class GraphEkratia(nx.DiGraph):
 
     def attach_predecessors(self, node):
         logger.debug("attach_predecessors")
-        predecessors = self.get_user_id_delegates(node)
+        predecessors = self.get_user_id_delegates_to_me(node)
         for predecessor in predecessors:
             self.add_node(predecessor)
             self.add_edge(predecessor, node)
@@ -50,7 +50,7 @@ class GraphEkratia(nx.DiGraph):
 
     def attach_succesors(self, node):
         logger.debug("attach_succesors")
-        successors = self.get_user_id_delegates_to_me(node)
+        successors = self.get_user_id_delegates(node)
         for successor in successors:
             self.add_node(successor)
             self.add_edge(node, successor)
