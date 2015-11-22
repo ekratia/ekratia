@@ -222,7 +222,6 @@ class Referendum(models.Model):
         graph.add_users_ids(users_ids)
         return graph
 
-
     def update_totals(self):
         """
         Update totals in the Database

@@ -10,6 +10,7 @@ class GraphEkratia(nx.DiGraph):
         super(GraphEkratia, self).__init__(*args, **kwargs)
         self.visited = set()
         self.queue = []
+        self.exclude = []
 
     def add_users_ids(self, users_ids):
         for user_id in users_ids:
@@ -19,23 +20,23 @@ class GraphEkratia(nx.DiGraph):
         logger.debug("Add User %i" % user_id)
         self.queue_node(user_id)
         while self.queue:
-            logger.debug("while on %s" % self.queue)
             current = self.retrieve_node()
-            if current not in self.visited:
+            if current not in self.visited and current not in self.exclude:
                 self.add_node(current)
                 self.attach_predecessors(current)
                 self.attach_succesors(current)
                 self.visit_node(current)
 
+    def set_exclude_list(self, users_ids):
+        self.exclude = users_ids
+
     def visit_node(self, node):
         logger.debug("Visited %i" % node)
         self.visited.add(node)
-        logger.debug("New Visited %s" % self.visited)
 
     def queue_node(self, node):
         logger.debug("Queued %i" % node)
         self.queue.append(node)
-        logger.debug("New Queue %s" % self.queue)
 
     def retrieve_node(self):
         return self.queue.pop(0)
@@ -44,17 +45,19 @@ class GraphEkratia(nx.DiGraph):
         logger.debug("attach_predecessors")
         predecessors = self.get_user_id_delegates_to_me(node)
         for predecessor in predecessors:
-            self.add_node(predecessor)
-            self.add_edge(predecessor, node)
-            self.queue_node(predecessor)
+            if predecessor not in self.exclude:
+                self.add_node(predecessor)
+                self.add_edge(predecessor, node)
+                self.queue_node(predecessor)
 
     def attach_succesors(self, node):
         logger.debug("attach_succesors")
         successors = self.get_user_id_delegates(node)
         for successor in successors:
-            self.add_node(successor)
-            self.add_edge(node, successor)
-            self.queue_node(successor)
+            if successor not in self.exclude:
+                self.add_node(successor)
+                self.add_edge(node, successor)
+                self.queue_node(successor)
 
     def get_user_id_delegates(self, user_id):
         return Delegate.objects.filter(user__id=user_id)\
@@ -63,6 +66,18 @@ class GraphEkratia(nx.DiGraph):
     def get_user_id_delegates_to_me(self, user_id):
         return Delegate.objects.filter(delegate__id=user_id)\
             .values_list('user__id', flat=True)
+
+    def set_nodes_pagerank(self):
+        values = nx.pagerank_numpy(self)
+        for key in values.keys():
+            self.nodes[key]['pagerank'] = values[key]
+        return values
+
+    def set_nodes_pagerank_normalized(self):
+        count = self.number_of_nodes()
+        pageranks = self.nodes_pagerank()
+        for key in pageranks.keys():
+            self.nodes[key]['pagerank_normalized'] = pageranks[key] * count
 
     def get_sigma_representation(self):
         from ekratia.users.models import User
@@ -98,6 +113,10 @@ class GraphEkratia(nx.DiGraph):
         }
 
         return sigma_dict
+
+
+class Node:
+    pass
 
 
 def compute_graph_total(G, node):
