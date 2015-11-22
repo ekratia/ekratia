@@ -118,7 +118,7 @@ class GraphEkratia(nx.DiGraph):
                           "url": self.node[node]['avatar'],
                           "x": random.random(),
                           "y": random.random(),
-                          "size": random.random(),
+                          "size": 16,
                           "color": color
                         }
             nodes.append(node_dict)

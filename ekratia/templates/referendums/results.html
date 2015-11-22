@@ -129,8 +129,6 @@ sigma.canvas.nodes.image = (function() {
     }
   };
 
-  // Let's add a public method to cache images, to make it possible to
-  // preload images before the initial rendering:
   renderer.cache = function(url, callback) {
     if (callback)
       _callbacks[url] = callback;
@@ -160,9 +158,6 @@ sigma.canvas.nodes.image = (function() {
 sigma.renderers.def = sigma.renderers.canvas;
 s = new sigma({
           renderer: {
-            // IMPORTANT:
-            // This works only with the canvas renderer, so the
-            // renderer type set as "canvas" is necessary here.
             container: document.getElementById('graph-container'),
             type: 'canvas'
           },
