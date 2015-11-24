@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ekratia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-24 10:30-0500\n"
-"PO-Revision-Date: 2015-11-24 07:08-0500\n"
+"POT-Creation-Date: 2015-11-24 14:52-0500\n"
+"PO-Revision-Date: 2015-11-24 14:53-0500\n"
 "Last-Translator: Andres Gonzalez <andres@swapps.co>\n"
 "Language-Team: swapps <andres@swapps.co>\n"
 "Language: es\n"
@@ -72,8 +72,6 @@ msgid "Profile"
 msgstr "Perfil"
 
 #: templates/base.html:102
-#, fuzzy
-#| msgid "Your Delegates"
 msgid "Your delegates"
 msgstr "Sus Delegados"
 
@@ -188,7 +186,7 @@ msgstr "Quién está detrás de Ekratia"
 
 #: templates/referendums/_final_result.html:5
 msgid "Referendum was approved"
-msgstr ""
+msgstr "Referendo fue aprovado"
 
 #: templates/referendums/_final_result.html:8
 msgid "Referendum was not approved"
@@ -213,7 +211,7 @@ msgstr "Resultado"
 #: templates/referendums/archived.html:4 templates/referendums/archived.html:9
 #: templates/referendums/list.html:61
 msgid "Finished Referendums"
-msgstr ""
+msgstr "Referendos Finalizados"
 
 #: templates/referendums/archived.html:14 templates/referendums/create.html:4
 #: templates/referendums/create.html:10 templates/referendums/list.html:14
@@ -222,14 +220,14 @@ msgstr "Iniciar Referendo"
 
 #: templates/referendums/archived.html:31
 msgid "Finished"
-msgstr "Finaluzado"
+msgstr "Finalizado"
 
 #: templates/referendums/archived.html:42
 msgid "Active Referendums"
-msgstr ""
+msgstr "Referendos Activos"
 
-#: templates/referendums/detail.html:3 templates/referendums/results.html:3
-#: templates/referendums/vote.html:3
+#: templates/referendums/detail.html:3 templates/referendums/detail.html:51
+#: templates/referendums/results.html:3 templates/referendums/vote.html:3
 msgid "Referendum"
 msgstr "Referendo"
 
@@ -258,8 +256,8 @@ msgid "View Results"
 msgstr "Ver Resultados"
 
 #: templates/referendums/detail.html:51
-msgid "Referendum is open for voting. "
-msgstr ""
+msgid "is open for voting"
+msgstr "Abierto para votación"
 
 #: templates/referendums/detail.html:52
 msgid "Log in to vote!"
@@ -286,8 +284,8 @@ msgid "Vote Details"
 msgstr "Detalles de votación"
 
 #: templates/referendums/results.html:52
-msgid "Graph Representation"
-msgstr ""
+msgid "Graph Visualization"
+msgstr "Visualización del Grafo"
 
 #: templates/referendums/vote.html:8
 msgid "Vote for"
