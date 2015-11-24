@@ -42,4 +42,5 @@ else
     cp /home/ubuntu/.env /srv/app/
     python /srv/app/manage.py migrate --settings=config.settings.production
     python /srv/app/manage.py collectstatic --settings=config.settings.production --noinput > /dev/null 2> /dev/null < /dev/null &
+    python /srv/app/manage.py compilemessages --settings=config.settings.production
 fi
