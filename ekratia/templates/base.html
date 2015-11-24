@@ -79,14 +79,27 @@
                       <li><a href="{% url 'referendums:list' %}">{% trans "Referendums" %}</a></li>
                       <li><a href="{% url 'conversations:threads' %}">{% trans "Conversations" %}</a></li>
                       <li><a href="{% url 'rules' %}">{% trans "Rules" %}</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                          {% get_current_language as LANGUAGE_CODE %}
+                          {% get_available_languages as LANGUAGES %}
+                          {% get_language_info_list for LANGUAGES as languages %}
+                          {{ LANGUAGE_CODE }}
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                          {% for language in languages %}
+                            <li><a href="/{{ language.code }}">{{ language.name_local|title }} ({{ language.code }})</a></li>
+                          {% endfor %}
+                          </ul>
+                        </li>
                       {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'delegates:delegates' %}">Your delegates</a></li>
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                           <img ng-src="{{request.user.get_avatar}}" alt="{{ request.user.full_name }}" width="25" class="img-circle">
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
                             <li><a href="{% url 'users:detail' request.user.username %}">{% trans "Profile" %}</a></li>
+                            <li><a href="{% url 'delegates:delegates' %}">{% trans "Your delegates" %}</a></li>
                             <li class="divider"></li>
                             <li><a href="{% url 'account_logout' %}?next={{ request.path }}">{% trans "Logout" %}</a></li>
                           </ul>

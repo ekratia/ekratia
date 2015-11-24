@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ekratia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 21:32-0500\n"
-"PO-Revision-Date: 2015-11-23 21:49-0500\n"
+"POT-Creation-Date: 2015-11-24 06:54-0500\n"
+"PO-Revision-Date: 2015-11-24 07:08-0500\n"
 "Last-Translator: Andres Gonzalez <andres@swapps.co>\n"
 "Language-Team: swapps <andres@swapps.co>\n"
 "Language: es\n"
@@ -43,15 +43,15 @@ msgstr "Refereno listo para votar"
 
 #: referendums/views.py:154
 msgid "Referendum is already Open"
-msgstr ""
+msgstr "Referendo ya está abierto"
 
 #: referendums/views.py:203
 msgid "We got your Vote. Thanks!"
-msgstr ""
+msgstr "Gracias por votar!"
 
 #: referendums/views.py:205
 msgid "Referendum is Closed"
-msgstr ""
+msgstr "Referendo está cerrado"
 
 #: templates/account/email.html:7
 msgid "Account"
@@ -147,7 +147,11 @@ msgstr ""
 msgid "Sign In"
 msgstr ""
 
-#: templates/account/login.html:18
+#: templates/account/login.html:17
+msgid "You need to be an Ekratia member to use our features."
+msgstr ""
+
+#: templates/account/login.html:19
 msgid "Log In with Facebook"
 msgstr ""
 
@@ -289,7 +293,7 @@ msgid ""
 msgstr ""
 
 #: templates/app_main/delegations.html:10
-#: templates/app_main/delegations.html:15
+#: templates/app_main/delegations.html:15 templates/base.html:102
 msgid "Your delegates"
 msgstr ""
 
@@ -310,70 +314,77 @@ msgstr ""
 #: templates/base.html:79 templates/referendums/list.html:4
 #: templates/referendums/list.html.py:9
 msgid "Referendums"
-msgstr ""
+msgstr "Referendos"
 
 #: templates/base.html:80 templates/conversations/list.html:4
 #: templates/conversations/list.html:9
 msgid "Conversations"
-msgstr ""
+msgstr "Conversaciones"
 
 #: templates/base.html:81
 msgid "Rules"
-msgstr ""
+msgstr "Reglas"
 
-#: templates/base.html:89
+#: templates/base.html:101
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
-#: templates/base.html:91
+#: templates/base.html:104
 msgid "Logout"
-msgstr ""
+msgstr "Cerrar sesión"
 
-#: templates/base.html:95
+#: templates/base.html:108
 msgid "Log In"
-msgstr ""
+msgstr "Iniciar Sesión"
 
 #: templates/conversations/create.html:4
 msgid "Start a conversation"
-msgstr ""
+msgstr "Iniciar Conversación"
 
 #: templates/conversations/create.html:10 templates/conversations/list.html:14
 msgid "Start a Conversation"
-msgstr ""
+msgstr "Iniciar Conversación"
 
 #: templates/conversations/create.html:19 templates/referendums/create.html:19
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/conversations/detail.html:3
 msgid "Conversation"
-msgstr ""
+msgstr "Conversación"
 
 #: templates/delegates/user_delegates.html:3
-#: templates/delegates/user_delegates.html:9
 msgid "My Delegates"
-msgstr ""
+msgstr "Mis Delegados"
+
+#: templates/delegates/user_delegates.html:9
+msgid "Delegates"
+msgstr "Delegados"
 
 #: templates/delegates/user_delegates.html:10
-#: templates/referendums/detail.html:46
-msgid "Because of your delegation, your vote value is: "
-msgstr ""
+msgid "You represent "
+msgstr "Usted representa"
+
+#: templates/delegates/user_delegates.html:10
+#: templates/referendums/detail.html:35 templates/users/user_detail.html:16
+msgid "votes"
+msgstr "votos"
 
 #: templates/delegates/user_delegates.html:11
-msgid "Your Current Delegates"
-msgstr ""
+msgid "Your Delegates"
+msgstr "Sus Delegados"
 
 #: templates/delegates/user_delegates.html:16
-msgid "Currently you don't have delegates"
-msgstr ""
+msgid "You haven't delegated your votes yet"
+msgstr "Usted o ha delegado sus votos aún"
 
 #: templates/delegates/user_delegates.html:41
 msgid "Add More Delegates"
-msgstr ""
+msgstr "Añadir más delegados"
 
 #: templates/delegates/user_delegates.html:52
 msgid "There are not available delegates"
-msgstr ""
+msgstr "No hay delegados disponibles"
 
 #: templates/pages/home.html:14
 msgid "Let's build a better government"
@@ -456,14 +467,14 @@ msgid "Referendum was approved"
 msgstr ""
 
 #: templates/referendums/_final_result.html:8
-msgid "Referendum was notapproved"
-msgstr ""
+msgid "Referendum was not approved"
+msgstr "El referendo no fue aprovado"
 
-#: templates/referendums/_results.html:2 templates/referendums/detail.html:37
+#: templates/referendums/_results.html:2
 msgid "Yes"
 msgstr ""
 
-#: templates/referendums/_results.html:3 templates/referendums/detail.html:39
+#: templates/referendums/_results.html:3
 msgid "No"
 msgstr ""
 
@@ -483,7 +494,7 @@ msgstr ""
 #: templates/referendums/archived.html:14 templates/referendums/create.html:4
 #: templates/referendums/create.html:10 templates/referendums/list.html:14
 msgid "Start a Referendum"
-msgstr ""
+msgstr "Iniciar Referendo"
 
 #: templates/referendums/archived.html:31
 msgid "Finished"
@@ -496,59 +507,55 @@ msgstr ""
 #: templates/referendums/detail.html:3 templates/referendums/results.html:3
 #: templates/referendums/vote.html:3
 msgid "Referendum"
-msgstr ""
+msgstr "Referendo"
 
 #: templates/referendums/detail.html:17
 msgid "Open for Voting"
-msgstr ""
+msgstr "Abierto para votación"
 
 #: templates/referendums/detail.html:23
 msgid "Vote for this Referendum"
-msgstr ""
+msgstr "Votar por este Referendo"
 
 #: templates/referendums/detail.html:35
-msgid "You voted"
-msgstr ""
+msgid "You represent"
+msgstr "Usted representa"
 
-#: templates/referendums/detail.html:47
-msgid "Referendum expires in"
-msgstr ""
+#: templates/referendums/detail.html:37 templates/referendums/list.html:33
+msgid "Expires in"
+msgstr "Expira en "
 
-#: templates/referendums/detail.html:52
+#: templates/referendums/detail.html:42
 msgid "Partial Results"
-msgstr ""
+msgstr "Resultados parciales"
 
-#: templates/referendums/detail.html:54 templates/referendums/detail.html:69
+#: templates/referendums/detail.html:44 templates/referendums/detail.html:59
 msgid "View Results"
-msgstr ""
+msgstr "Ver Resultados"
 
-#: templates/referendums/detail.html:61
+#: templates/referendums/detail.html:51
 msgid "Referendum is open for voting. "
 msgstr ""
 
-#: templates/referendums/detail.html:62
+#: templates/referendums/detail.html:52
 msgid "Log in to vote!"
 msgstr ""
 
-#: templates/referendums/detail.html:68
+#: templates/referendums/detail.html:58
 msgid "This Referendum has ended"
-msgstr ""
+msgstr "Este referendo a finzalizado"
 
 #: templates/referendums/list.html:31
 msgid "Open for voting"
-msgstr ""
-
-#: templates/referendums/list.html:33
-msgid "Expires in"
-msgstr ""
+msgstr "Abierto para votación"
 
 #: templates/referendums/list.html:50
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 #: templates/referendums/results.html:8 templates/referendums/results.html:20
 msgid "Results"
-msgstr ""
+msgstr "Resultados"
 
 #: templates/referendums/results.html:31
 msgid "Vote Details"
@@ -560,31 +567,35 @@ msgstr ""
 
 #: templates/referendums/vote.html:8
 msgid "Vote for"
-msgstr ""
+msgstr "Votar por"
 
 #: templates/referendums/vote.html:19
 msgid "Do you approve this referendum?"
-msgstr ""
+msgstr "Usted aprueba este referendo?"
 
 #: templates/users/user_detail.html:16
-msgid "Vote Value"
+msgid "Represents"
+msgstr "Representa"
+
+#: templates/users/user_detail.html:18
+msgid "Based on the members who delegated to"
 msgstr ""
 
-#: templates/users/user_detail.html:36
-msgid "Users who delegated to"
+#: templates/users/user_detail.html:38
+msgid "Members who delegated to"
 msgstr ""
 
-#: templates/users/user_detail.html:57
-msgid "Nobody has delegated this user"
+#: templates/users/user_detail.html:59
+msgid "Nobody has delegated this member"
+msgstr "Nadie ha delegado este miembro"
+
+#: templates/users/user_detail.html:67
+msgid "delegates his/her votes to"
 msgstr ""
 
-#: templates/users/user_detail.html:65
-msgid "Users delegated by"
-msgstr ""
-
-#: templates/users/user_detail.html:86
-msgid "User does not have delegates"
-msgstr ""
+#: templates/users/user_detail.html:88
+msgid "Member does not have delegates"
+msgstr "Miembro no tiene delegados"
 
 #: threads/models.py:66
 msgid "Comment"
