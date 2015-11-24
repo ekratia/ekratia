@@ -11,6 +11,15 @@ from django.conf.urls.i18n import i18n_patterns
 urlpatterns = [
     url(r'^$',
         TemplateView.as_view(template_name='pages/home.html'), name="home"),
+    url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# URLS with URL patterns: /es /en
+urlpatterns += i18n_patterns(
+    url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
+        name="home"),
     url(r'^about/$',
         TemplateView.as_view(template_name='pages/about.html'), name="about"),
     url(r'^rules/$',
@@ -38,16 +47,7 @@ urlpatterns = [
     url(r'^delegates/', include('ekratia.delegates.urls',
                                 namespace='delegates')),
     url(r'^avatar/', include('avatar.urls')),
-
-    url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-# URLS with URL patterns: /es /en
-urlpatterns += i18n_patterns(
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
-        name="home"),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     )
 
 if settings.DEBUG:
