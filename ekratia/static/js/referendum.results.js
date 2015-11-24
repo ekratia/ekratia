@@ -96,8 +96,7 @@ s = new sigma({
             type: 'canvas'
           },
           settings: {
-            minNodeSize: 10,
-            maxNodeSize: 16,
+            minArrowSize: 1000
           }
   });
 
@@ -105,6 +104,9 @@ sigma.parsers.json(
   urls_nodes_referendum,
   s,
   function() {
+    s.graph.edges().forEach(function(edge){ 
+      edge.type = "arrow";
+    });
     s.refresh();
   }
 );

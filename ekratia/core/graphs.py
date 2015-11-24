@@ -116,8 +116,8 @@ class GraphEkratia(nx.DiGraph):
                                                   rank),
                           "type": "image",
                           "url": self.node[node]['avatar'],
-                          "x": random.random(),
-                          "y": random.random(),
+                          "x": round(random.random()*100,0),
+                          "y": round(random.random()*100,0),
                           "size": 16,
                           "color": color
                         }
@@ -128,7 +128,7 @@ class GraphEkratia(nx.DiGraph):
                           "id": "e%i-%i" % edge,
                           "source": str(edge[0]),
                           "target": str(edge[1]),
-                          "type": "curvedArrow",
+                          "type": "arrow",
                         }
 
             edges.append(edge_dict)
