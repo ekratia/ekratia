@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ekratia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-24 14:52-0500\n"
-"PO-Revision-Date: 2015-11-24 14:53-0500\n"
+"POT-Creation-Date: 2015-11-24 14:59-0500\n"
+"PO-Revision-Date: 2015-11-24 14:59-0500\n"
 "Last-Translator: Andres Gonzalez <andres@swapps.co>\n"
 "Language-Team: swapps <andres@swapps.co>\n"
 "Language: es\n"
@@ -132,7 +132,7 @@ msgstr "Añadir más delegados"
 msgid "There are not available delegates"
 msgstr "No hay delegados disponibles"
 
-#: templates/pages/home.html:14
+#: templates/pages/home.html:4 templates/pages/home.html.py:14
 msgid "Let's build a better government"
 msgstr "Construyamos un mejor gobierno"
 
@@ -144,45 +144,83 @@ msgstr "Unete a nosotros"
 msgid "What is Ekratia?"
 msgstr "Qué es Ekratia?"
 
-#: templates/pages/home.html:36
+#: templates/pages/home.html:27
+msgid ""
+"Ekratia is a new way of making democracy. Members of Ekratia use the "
+"Internet to vote directly for new ideas and laws. In case they are too busy "
+"to vote, members can delegate their vote to other members. Members can "
+"change their delegates on real time"
+msgstr ""
+
+#: templates/pages/home.html:39
 msgid "Democracy made for the Internet"
 msgstr "Democracia hecha para Internet"
 
-#: templates/pages/home.html:46
+#: templates/pages/home.html:49
 msgid "Delegate"
 msgstr "Delegado"
 
-#: templates/pages/home.html:47
+#: templates/pages/home.html:50
 msgid "Vote directly or delegate your votes to others"
 msgstr "Vota directamente o delega tus votos a otros"
 
-#: templates/pages/home.html:53
+#: templates/pages/home.html:56
 msgid "Discuss"
 msgstr "Discuta"
 
-#: templates/pages/home.html:54
+#: templates/pages/home.html:57
 msgid "Start and participate in intelligent conversations"
 msgstr "Comience y participe en conversaciones inteligentes"
 
-#: templates/pages/home.html:60
+#: templates/pages/home.html:63
 msgid "Decide"
 msgstr "Decida"
 
-#: templates/pages/home.html:67
+#: templates/pages/home.html:64
+msgid "Propose and vote for laws and programs"
+msgstr ""
+
+#: templates/pages/home.html:70
 msgid "Trust"
 msgstr "Confianza"
 
-#: templates/pages/home.html:78
+#: templates/pages/home.html:71
+msgid "Ekratia is build on transparency"
+msgstr "Ekratia es construido  sobre la transparencia"
+
+#: templates/pages/home.html:81
 msgid "Being a good citizen is now easy"
 msgstr "Ser un buen ciudadano es fácil ahora"
 
-#: templates/pages/home.html:79
+#: templates/pages/home.html:82
 msgid "Join us now!"
 msgstr "Unete ahora!"
 
-#: templates/pages/home.html:88
+#: templates/pages/home.html:91
 msgid "Who is behind Ekratia"
 msgstr "Quién está detrás de Ekratia"
+
+#: templates/pages/home.html:93
+msgid ""
+"Ekratia is being supported and improved by a group of software developers, "
+"social scientists, and translators. Ekratia is a fully transparent <a href="
+"\"https://github.com/ekratia/ekratia\">open source effort</a>. You can see "
+"who has done what <a href=\"https://github.com/torrenegra/ekratia/graphs/"
+"contributors\">here</a>.</p>\n"
+"                    <p>You can view the platform roadmap and propose ideas "
+"using our <a href=\"https://trello.com/b/WNAgAtbx/ekratia\">Trello board</a>."
+"</p>\n"
+"                    <p>We are always looking for volunteers. If you want to "
+"volunteer, please contact us at <a href=\"http://twitter.com/ekratia"
+"\">@ekratia</a>.</p>\n"
+"                    <p>Ekratia was founded in 2015 by Alex Torrenegra, "
+"Amaury Prieto, Cristian Chaparro, Daniel Garcia, and Esteban Contreras in a "
+"hackathon in Bogotá, Colombia."
+msgstr ""
+
+#: templates/pages/rules.html:3 templates/pages/rules.html.py:8
+msgid "Rules of Ekratia"
+msgstr "Reglas de Ekratia"
 
 #: templates/referendums/_final_result.html:5
 msgid "Referendum was approved"
