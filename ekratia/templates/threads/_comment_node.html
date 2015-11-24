@@ -17,22 +17,29 @@
             </div>
             <div class="text-message">
                 <span class="comment-text" ng-bind-html="::comment.data.content | nl2p"></span>
+{% endverbatim %}
+                {% if request.user.is_authenticated %}
                 <div ng-show="comment.id != parent_comment_id" class="comment-actions">
+                {% verbatim %}
+                    <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
+                {% endverbatim %}
+                    <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
+                    <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+                </div>
+                {% else %}
+                <div class="comment-actions">
+                    {% verbatim %}
                     <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
                     {% endverbatim %}
-                    {% if request.user.is_authenticated %}
-                    <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
-                    {% else %}
                     <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
-                    {% endif %}
                     <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
-                    {% verbatim %}
                 </div>
+                {% endif %}
             </div>
                 <br>
     </div>
 </div>
-{% endverbatim %}
+
 
 {% if request.user.is_authenticated %}
 {% verbatim %}
