@@ -17,7 +17,7 @@
             <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }}, '{% url 'referendums:open' object.slug %}')" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
         </div>
         {% endif %}
-        {% if request.user.is_authenticated and object.is_open %}
+        {% if object.is_open %}
         <div class="horizontal-line top20"></div>
         <div class="referendum-vote text-center top20">
         <h2>{% trans "Vote for this Referendum" %}</h2>
@@ -43,7 +43,9 @@
             {% endif %}
             <div class="row">
                 <div class="col-xs-12">
+                {% if request.user.is_authenticated %}
                     <small>{% trans "Because of your delegation, your vote value is: " %} <strong>{{ user_vote_value|floatformat:"2"|intcomma }}</strong></small><br>
+                {% endif %}
                     <small>{% trans "Referendum expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></small>
                 </div>
             </div>

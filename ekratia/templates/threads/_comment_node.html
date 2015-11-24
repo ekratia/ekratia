@@ -1,6 +1,11 @@
 {% load bootstrap3 %}
 {% verbatim %}
 <a name="c{{ ::comment.id }}"></a>
+{% endverbatim %} 
+{% if not request.user.is_authenticated %}
+    <small><a ng-show="comment.id == parent_comment_id && type=='referendum'" href="{% url 'account_login' %}?next={{request.path}}">Reply</a></small>
+{% endif %}
+{% verbatim %}
 <div class="row comment-container" id="c{{ ::comment.id }}" ng-hide="comment.id == parent_comment_id && type=='referendum'">
     <div class="comment-vote">
         <a ng-click="commentVote(comment,1)" href="" ng-class="commentVoteClass(comment,'up')"><i class="fa fa-arrow-circle-up"></i></a><br>
