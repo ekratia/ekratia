@@ -6,6 +6,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     url(r'^$',
@@ -27,7 +28,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Conversations
-    url(r'^conversations/', include('ekratia.conversations.urls', namespace='conversations')),
+    url(r'^conversations/',
+        include('ekratia.conversations.urls', namespace='conversations')),
 
     # Referendums
     url(r'^referendums/', include('ekratia.referendums.urls',
@@ -40,6 +42,13 @@ urlpatterns = [
     url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# URLS with URL patterns: /es /en
+urlpatterns += i18n_patterns(
+    url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
+        name="home"),
+    )
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

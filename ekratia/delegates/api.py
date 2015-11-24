@@ -48,7 +48,8 @@ class AvailableDelegates(generics.ListAPIView):
         name: Optional name to filter the user
         """
         name = self.request.query_params.get('name', None)
-        return self.request.user.get_available_delegates(name)
+        return self.request.user.get_available_delegates(name)\
+                                .order_by('-rank')
 
 
 class UserDelegateDetail(generics.GenericAPIView):

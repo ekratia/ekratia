@@ -46,3 +46,4 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 ## Releases
 
 0.5.2 November 22/2015
+0.6.0 November 23/2015
