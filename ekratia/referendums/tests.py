@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 
 from ekratia.users.models import User
-from ekratia.referendums.models import Referendum, ReferendumUserVote
+from ekratia.referendums.models import Referendum
 
 import logging
 logger = logging.getLogger('ekratia')
@@ -171,22 +171,3 @@ class ReferendumVoteTestCase(TestCase):
     def setup_delegates_scenario2(self):
         self.user2.delegate_to(self.user1)
         self.user3.delegate_to(self.user1)
-
-
-# get_total_votes_absolute
-class ReferendumsTestCase(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        # Create sample user
-        User.objects.create_user('user', 'user@email.com', 'password')
-        # Authenticate Client
-        self.client.login(username='user', password='password')
-
-    def test_url(self):
-        response = self.client.get('/referendums/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_url_create(self):
-        response = self.client.get('/referendums/create')
-        self.assertEqual(response.status_code, 200)

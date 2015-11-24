@@ -12,9 +12,13 @@ class ConversationsTestCase(TestCase):
         self.client.login(username='user', password='password')
 
     def test_url(self):
-        response = self.client.get('/conversations/')
+        response = self.client.get('/en/conversations/')
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/es/conversations/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_create(self):
-        response = self.client.get('/conversations/create')
+        response = self.client.get('/en/conversations/create')
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/es/conversations/create')
         self.assertEqual(response.status_code, 200)

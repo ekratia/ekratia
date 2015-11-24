@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles i18n %}
 
-{% block title %}Ekratia: Let's build a better government.{% endblock title %}
+{% block title %}Ekratia: {% trans "Let's build a better government" %}.{% endblock title %}
 
 {% block body_class %}home{% endblock %}
 
@@ -23,7 +23,10 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">{% trans "What is Ekratia?" %}</h2>
                     <hr class="light">
-                    <p class="text-faded">Ekratia is a new way of making democracy. Members of Ekratia use the Internet to vote directly for new ideas and laws. In case they are too busy to vote, members can delegate their vote to other members. Members can change their delegates on real time.</p>
+                    <p class="text-faded">
+                        {% blocktrans %}Ekratia is a new way of making democracy. Members of Ekratia use the Internet to vote directly for new ideas and laws. In case they are too busy to vote, members can delegate their vote to other members. Members can change their delegates on real time{% endblocktrans %}.
+                        
+                    </p>
                 </div>
             </div>
         </div>
@@ -58,14 +61,14 @@
                     <div class="service-box">
                         <i class="fa fa-4x fa-arrow-circle-up wow bounceIn text-primary" data-wow-delay=".2s"></i>
                         <h3>{% trans "Decide" %}</h3>
-                        <p class="text-muted">Propose and vote for laws and programs.</p>
+                        <p class="text-muted">{% trans "Propose and vote for laws and programs" %}.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-thumbs-o-up wow bounceIn text-primary" data-wow-delay=".3s"></i>
                         <h3>{% trans "Trust" %}</h3>
-                        <p class="text-muted">Ekratia is build on transparency.</p>
+                        <p class="text-muted">{% trans "Ekratia is build on transparency" %}.</p>
                     </div>
                 </div>
             </div>
@@ -87,10 +90,10 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">{% trans "Who is behind Ekratia" %}?</h2>
                     <hr class="primary">
-                    <p>Ekratia is being supported and improved by a group of software developers, social scientists, and translators. Ekratia is a fully transparent <a href="https://github.com/ekratia/ekratia">open source effort</a>. You can see who has done what <a href="https://github.com/torrenegra/ekratia/graphs/contributors">here</a>.</p>
+                    <p>{% blocktrans %}Ekratia is being supported and improved by a group of software developers, social scientists, and translators. Ekratia is a fully transparent <a href="https://github.com/ekratia/ekratia">open source effort</a>. You can see who has done what <a href="https://github.com/torrenegra/ekratia/graphs/contributors">here</a>.</p>
                     <p>You can view the platform roadmap and propose ideas using our <a href="https://trello.com/b/WNAgAtbx/ekratia">Trello board</a>.</p>
                     <p>We are always looking for volunteers. If you want to volunteer, please contact us at <a href="http://twitter.com/ekratia">@ekratia</a>.</p>
-                    <p>Ekratia was founded in 2015 by Alex Torrenegra, Amaury Prieto, Cristian Chaparro, Daniel Garcia, and Esteban Contreras in a hackathon in Bogotá, Colombia.</p>
+                    <p>Ekratia was founded in 2015 by Alex Torrenegra, Amaury Prieto, Cristian Chaparro, Daniel Garcia, and Esteban Contreras in a hackathon in Bogotá, Colombia.{% endblocktrans %}</p>
                 </div>
 
             </div>

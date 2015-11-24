@@ -49,7 +49,7 @@
 
     </div>
 </div>
-<h2>{% trans "Graph Representation" %}</h2>
+<h2>{% trans "Graph Visualization" %}</h2>
   <div id="graph-container"></div>
   <div>Ekratia.org</div>
 {% endblock content %}
@@ -57,7 +57,7 @@
 <script src="{% static "lib/sigma.min.js" %}"></script>
 <script src="{% static "lib/plugins/sigma.parsers.json.min.js" %}"></script>
 <script src="{% static "lib/plugins/sigma.plugins.dragNodes.min.js" %}"></script>
-<script>
+<script type="text/javascript">
 var urls_nodes_referendum = '{% url 'api:graph' object.id %}';
 </script>
 <script src="{% static "js/referendum.results.js" %}"></script>
