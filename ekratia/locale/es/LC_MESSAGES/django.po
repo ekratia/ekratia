@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ekratia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-24 06:54-0500\n"
+"POT-Creation-Date: 2015-11-24 10:30-0500\n"
 "PO-Revision-Date: 2015-11-24 07:08-0500\n"
 "Last-Translator: Andres Gonzalez <andres@swapps.co>\n"
 "Language-Team: swapps <andres@swapps.co>\n"
@@ -25,7 +25,7 @@ msgstr "Asunto"
 
 #: conversations/models.py:19
 msgid "Message"
-msgstr ""
+msgstr "Mensaje"
 
 #: referendums/models.py:30 templates/referendums/detail.html:10
 #: templates/referendums/results.html:10 templates/referendums/vote.html:10
@@ -39,7 +39,7 @@ msgstr "Texto que este referendo añadirá a nuestras reglas"
 
 #: referendums/views.py:152
 msgid "Referendum Ready to Vote!"
-msgstr "Refereno listo para votar"
+msgstr "Referendo listo para votar"
 
 #: referendums/views.py:154
 msgid "Referendum is already Open"
@@ -70,6 +70,12 @@ msgstr "Reglas"
 #: templates/base.html:101
 msgid "Profile"
 msgstr "Perfil"
+
+#: templates/base.html:102
+#, fuzzy
+#| msgid "Your Delegates"
+msgid "Your delegates"
+msgstr "Sus Delegados"
 
 #: templates/base.html:104
 msgid "Logout"
@@ -142,11 +148,11 @@ msgstr "Qué es Ekratia?"
 
 #: templates/pages/home.html:36
 msgid "Democracy made for the Internet"
-msgstr ""
+msgstr "Democracia hecha para Internet"
 
 #: templates/pages/home.html:46
 msgid "Delegate"
-msgstr ""
+msgstr "Delegado"
 
 #: templates/pages/home.html:47
 msgid "Vote directly or delegate your votes to others"
@@ -154,55 +160,31 @@ msgstr "Vota directamente o delega tus votos a otros"
 
 #: templates/pages/home.html:53
 msgid "Discuss"
-msgstr ""
+msgstr "Discuta"
 
 #: templates/pages/home.html:54
 msgid "Start and participate in intelligent conversations"
-msgstr ""
+msgstr "Comience y participe en conversaciones inteligentes"
 
 #: templates/pages/home.html:60
 msgid "Decide"
-msgstr ""
+msgstr "Decida"
 
 #: templates/pages/home.html:67
 msgid "Trust"
-msgstr ""
+msgstr "Confianza"
 
 #: templates/pages/home.html:78
 msgid "Being a good citizen is now easy"
-msgstr ""
+msgstr "Ser un buen ciudadano es fácil ahora"
 
 #: templates/pages/home.html:79
 msgid "Join us now!"
-msgstr ""
+msgstr "Unete ahora!"
 
 #: templates/pages/home.html:88
 msgid "Who is behind Ekratia"
-msgstr ""
-
-#: templates/pages/i-want-to-help.html:28
-msgid "Job description"
-msgstr ""
-
-#: templates/pages/i-want-to-help.html:41
-msgid "Skills and requirements"
-msgstr ""
-
-#: templates/pages/i-want-to-help.html:43
-msgid "We expect to see"
-msgstr ""
-
-#: templates/pages/i-want-to-help.html:48
-msgid "We'd like to see (but it's not required)"
-msgstr ""
-
-#: templates/pages/i-want-to-help.html:59
-msgid "About Ekratia"
-msgstr ""
-
-#: templates/pages/i-want-to-help.html:69
-msgid "Contact"
-msgstr ""
+msgstr "Quién está detrás de Ekratia"
 
 #: templates/referendums/_final_result.html:5
 msgid "Referendum was approved"
@@ -214,19 +196,19 @@ msgstr "El referendo no fue aprovado"
 
 #: templates/referendums/_results.html:2
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: templates/referendums/_results.html:3
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: templates/referendums/_results.html:4
 msgid "Total Votes"
-msgstr ""
+msgstr "Votos totales"
 
 #: templates/referendums/_results.html:5
 msgid "Result"
-msgstr ""
+msgstr "Resultado"
 
 #: templates/referendums/archived.html:4 templates/referendums/archived.html:9
 #: templates/referendums/list.html:61
@@ -240,7 +222,7 @@ msgstr "Iniciar Referendo"
 
 #: templates/referendums/archived.html:31
 msgid "Finished"
-msgstr ""
+msgstr "Finaluzado"
 
 #: templates/referendums/archived.html:42
 msgid "Active Referendums"
@@ -281,7 +263,7 @@ msgstr ""
 
 #: templates/referendums/detail.html:52
 msgid "Log in to vote!"
-msgstr ""
+msgstr "Inicie sesión para votar!"
 
 #: templates/referendums/detail.html:58
 msgid "This Referendum has ended"
@@ -301,7 +283,7 @@ msgstr "Resultados"
 
 #: templates/referendums/results.html:31
 msgid "Vote Details"
-msgstr ""
+msgstr "Detalles de votación"
 
 #: templates/referendums/results.html:52
 msgid "Graph Representation"
@@ -321,11 +303,11 @@ msgstr "Representa"
 
 #: templates/users/user_detail.html:18
 msgid "Based on the members who delegated to"
-msgstr ""
+msgstr "Basado en los miembros que delegaron a"
 
 #: templates/users/user_detail.html:38
 msgid "Members who delegated to"
-msgstr ""
+msgstr "Miembros que delegaron a "
 
 #: templates/users/user_detail.html:59
 msgid "Nobody has delegated this member"
@@ -333,7 +315,7 @@ msgstr "Nadie ha delegado este miembro"
 
 #: templates/users/user_detail.html:67
 msgid "delegates his/her votes to"
-msgstr ""
+msgstr "delega sus votos a"
 
 #: templates/users/user_detail.html:88
 msgid "Member does not have delegates"
