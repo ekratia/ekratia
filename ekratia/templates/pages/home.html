@@ -11,8 +11,8 @@
             <div class="header-content-inner">
                 <h1><i class="fa fa-arrow-circle-up wow bounceIn" data-wow-delay=".2s"></i> Ekratia</h1>
                 <hr>
-                <p>Let's build a better government</p>
-                <a href="{% url 'account_login' %}" class="btn btn-primary btn-xl page-scroll">Join Us</a>
+                <p>{% trans "Let's build a better government" %}</p>
+                <a href="{% url 'account_login' %}" class="btn btn-primary btn-xl page-scroll">{% trans "Join Us" %}</a>
             </div>
         </div>
     </header>
@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">What is Ekratia?</h2>
+                    <h2 class="section-heading">{% trans "What is Ekratia?" %}</h2>
                     <hr class="light">
                     <p class="text-faded">Ekratia is a new way of making democracy. Members of Ekratia use the Internet to vote directly for new ideas and laws. In case they are too busy to vote, members can delegate their vote to other members. Members can change their delegates on real time.</p>
                 </div>
@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Democracy made for the Internet</h2>
+                    <h2 class="section-heading">{% trans "Democracy made for the Internet" %}</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -43,28 +43,28 @@
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-level-up wow bounceIn text-primary"></i>
-                        <h3>Delegate</h3>
-                        <p class="text-muted">Vote directly or delegate your votes to others.</p>
+                        <h3>{% trans "Delegate" %}</h3>
+                        <p class="text-muted">{% trans "Vote directly or delegate your votes to others" %}.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-comments-o wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                        <h3>Discuss</h3>
-                        <p class="text-muted">Start and participate in intelligent conversations.</p>
+                        <h3>{% trans "Discuss" %}</h3>
+                        <p class="text-muted">{% trans "Start and participate in intelligent conversations" %}.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-arrow-circle-up wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>Decide</h3>
+                        <h3>{% trans "Decide" %}</h3>
                         <p class="text-muted">Propose and vote for laws and programs.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-thumbs-o-up wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Trust</h3>
+                        <h3>{% trans "Trust" %}</h3>
                         <p class="text-muted">Ekratia is build on transparency.</p>
                     </div>
                 </div>
@@ -75,8 +75,8 @@
     <aside class="bg-dark">
         <div class="container text-center">
             <div class="call-to-action">
-                <h2>Being a good citizen is now easy.</h2>
-                <a href="{% url 'account_login' %}" class="btn btn-default btn-xl wow tada">Join us now!</a>
+                <h2>{% trans "Being a good citizen is now easy" %}.</h2>
+                <a href="{% url 'account_login' %}" class="btn btn-default btn-xl wow tada">{% trans "Join us now!" %}</a>
             </div>
         </div>
     </aside>
@@ -85,9 +85,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Who is behind Ekratia?</h2>
+                    <h2 class="section-heading">{% trans "Who is behind Ekratia" %}?</h2>
                     <hr class="primary">
-                    <p>Ekratia is being supported and improved by a group of software developers, social scientists, and translators. Ekratia is a fully transparent <a href="https://github.com/torrenegra/ekratia">open source effort</a>. You can see who has done what <a href="https://github.com/torrenegra/ekratia/graphs/contributors">here</a>.</p>
+                    <p>Ekratia is being supported and improved by a group of software developers, social scientists, and translators. Ekratia is a fully transparent <a href="https://github.com/ekratia/ekratia">open source effort</a>. You can see who has done what <a href="https://github.com/torrenegra/ekratia/graphs/contributors">here</a>.</p>
                     <p>You can view the platform roadmap and propose ideas using our <a href="https://trello.com/b/WNAgAtbx/ekratia">Trello board</a>.</p>
                     <p>We are always looking for volunteers. If you want to volunteer, please contact us at <a href="http://twitter.com/ekratia">@ekratia</a>.</p>
                     <p>Ekratia was founded in 2015 by Alex Torrenegra, Amaury Prieto, Cristian Chaparro, Daniel Garcia, and Esteban Contreras in a hackathon in Bogotá, Colombia.</p>

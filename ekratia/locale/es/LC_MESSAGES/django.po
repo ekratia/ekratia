@@ -1,0 +1,591 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2015 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <andres@swapps.co>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ekratia\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-23 21:32-0500\n"
+"PO-Revision-Date: 2015-11-23 21:49-0500\n"
+"Last-Translator: Andres Gonzalez <andres@swapps.co>\n"
+"Language-Team: swapps <andres@swapps.co>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: conversations/models.py:16 referendums/models.py:26
+msgid "Subject"
+msgstr "Asunto"
+
+#: conversations/models.py:19
+msgid "Message"
+msgstr ""
+
+#: referendums/models.py:30 templates/referendums/detail.html:10
+#: templates/referendums/results.html:10 templates/referendums/vote.html:10
+msgid "Text that this referendum will remove from our rules"
+msgstr "Texto que este referendo eliminará de nuestras reglas"
+
+#: referendums/models.py:33 templates/referendums/detail.html:12
+#: templates/referendums/results.html:12 templates/referendums/vote.html:12
+msgid "Text that this referendum will add to our rules"
+msgstr "Texto que este referendo añadirá a nuestras reglas"
+
+#: referendums/views.py:152
+msgid "Referendum Ready to Vote!"
+msgstr "Refereno listo para votar"
+
+#: referendums/views.py:154
+msgid "Referendum is already Open"
+msgstr ""
+
+#: referendums/views.py:203
+msgid "We got your Vote. Thanks!"
+msgstr ""
+
+#: referendums/views.py:205
+msgid "Referendum is Closed"
+msgstr ""
+
+#: templates/account/email.html:7
+msgid "Account"
+msgstr ""
+
+#: templates/account/email.html:13
+msgid "E-mail Addresses"
+msgstr ""
+
+#: templates/account/email.html:15
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: templates/account/email.html:29
+msgid "Verified"
+msgstr ""
+
+#: templates/account/email.html:31
+msgid "Unverified"
+msgstr ""
+
+#: templates/account/email.html:33
+msgid "Primary"
+msgstr ""
+
+#: templates/account/email.html:39
+msgid "Make Primary"
+msgstr ""
+
+#: templates/account/email.html:40
+msgid "Re-send Verification"
+msgstr ""
+
+#: templates/account/email.html:41
+msgid "Remove"
+msgstr ""
+
+#: templates/account/email.html:48
+msgid "Warning:"
+msgstr ""
+
+#: templates/account/email.html:48
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: templates/account/email.html:53
+msgid "Add E-mail Address"
+msgstr ""
+
+#: templates/account/email.html:58
+msgid "Add E-mail"
+msgstr ""
+
+#: templates/account/email.html:69
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:14
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:13
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: templates/account/email_confirm.html:20
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: templates/account/email_confirm.html:24
+msgid "Confirm"
+msgstr ""
+
+#: templates/account/email_confirm.html:31
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: templates/account/email_confirmed.html:17
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+
+#: templates/account/login.html:9 templates/account/login.html.py:15
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/login.html:18
+msgid "Log In with Facebook"
+msgstr ""
+
+#: templates/account/logout.html:6 templates/account/logout.html.py:13
+#: templates/account/logout.html:22
+msgid "Sign Out"
+msgstr ""
+
+#: templates/account/logout.html:15
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Signed in Ekratia as %(name)s."
+msgstr ""
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:11
+#: templates/account/password_change.html:16
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:13
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:11
+msgid "Change Password"
+msgstr ""
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:14
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:12
+msgid "Password Reset"
+msgstr ""
+
+#: templates/account/password_reset.html:19
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: templates/account/password_reset.html:24
+msgid "Reset My Password"
+msgstr ""
+
+#: templates/account/password_reset.html:27
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: templates/account/password_reset_done.html:18
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:13
+msgid "Bad Token"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:17
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:23
+msgid "change password"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:26
+#: templates/account/password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr ""
+
+#: templates/account/password_set.html:6
+#: templates/account/password_set.html:12
+#: templates/account/password_set.html:17
+msgid "Set Password"
+msgstr ""
+
+#: templates/account/signup.html:7
+msgid "Signup"
+msgstr ""
+
+#: templates/account/signup.html:10 templates/account/signup.html.py:20
+msgid "Sign Up"
+msgstr ""
+
+#: templates/account/signup.html:12
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: templates/account/signup_closed.html:6
+#: templates/account/signup_closed.html:12
+msgid "Sign Up Closed"
+msgstr ""
+
+#: templates/account/signup_closed.html:14
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:11
+#: templates/account/verified_email_required.html:6
+#: templates/account/verified_email_required.html:12
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: templates/account/verification_sent.html:13
+#, python-format
+msgid ""
+"We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for "
+"verification. Follow the link provided to finalize the signup process. "
+"Please contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:16
+msgid ""
+"This part of the site requires us to verify that\n"
+"        you are who you claim to be. For this purpose, we require that you\n"
+"        verify ownership of your e-mail address. "
+msgstr ""
+
+#: templates/account/verified_email_required.html:20
+msgid ""
+"We have sent an e-mail to you for\n"
+"        verification. Please click on the link inside this e-mail. Please\n"
+"        contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:24
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: templates/app_main/delegations.html:10
+#: templates/app_main/delegations.html:15
+msgid "Your delegates"
+msgstr ""
+
+#: templates/app_main/delegations.html:17
+msgid ""
+"In Ekratia you can vote for yourself and delegate your vote to others, so "
+"that they can vote for you when you don't have the time."
+msgstr ""
+
+#: templates/app_main/delegations.html:19
+msgid "Your current delegates"
+msgstr ""
+
+#: templates/app_main/delegations.html:24
+msgid "Add more delegates"
+msgstr ""
+
+#: templates/base.html:79 templates/referendums/list.html:4
+#: templates/referendums/list.html.py:9
+msgid "Referendums"
+msgstr ""
+
+#: templates/base.html:80 templates/conversations/list.html:4
+#: templates/conversations/list.html:9
+msgid "Conversations"
+msgstr ""
+
+#: templates/base.html:81
+msgid "Rules"
+msgstr ""
+
+#: templates/base.html:89
+msgid "Profile"
+msgstr ""
+
+#: templates/base.html:91
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:95
+msgid "Log In"
+msgstr ""
+
+#: templates/conversations/create.html:4
+msgid "Start a conversation"
+msgstr ""
+
+#: templates/conversations/create.html:10 templates/conversations/list.html:14
+msgid "Start a Conversation"
+msgstr ""
+
+#: templates/conversations/create.html:19 templates/referendums/create.html:19
+msgid "Submit"
+msgstr ""
+
+#: templates/conversations/detail.html:3
+msgid "Conversation"
+msgstr ""
+
+#: templates/delegates/user_delegates.html:3
+#: templates/delegates/user_delegates.html:9
+msgid "My Delegates"
+msgstr ""
+
+#: templates/delegates/user_delegates.html:10
+#: templates/referendums/detail.html:46
+msgid "Because of your delegation, your vote value is: "
+msgstr ""
+
+#: templates/delegates/user_delegates.html:11
+msgid "Your Current Delegates"
+msgstr ""
+
+#: templates/delegates/user_delegates.html:16
+msgid "Currently you don't have delegates"
+msgstr ""
+
+#: templates/delegates/user_delegates.html:41
+msgid "Add More Delegates"
+msgstr ""
+
+#: templates/delegates/user_delegates.html:52
+msgid "There are not available delegates"
+msgstr ""
+
+#: templates/pages/home.html:14
+msgid "Let's build a better government"
+msgstr "Construyamos un mejor gobierno"
+
+#: templates/pages/home.html:15
+msgid "Join Us"
+msgstr "Unete a nosotros"
+
+#: templates/pages/home.html:24
+msgid "What is Ekratia?"
+msgstr "Qué es Ekratia?"
+
+#: templates/pages/home.html:36
+msgid "Democracy made for the Internet"
+msgstr ""
+
+#: templates/pages/home.html:46
+msgid "Delegate"
+msgstr ""
+
+#: templates/pages/home.html:47
+msgid "Vote directly or delegate your votes to others"
+msgstr "Vota directamente o delega tus votos a otros"
+
+#: templates/pages/home.html:53
+msgid "Discuss"
+msgstr ""
+
+#: templates/pages/home.html:54
+msgid "Start and participate in intelligent conversations"
+msgstr ""
+
+#: templates/pages/home.html:60
+msgid "Decide"
+msgstr ""
+
+#: templates/pages/home.html:67
+msgid "Trust"
+msgstr ""
+
+#: templates/pages/home.html:78
+msgid "Being a good citizen is now easy"
+msgstr ""
+
+#: templates/pages/home.html:79
+msgid "Join us now!"
+msgstr ""
+
+#: templates/pages/home.html:88
+msgid "Who is behind Ekratia"
+msgstr ""
+
+#: templates/pages/i-want-to-help.html:28
+msgid "Job description"
+msgstr ""
+
+#: templates/pages/i-want-to-help.html:41
+msgid "Skills and requirements"
+msgstr ""
+
+#: templates/pages/i-want-to-help.html:43
+msgid "We expect to see"
+msgstr ""
+
+#: templates/pages/i-want-to-help.html:48
+msgid "We'd like to see (but it's not required)"
+msgstr ""
+
+#: templates/pages/i-want-to-help.html:59
+msgid "About Ekratia"
+msgstr ""
+
+#: templates/pages/i-want-to-help.html:69
+msgid "Contact"
+msgstr ""
+
+#: templates/referendums/_final_result.html:5
+msgid "Referendum was approved"
+msgstr ""
+
+#: templates/referendums/_final_result.html:8
+msgid "Referendum was notapproved"
+msgstr ""
+
+#: templates/referendums/_results.html:2 templates/referendums/detail.html:37
+msgid "Yes"
+msgstr ""
+
+#: templates/referendums/_results.html:3 templates/referendums/detail.html:39
+msgid "No"
+msgstr ""
+
+#: templates/referendums/_results.html:4
+msgid "Total Votes"
+msgstr ""
+
+#: templates/referendums/_results.html:5
+msgid "Result"
+msgstr ""
+
+#: templates/referendums/archived.html:4 templates/referendums/archived.html:9
+#: templates/referendums/list.html:61
+msgid "Finished Referendums"
+msgstr ""
+
+#: templates/referendums/archived.html:14 templates/referendums/create.html:4
+#: templates/referendums/create.html:10 templates/referendums/list.html:14
+msgid "Start a Referendum"
+msgstr ""
+
+#: templates/referendums/archived.html:31
+msgid "Finished"
+msgstr ""
+
+#: templates/referendums/archived.html:42
+msgid "Active Referendums"
+msgstr ""
+
+#: templates/referendums/detail.html:3 templates/referendums/results.html:3
+#: templates/referendums/vote.html:3
+msgid "Referendum"
+msgstr ""
+
+#: templates/referendums/detail.html:17
+msgid "Open for Voting"
+msgstr ""
+
+#: templates/referendums/detail.html:23
+msgid "Vote for this Referendum"
+msgstr ""
+
+#: templates/referendums/detail.html:35
+msgid "You voted"
+msgstr ""
+
+#: templates/referendums/detail.html:47
+msgid "Referendum expires in"
+msgstr ""
+
+#: templates/referendums/detail.html:52
+msgid "Partial Results"
+msgstr ""
+
+#: templates/referendums/detail.html:54 templates/referendums/detail.html:69
+msgid "View Results"
+msgstr ""
+
+#: templates/referendums/detail.html:61
+msgid "Referendum is open for voting. "
+msgstr ""
+
+#: templates/referendums/detail.html:62
+msgid "Log in to vote!"
+msgstr ""
+
+#: templates/referendums/detail.html:68
+msgid "This Referendum has ended"
+msgstr ""
+
+#: templates/referendums/list.html:31
+msgid "Open for voting"
+msgstr ""
+
+#: templates/referendums/list.html:33
+msgid "Expires in"
+msgstr ""
+
+#: templates/referendums/list.html:50
+msgid "Created"
+msgstr ""
+
+#: templates/referendums/results.html:8 templates/referendums/results.html:20
+msgid "Results"
+msgstr ""
+
+#: templates/referendums/results.html:31
+msgid "Vote Details"
+msgstr ""
+
+#: templates/referendums/results.html:52
+msgid "Graph Representation"
+msgstr ""
+
+#: templates/referendums/vote.html:8
+msgid "Vote for"
+msgstr ""
+
+#: templates/referendums/vote.html:19
+msgid "Do you approve this referendum?"
+msgstr ""
+
+#: templates/users/user_detail.html:16
+msgid "Vote Value"
+msgstr ""
+
+#: templates/users/user_detail.html:36
+msgid "Users who delegated to"
+msgstr ""
+
+#: templates/users/user_detail.html:57
+msgid "Nobody has delegated this user"
+msgstr ""
+
+#: templates/users/user_detail.html:65
+msgid "Users delegated by"
+msgstr ""
+
+#: templates/users/user_detail.html:86
+msgid "User does not have delegates"
+msgstr ""
+
+#: threads/models.py:66
+msgid "Comment"
+msgstr "Comentario"
