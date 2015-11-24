@@ -1,7 +1,18 @@
 from django.test import TestCase
 from ekratia.core import graphs
+from django.core.urlresolvers import reverse
 
 import networkx as nx
+
+
+class PagesTestCase(TestCase):
+    def test_home(self):
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_rules(self):
+        response = self.client.get(reverse('rules'))
+        self.assertEqual(response.status_code, 200)
 
 
 class GraphTestCase(TestCase):
