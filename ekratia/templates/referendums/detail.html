@@ -17,7 +17,7 @@
             <button class="btn btn-primary btn-md" data-ng-init="referendumInit({{ object.id }}, '{% url 'referendums:open' object.slug %}')" ng-click="openVoting()" >{% trans "Open for Voting" %}</button>
         </div>
         {% endif %}
-        {% if request.user.is_authenticated and object.is_open %}
+        {% if object.is_open %}
         <div class="horizontal-line top20"></div>
         <div class="referendum-vote text-center top20">
         <h2>{% trans "Vote for this Referendum" %}</h2>
@@ -29,22 +29,12 @@
                     <a class="vote-button down {% if user_vote.value and user_vote.value < 0 %}active{% endif %}" href="{% url 'referendums:process_vote' object.slug 'no' %}"><i class="fa fa-arrow-circle-down"></i></a>
                 </div>
             </div>
-            {% if user_vote.value %}
             <div class="row">
                 <div class="col-xs-12">
-                    {% trans "You voted" %} 
-                    {% if user_vote.value > 0 %}
-                        <strong>"{% trans "Yes" %}"</strong>
-                    {% else %}
-                        <strong>"{% trans "No" %}"</strong>
-                    {% endif %} {{ user_vote.date | naturaltime }}
-                </div>
-            </div>
-            {% endif %}
-            <div class="row">
-                <div class="col-xs-12">
-                    <small>{% trans "Because of your delegation, your vote value is: " %} <strong>{{ user_vote_value|floatformat:"2"|intcomma }}</strong></small><br>
-                    <small>{% trans "Referendum expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></small>
+                {% if request.user.is_authenticated %}
+                    <small>{% trans "You represent" %} <strong>{{ user_vote_value|floatformat:"2"|intcomma }}</strong> {% trans "votes" %}</small><br>
+                {% endif %}
+                    <small>{% trans "Expires in" %} <strong>{{ object.end_time | naturaltime }}</strong></small>
                 </div>
             </div>
             <div class="row">

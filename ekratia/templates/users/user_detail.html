@@ -8,12 +8,14 @@
 
 
   <div class="row">
-    <div class="col-md-1 col-sm-2 text-center">
+    <div class="col-md-2 col-sm-2 text-center">
       <img ng-src="{{object.get_avatar}}" alt="{{ object.full_name }}" width="75" class="img-circle top30">
     </div>
-    <div class="col-md-11 col-sm-10">
+    <div class="col-md-10 col-sm-10">
       <h1>{{ object.get_full_name_or_username }}</h1>
-      <small>{% trans "Vote Value" %}: <strong>{{ object.get_pagerank|floatformat:"2"|intcomma }}</strong></small>
+     {% trans "Represents" %} <strong>{{ object.get_pagerank|floatformat:"2"|intcomma }}</strong> {% trans "votes" %}
+      <br>
+      {% trans "Based on the members who delegated to" %} {{ user.get_full_name_or_username }}
     </div>
   </div>
   
@@ -33,7 +35,7 @@
   {% endif %}
   <div class="row top20">
       <div class="col-xs-12">
-        <h2>{% trans "Users who delegated to" %} {{ object.get_full_name_or_username }}</h2>
+        <h2>{% trans "Members who delegated to" %} {{ object.get_full_name_or_username }}</h2>
       </div>
       {% for delegate in delegaters %}
       {% with user=delegate.user %}
@@ -62,7 +64,7 @@
 
   <div class="row top20">
       <div class="col-xs-12">
-        <h2>{% trans "Users delegated by" %} {{ object.get_full_name_or_username }}</h2>
+        <h2>{{ object.get_full_name_or_username }} {% trans "delegates his/her votes to" %}</h2>
       </div>
       {% for delegate in delegateds %}
       {% with user=delegate.delegate %}
@@ -83,7 +85,7 @@
       {% empty %}
       <div class="col-xs-12 top20">
           <div class="alert alert-warning alert-dismissible" role="alert" ng-hide="assigned_delegates.length>0">
-            {% trans "User does not have delegates" %}
+            {% trans "Member does not have delegates" %}
           </div>
       </div>
       {% endfor %}

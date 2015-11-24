@@ -14,6 +14,7 @@
     <div class="col-md-12 text">
       <h1 class="text-center">{% trans "Sign In" %}</h1>
       <hr>
+      <p class="text-center">{% trans "You need to be an Ekratia member to use our features." %}</p>
       <div class="text-center">
         <a  class="btn btn-lg btn-primary" href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}"><i class="fa fa-facebook"></i> {% trans "Log In with Facebook" %}</a>
       </div>

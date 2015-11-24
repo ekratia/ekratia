@@ -10,8 +10,8 @@
  */
 angular.module('Ekratia')
   .controller('CommentsController',
-    ['$scope', 'Comment',  '$location','$anchorScroll', 'VoteComment', 'ReferendumComment',
-    function ($scope, Comment, $location, $anchorScroll, VoteComment, ReferendumComment) {
+    ['$scope', 'Comment',  '$location','$anchorScroll', 'VoteComment', 'ReferendumComment', '$window',
+    function ($scope, Comment, $location, $anchorScroll, VoteComment, ReferendumComment, $window) {
 
     $scope.thread_id = null;
     $scope.anchor = null;
@@ -97,7 +97,8 @@ angular.module('Ekratia')
         VoteComment.save({comment:comment.id, value:vote}, function(data){
             $scope.loadComments($scope.thread_id);
         }, function(){
-            console.log('failed');
+            // console.log('failed');
+            $window.location.href = url_login;
         });
     };
     $scope.commentVoteClass = function(comment, selector){

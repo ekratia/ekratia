@@ -1,6 +1,11 @@
 {% load bootstrap3 %}
 {% verbatim %}
 <a name="c{{ ::comment.id }}"></a>
+{% endverbatim %} 
+{% if not request.user.is_authenticated %}
+    <small><a ng-show="comment.id == parent_comment_id && type=='referendum'" href="{% url 'account_login' %}?next={{request.path}}">Reply</a></small>
+{% endif %}
+{% verbatim %}
 <div class="row comment-container" id="c{{ ::comment.id }}" ng-hide="comment.id == parent_comment_id && type=='referendum'">
     <div class="comment-vote">
         <a ng-click="commentVote(comment,1)" href="" ng-class="commentVoteClass(comment,'up')"><i class="fa fa-arrow-circle-up"></i></a><br>
@@ -12,27 +17,34 @@
                 <a  href="" ng-click="toggl_children(comment)" ng-hide="comment.close_children">[-]</a><a href="" ng-click="toggl_children(comment)" ng-show="comment.close_children">[+]</a>&nbsp;
                 </span>
                 <a href="/users/{{ ::comment.data.user.username }}">{{ ::comment.data.user.full_name }}</a> &nbsp; <span class="gray"><ng-pluralize count="::comment.data.points"
-                     when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;&nbsp;{{ ::convertDate(comment.data.date) }}</span>
+                     when="{'0': '0 votes','one': '1  vote', 'other': '{} votes'}"></ng-pluralize>&nbsp;{{ ::convertDate(comment.data.date) }}</span>
                 <br>
             </div>
             <div class="text-message">
                 <span class="comment-text" ng-bind-html="::comment.data.content | nl2p"></span>
+{% endverbatim %}
+                {% if request.user.is_authenticated %}
                 <div ng-show="comment.id != parent_comment_id" class="comment-actions">
+                {% verbatim %}
+                    <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
+                {% endverbatim %}
+                    <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
+                    <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
+                </div>
+                {% else %}
+                <div class="comment-actions">
+                    {% verbatim %}
                     <a href="#/#c{{ ::comment.id }}" target="_self">Permalink</a>&nbsp;&nbsp;
                     {% endverbatim %}
-                    {% if request.user.is_authenticated %}
-                    <a ng-click="::toggleCommentForm(comment)" href="" ng-hide="comment.open_form">Reply</a>
-                    {% else %}
                     <a href="{% url 'account_login' %}?next={{request.path}}">Reply</a>
-                    {% endif %}
                     <a ng-click="::toggleCommentForm(comment)" href="" ng-show="comment.open_form">Hide</a>
-                    {% verbatim %}
                 </div>
+                {% endif %}
             </div>
                 <br>
     </div>
 </div>
-{% endverbatim %}
+
 
 {% if request.user.is_authenticated %}
 {% verbatim %}
