@@ -17,6 +17,8 @@ from ekratia.users.models import User
 
 from ekratia.conversations.models import Thread
 
+from django_email import EmailTemplate
+
 
 class CommentList(generics.ListCreateAPIView):
     """
@@ -128,7 +130,13 @@ class ThreadComments(APIView):
 
             node.add_child(content=serializer.data['content'],
                            user_id=request.user.id)
-
+            mail = EmailTemplate("comment")
+            mail.context = {'comment': request.data,
+                            'user': request.user,
+                            'request': request
+                            }
+            mail.to = ('andres@swapps.co',)
+            mail.send()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
