@@ -63,7 +63,7 @@ def notify_comment_node(request, node, object_type):
                         'object_type': object_type
                         }
         mail.set_subject('%s has a new comment' % object.title)
-        if request.user != root.user:
+        if request.user != root.user and node.user != root.user:
             mail.send_to_user(root.user)
 
     except ValueError, e:
