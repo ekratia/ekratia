@@ -57,6 +57,8 @@ class Referendum(models.Model):
 
     objects = ReferendumManager()
 
+    num_comments = models.IntegerField(default=0)
+
     class Meta:
         ordering = ['open_time', '-date']
 
