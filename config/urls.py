@@ -22,6 +22,8 @@ urlpatterns += i18n_patterns(
         name="home"),
     url(r'^about/$',
         TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^email/$',
+        TemplateView.as_view(template_name='email/comment.html'), name="email"),
     url(r'^rules/$',
         TemplateView.as_view(template_name='pages/rules.html'), name="rules"),
 
