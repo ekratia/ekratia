@@ -87,7 +87,9 @@
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
                           {% for language in languages %}
-                            <li><a href="/{{ language.code }}">{{ language.name_local|title }} ({{ language.code }})</a></li>
+                          {% if  language.code != LANGUAGE_CODE %}
+                            <li><a href="/{{ language.code }}/">{{ language.name_local|title }} ({{ language.code }})</a></li>
+                          {% endif %}
                           {% endfor %}
                           </ul>
                         </li>
