@@ -338,4 +338,5 @@ DJANGO_EMAIL_ADMIN = 'support@ekratia.org'
 
 MANDRILL_API_KEY = env('MANDRILL_API_KEY')
 DEFAULT_FROM_EMAIL = DJANGO_EMAIL_FROM
-DJANGO_EMAIL_SUBJECT_PREFIX = '[Ekratia] '
+DJANGO_EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX',
+                                  default='[Ekratia] ')

@@ -21,6 +21,7 @@ class Thread(models.Model):
     user = models.ForeignKey(common.AUTH_USER_MODEL)
 
     comment = models.OneToOneField(Comment, null=True, blank=True)
+    num_comments = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.description
