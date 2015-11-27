@@ -62,6 +62,12 @@ class Referendum(models.Model):
     class Meta:
         ordering = ['open_time', '-date']
 
+    def count_comments(self):
+        count = self.comment.get_descendant_count()
+        self.num_comments = count
+        self.save()
+        return count
+
     def check_status(self):
         """
         Method used to update status when necessary

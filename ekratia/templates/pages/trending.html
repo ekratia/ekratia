@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load i18n humanize %}
+{% block title %}{% trans "Trending now" %}{% endblock title %}
+{% block content %}
+      
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{% trans "Trending now" %}</h1>
+        </div>
+
+    </div>
+
+    <div class="row page-content trending-list" ng-controller="TrendingController">
+        <div class="col-xs-6">
+            <h2>{% trans "Conversations" %}</h2>
+            {% verbatim %}
+            <div class="list-group" ng-repeat="conversation in conversations" ng-cloak>
+                <a href="{{ conversation.url }}" class="list-group-item">
+                <div class="row">
+                    <div class="col-sm-8">
+                        {{ conversation.title }}
+                    </div>
+                    <div class="col-sm-4 text-right">
+
+                    </div>
+                </div>
+                </a>
+            </div>
+            {% endverbatim %}
+        </div>
+        <div class="col-xs-6">
+            <h2>{% trans "Referendums" %}</h2>
+            {% verbatim %}
+            <div class="list-group" ng-repeat="referendum in referendums" ng-cloak>
+                <a href="{{ referendum.url }}" class="list-group-item">
+                <div class="row">
+                    <div class="col-sm-8">
+                        {{ referendum.title }}
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        
+                    </div>
+                </div>
+                </a>
+            </div>
+            {% endverbatim %}
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -20,8 +20,8 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
         name="home"),
-    url(r'^about/$',
-        TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^trending/$',
+        TemplateView.as_view(template_name='pages/trending.html'), name="trending"),
     url(r'^email/$',
         TemplateView.as_view(template_name='email/comment.html'), name="email"),
     url(r'^rules/$',
@@ -50,6 +50,7 @@ urlpatterns += i18n_patterns(
                                 namespace='delegates')),
     url(r'^avatar/', include('avatar.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
     )
 
 if settings.DEBUG:

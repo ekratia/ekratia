@@ -102,7 +102,7 @@ class ReferendumDetailView(DetailView):
                 logger.debug("User: %s  Value: %s" % (vote.user, vote.value))
 
         self.object.check_status()
-
+        self.object.count_comments()
         return context
 
 
