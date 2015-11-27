@@ -1,5 +1,5 @@
-{% load staticfiles i18n socialaccount compress %}<!DOCTYPE html>
-<html lang="en" ng-app="Ekratia">
+{% load staticfiles i18n socialaccount compress %}{% get_current_language as LANGUAGE_CODE %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" ng-app="Ekratia">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -81,14 +81,15 @@
                       <li><a href="{% url 'rules' %}">{% trans "Rules" %}</a></li>
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                          {% get_current_language as LANGUAGE_CODE %}
                           {% get_available_languages as LANGUAGES %}
                           {% get_language_info_list for LANGUAGES as languages %}
                           {{ LANGUAGE_CODE }}
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu" role="menu">
                           {% for language in languages %}
-                            <li><a href="/{{ language.code }}">{{ language.name_local|title }} ({{ language.code }})</a></li>
+                          {% if  language.code != LANGUAGE_CODE %}
+                            <li><a href="/{{ language.code }}/">{{ language.name_local|title }} ({{ language.code }})</a></li>
+                          {% endif %}
                           {% endfor %}
                           </ul>
                         </li>

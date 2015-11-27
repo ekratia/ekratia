@@ -150,7 +150,7 @@ ol {
   background-color: #f2dede;
   border-color: #eed3d7; }
 
-.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+.dropdown-menu > li > a.active, .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
   color: #fff;
   text-decoration: none;
   background-color: rgba(0, 102, 153, 0.7); }
