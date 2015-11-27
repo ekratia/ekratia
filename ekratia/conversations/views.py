@@ -55,4 +55,5 @@ class ThreadDetailView(DetailView):
         """
         context = super(ThreadDetailView, self).get_context_data(**kwargs)
         context['form_comment'] = ThreadCommentForm
+        self.object.count_comments()
         return context

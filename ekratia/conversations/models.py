@@ -26,6 +26,12 @@ class Thread(models.Model):
     def __unicode__(self):
         return self.description
 
+    def count_comments(self):
+        count = self.comment.get_descendant_count()
+        self.num_comments = count
+        self.save()
+        return count
+
     def save(self, *args, **kwargs):
         if not self.slug:
             title = self.title
