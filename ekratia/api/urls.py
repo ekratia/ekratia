@@ -18,6 +18,8 @@ urlpatterns = patterns(
     # Threads comments
     url(r'^comments/thread/(?P<pk>[0-9]+)/$',
         threads.ThreadComments.as_view()),
+    # Referendums
+    url(r'^referendums/$', referendums.ReferendumsList.as_view()),
     # Referendums Comments
     url(r'^comments/referendum/(?P<pk>[0-9]+)/$',
         referendums.ReferendumComments.as_view()),

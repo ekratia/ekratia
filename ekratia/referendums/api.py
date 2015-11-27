@@ -3,6 +3,7 @@ from ekratia.threads.serializers import CommentThreadSerializer
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework import status
 from rest_framework import permissions
 
@@ -10,16 +11,20 @@ from django.http import Http404
 
 from ekratia.threads.models import Comment, CommentUserVote
 from .models import Referendum
-
-from ekratia.conversations.models import Thread
+from .serializers import ReferendumSerializer
 
 from ekratia.users.models import User
-from django_email import EmailTemplate
 
 from ekratia.core.email import notify_comment_node
 import logging
 
 logger = logging.getLogger('ekratia')
+
+
+class ReferendumsList(generics.ListAPIView):
+    queryset = Referendum.objects.all().order_by('-num_comments')
+    serializer_class = ReferendumSerializer
+    paginate_by = 5
 
 
 class ReferendumComments(APIView):
