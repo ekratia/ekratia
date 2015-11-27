@@ -50,6 +50,7 @@ urlpatterns += i18n_patterns(
                                 namespace='delegates')),
     url(r'^avatar/', include('avatar.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^api/v1/', include('ekratia.api.urls', namespace='api')),
     )
 
 if settings.DEBUG:

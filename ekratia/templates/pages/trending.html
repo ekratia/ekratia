@@ -15,8 +15,8 @@
         <div class="col-xs-6">
             <h2>{% trans "Conversations" %}</h2>
             {% verbatim %}
-            <div class="list-group" ng-repeat="conversation in conversations">
-                <a href="#" class="list-group-item">
+            <div class="list-group" ng-repeat="conversation in conversations" ng-cloak>
+                <a href="{{ conversation.url }}" class="list-group-item">
                 <div class="row">
                     <div class="col-sm-8">
                         {{ conversation.title }}
@@ -30,24 +30,21 @@
             {% endverbatim %}
         </div>
         <div class="col-xs-6">
-            <h2>{% trans "Refrendums" %}</h2>
-            <div class="list-group">
-                <a href="#" class="list-group-item">
+            <h2>{% trans "Referendums" %}</h2>
+            {% verbatim %}
+            <div class="list-group" ng-repeat="referendum in referendums" ng-cloak>
+                <a href="{{ referendum.url }}" class="list-group-item">
                 <div class="row">
                     <div class="col-sm-8">
                         {{ referendum.title }}
                     </div>
                     <div class="col-sm-4 text-right">
-                        <small>
-                        <strong>{% trans "Open for voting" %}</strong>
-                        <br>
-                        {% trans "Expires in" %} <strong>{{ referendum.end_time | naturaltime }}</strong></small>
+                        
                     </div>
                 </div>
-
                 </a>
-
             </div>
+            {% endverbatim %}
         </div>
     </div>
 

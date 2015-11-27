@@ -12,9 +12,12 @@ angular.module('Ekratia')
   .controller('TrendingController',
     ['$scope', 'Conversation', 'Referendum',
     function ($scope, Conversation, Referendum) {
-        $scope.referendums = Referendum.query();
+
          Conversation.query(function(data){
             $scope.conversations = data.results;
          });
-    
+
+         Referendum.query(function(data){
+            $scope.referendums = data.results;
+         });
 }]);
