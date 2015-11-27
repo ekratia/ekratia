@@ -17,6 +17,12 @@ from ekratia.users.models import User
 
 from ekratia.conversations.models import Thread
 
+from ekratia.core.email import notify_comment_node
+
+import logging
+
+logger = logging.getLogger('ekratia')
+
 
 class CommentList(generics.ListCreateAPIView):
     """
@@ -128,6 +134,8 @@ class ThreadComments(APIView):
 
             node.add_child(content=serializer.data['content'],
                            user_id=request.user.id)
+
+            notify_comment_node(request, node, 'conversation')
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

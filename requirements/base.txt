@@ -55,3 +55,7 @@ django-avatar==2.1.1
 # Graphs
 numpy==1.10.1
 networkx==1.10
+
+#Emails
+django-email==0.1.0
+djrill==1.4.0

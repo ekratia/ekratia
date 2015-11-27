@@ -1,6 +1,7 @@
 from django.test import TestCase, RequestFactory, Client
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+from django.utils.translation import activate
 
 from ekratia.users.models import User
 from ekratia.referendums.models import Referendum
@@ -40,6 +41,7 @@ class ReferendumViewsTestCase(TestCase):
         self.referendum1.save()
         self.referendum2.save()
         self.referendum3.save()
+        activate('en')
 
     def test_list_referendums(self):
         response = self.client.get(reverse('referendums:list'))

@@ -11,7 +11,15 @@ from django.http import Http404
 from ekratia.threads.models import Comment, CommentUserVote
 from .models import Referendum
 
+from ekratia.conversations.models import Thread
+
 from ekratia.users.models import User
+from django_email import EmailTemplate
+
+from ekratia.core.email import notify_comment_node
+import logging
+
+logger = logging.getLogger('ekratia')
 
 
 class ReferendumComments(APIView):
@@ -106,6 +114,8 @@ class ReferendumComments(APIView):
 
             node.add_child(content=serializer.data['content'],
                            user_id=request.user.id)
+
+            notify_comment_node(request, node, 'referendum')
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

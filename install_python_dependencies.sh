@@ -40,6 +40,8 @@ else
     echo >&2 -e "$VIRTUAL_ENV"
     pip install -r /srv/app/requirements.txt
     cp /home/ubuntu/.env /srv/app/
+    cd /srv/app/
     python /srv/app/manage.py migrate --settings=config.settings.production
+    python /srv/app/manage.py compilemessages
     python /srv/app/manage.py collectstatic --settings=config.settings.production --noinput > /dev/null 2> /dev/null < /dev/null &
 fi
