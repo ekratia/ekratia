@@ -31,7 +31,9 @@ def notify_comment_node(request, node, object_type):
 
     if not object:
         return False
-
+    # Count and save comments of the object
+    # TODO: count and update comments
+    object.count_comments()
     # Send message to parent comment user
     try:
         mail = EmailTemplate("comment_node")
