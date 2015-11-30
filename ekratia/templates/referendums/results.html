@@ -18,7 +18,8 @@
                 {% include "referendums/_results.html" %}
             </div>
         </div>
-
+        {% if votes %}
+            
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">{% trans "Vote Details" %}</h2>
@@ -39,12 +40,16 @@
                 </div>
             </div>
         {% endfor %}
+        {% endif %}
 
     </div>
 </div>
+{% if votes %}
+    
 <h2>{% trans "Graph Visualization" %}</h2>
   <div id="graph-container"></div>
   <div>Ekratia.org</div>
+{% endif %}
 {% endblock content %}
 {% block extra_js %}
 <script src="{% static "lib/sigma.min.js" %}"></script>

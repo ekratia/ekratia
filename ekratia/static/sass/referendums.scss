@@ -7,7 +7,7 @@
             color: $color_vote_up;
         }
         &:hover{
-            color: darken($color_vote_up, 10%);
+            color: darken($color_vote_up, 5%);
         }
     }
 
@@ -16,7 +16,7 @@
             color: $color_vote_down;
         }
         &:hover{
-            color: darken($color_vote_down, 10%);
+            color: darken($color_vote_down, 5%);
         }
     }
 }
@@ -44,6 +44,20 @@ div.referendum-results{
     }
 }
 
+.vote{
+    .fa{
+        &.fa-arrow-circle-up{
+            color: $color_vote_up;
+        }
+        &.fa-arrow-circle-down{
+            color: $color_vote_down;
+        }
+    }
+}
+
+.f24{
+    font-size: 24px;
+}
 #graph-container {
     width: 100%;
     height: 500px;
