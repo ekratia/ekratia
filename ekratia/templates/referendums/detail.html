@@ -54,6 +54,9 @@
         {% endif %}
         {% if object.is_finished %}
             {% include "referendums/_final_result.html" %}
+            <div class="text-center">
+                 {% include "referendums/_results.html" %}
+            </div>
             <div class="alert alert-warning alert-dismissible text-center top20" role="alert">
               {% trans "This Referendum has ended" %}.
               <a href="{% url 'referendums:results' object.slug %}">{% trans "View Results" %}</a>

@@ -67,7 +67,7 @@ class Comment(MP_Node):
     # thread = models.OneToOneField(Thread, null=True, blank=True)
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     date = models.DateTimeField(default=timezone.now)
-    points = models.IntegerField(default=0)
+    points = models.FloatField(default=0)
     objects = CommentManager()
 
     def calculate_votes(self):
@@ -94,4 +94,4 @@ class CommentUserVote(models.Model):
     """
     user = models.ForeignKey(common.AUTH_USER_MODEL)
     comment = models.ForeignKey(Comment)
-    value = models.IntegerField(default=1)
+    value = models.FloatField(default=0.0)
