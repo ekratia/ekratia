@@ -6,18 +6,11 @@
     <div class="referendum" ng-controller="ReferendumController">
         <span us-spinner="{radius:30, width:8, length: 16}"></span>
         <h1>{% trans "Results" %}: {{ object.title }}</h1>
-        <div class="referendums-head">
-            <div class="referendum-rule-title top20">{% trans "Text that this referendum will remove from our rules" %}:</div>
-            <p ng-bind-html="'{{object.text_remove_rules }}' | nl2p" class="text-strike"></p>
-            <div  class="referendum-rule-title top20">{% trans "Text that this referendum will add to our rules" %}:</div>
-            <p ng-bind-html="'{{object.text_add_rules }}' | nl2p" class=""></p>
-        </div>
     </div>
 
     <div class="results">
         <div class="row">
             <div class="col-md-offset-3 col-md-6 text-center">
-                <h2>{% trans "Results" %}</h2>
                 {% if object.is_finished %}
                 {% include "referendums/_final_result.html" %}
                 <br>
@@ -25,7 +18,8 @@
                 {% include "referendums/_results.html" %}
             </div>
         </div>
-
+        {% if votes %}
+            
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">{% trans "Vote Details" %}</h2>
@@ -46,12 +40,16 @@
                 </div>
             </div>
         {% endfor %}
+        {% endif %}
 
     </div>
 </div>
+{% if votes %}
+    
 <h2>{% trans "Graph Visualization" %}</h2>
   <div id="graph-container"></div>
   <div>Ekratia.org</div>
+{% endif %}
 {% endblock content %}
 {% block extra_js %}
 <script src="{% static "lib/sigma.min.js" %}"></script>
