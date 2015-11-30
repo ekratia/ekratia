@@ -261,9 +261,9 @@ div.threads .referendum-rule-title {
   font-size: 60px;
   color: #c2c2c2; }
   .vote-button.up.active {
-    color: #109D58; }
+    color: #009999; }
   .vote-button.up:hover {
-    color: #0b6f3e; }
+    color: #006666; }
   .vote-button.down.active {
     color: #E11B22; }
   .vote-button.down:hover {
@@ -277,7 +277,7 @@ div.referendum-list div.open a {
 div.referendum-results .fa {
   font-size: 40px; }
   div.referendum-results .fa.fa-arrow-circle-up {
-    color: #109D58; }
+    color: #009999; }
   div.referendum-results .fa.fa-arrow-circle-down {
     color: #E11B22; }
 
