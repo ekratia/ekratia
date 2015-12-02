@@ -6,6 +6,16 @@ logger = logging.getLogger('ekratia')
 
 
 class GraphEkratia(nx.DiGraph):
+    """
+    Extends Digraph Class to add methods used in the voting system.
+
+    - How to use it::
+
+          graph = GraphEkratia()
+          graph.add_user_id(1)
+          graph.add_users_ids([1,2,3])
+
+    """
 
     def __init__(self, *args, **kwargs):
         super(GraphEkratia, self).__init__(*args, **kwargs)
@@ -14,10 +24,21 @@ class GraphEkratia(nx.DiGraph):
         self.exclude = []
 
     def add_users_ids(self, users_ids):
+        """
+        Adds nodes to the graph from a list of user ids
+
+        :param: list users_ids: List of user ids
+        :type users_ids: list
+        """
         for user_id in users_ids:
             self.add_user_id(user_id)
 
     def add_user_id(self, user_id):
+        """ Add a nodes from user_id
+
+        :param: user_id User Id.
+        :type user_id: int
+        """
         logger.debug("Add User %i" % user_id)
         self.queue_node(user_id)
         while self.queue:
@@ -29,20 +50,45 @@ class GraphEkratia(nx.DiGraph):
                 self.visit_node(current)
 
     def set_exclude_list(self, users_ids):
+        """Excludes list of ids from the Graph
+
+        :param users_ids: List of users ids
+        :type users_ids: list
+        """
         self.exclude = users_ids
 
     def visit_node(self, node):
+        """ Add a nodes to visited list
+
+        :param: node Id.
+        :type node: int
+        """
         logger.debug("Visited %i" % node)
         self.visited.add(node)
 
     def queue_node(self, node):
+        """ Queue a node for future revision
+
+        :param: node Id.
+        :type node: int
+        """
         logger.debug("Queued %i" % node)
         self.queue.append(node)
 
     def retrieve_node(self):
+        """Retrieves a node from the queue
+
+        :returns: node
+        :rtype: int
+        """
         return self.queue.pop(0)
 
     def attach_predecessors(self, node):
+        """ Attach the predecessors of a node
+
+        :param: node Id.
+        :type node: int
+        """
         logger.debug("attach_predecessors")
         predecessors = self.get_user_id_delegates_to_me(node)
         for predecessor in predecessors:
@@ -52,6 +98,11 @@ class GraphEkratia(nx.DiGraph):
                 self.queue_node(predecessor)
 
     def attach_succesors(self, node):
+        """ Attach the succesors of a node
+
+        :param: node Id.
+        :type node
+        """
         logger.debug("attach_succesors")
         successors = self.get_user_id_delegates(node)
         for successor in successors:
@@ -61,14 +112,37 @@ class GraphEkratia(nx.DiGraph):
                 self.queue_node(successor)
 
     def get_user_id_delegates(self, user_id):
+        """ returns a list of ids of succesors of the node
+
+        :param: user_id User Id.
+        :type user_id: int
+        :returns: list of user ids
+        :rtype: list
+        """
         return Delegate.objects.filter(user__id=user_id)\
             .values_list('delegate__id', flat=True)
 
     def get_user_id_delegates_to_me(self, user_id):
+        """ returns a list of ids of predecessors of the node
+
+        :param: user_id User Id.
+        :type user_id: int
+        :returns: list of user ids
+        :rtype: list
+        """
+
         return Delegate.objects.filter(delegate__id=user_id)\
             .values_list('user__id', flat=True)
 
     def get_pagerank_values(self):
+        """ dictionary of pagerank values for the nodes of the graph
+
+        :param: user_id User Id.
+        :type user_id: int
+        :returns: pagerank calculation
+        :rtype: dict
+        """
+
         return nx.pagerank_numpy(self)
 
     def set_nodes_pagerank(self):
@@ -85,7 +159,6 @@ class GraphEkratia(nx.DiGraph):
 
     def set_vote_value(self, user_id):
         values = self.get_pagerank_values()
-        # self.node[user_id]['rank'] = values[user_id] * self.number_of_nodes()
 
         for key in values.keys():
             if 'rank' not in self.node[key]:
@@ -102,6 +175,11 @@ class GraphEkratia(nx.DiGraph):
             self.node[user.id]['avatar'] = user.get_avatar
 
     def get_sigma_representation(self):
+        """ Representation for Sigma JS library
+
+        :returns: dict of nodes and edges
+        :rtype: dict
+        """
         self.set_users_properties()
 
         nodes = []
