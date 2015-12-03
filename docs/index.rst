@@ -21,6 +21,8 @@ Contents:
    modules/delegates
    modules/referendums
    modules/conversations
+   settings
+   deployment
 
 
 
