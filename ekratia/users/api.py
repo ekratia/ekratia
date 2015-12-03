@@ -7,7 +7,7 @@ from rest_framework import permissions
 
 class UserView(generics.RetrieveAPIView):
     """
-    API class for User
+    API User details Endpoint
     """
     permission_classes = (permissions.IsAuthenticated,)
     model = User
