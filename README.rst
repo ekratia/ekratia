@@ -19,7 +19,7 @@ Ekratia is a new way of making democracy. Members of Ekratia use the Internet to
 
 This is the GitHub repository of Ekratia. To learn more about the technical details of the platform, [view the technical readme](technical_readme.rst).
 
-To learn more about Ekratia in general, visit [Ekratia.org](http://www.ekratia.org/).
+To learn more about Ekratia in general, visit `Ekratia.org <http://www.ekratia.org/>`_
 
 Documentation
 -------------
@@ -28,6 +28,12 @@ Find the documentation at:
 
 `http://ekratia.readthedocs.org/en/latest/ <http://ekratia.readthedocs.org/en/latest/>`_
 
+Contributing
+------------
+Found an issue? `Create an issue in Github <https://github.com/ekratia/ekratia/issues>`_
+
+Licensing
+---------
 
 Releases
 --------
