@@ -5,7 +5,12 @@ from ekratia.topics.models import Topic
 
 
 class Delegate(models.Model):
+    """
+    Delegate Model stores the delegations made by user in the system.
+    """
+    #: User delgating
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_set")
+    #: User to delegate
     delegate = models.ForeignKey(settings.AUTH_USER_MODEL,
                                  related_name="delegate_set")
     topic = models.ForeignKey(Topic, null=True, blank=True)

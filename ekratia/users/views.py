@@ -13,7 +13,8 @@ from ekratia.delegates.models import Delegate
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     """
-    User Detail View
+    User Detail View.
+    Displays the details for an user
     """
     model = User
     # These next two lines tell the view to index lookups by username

@@ -63,4 +63,6 @@ bower_components
 
 /ekratia/media/
 
-docs/_build
+_build
+_static
+_templates

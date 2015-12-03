@@ -101,7 +101,7 @@ class GraphEkratia(nx.DiGraph):
         """ Attach the succesors of a node
 
         :param: node Id.
-        :type node
+        :type node: int
         """
         logger.debug("attach_succesors")
         successors = self.get_user_id_delegates(node)
