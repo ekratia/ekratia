@@ -336,7 +336,7 @@ REFERENDUM_EXPIRE_HOURS = 72
 DJANGO_EMAIL_FROM = 'noreply@ekratia.org'
 DJANGO_EMAIL_ADMIN = 'support@ekratia.org'
 
-MANDRILL_API_KEY = env('MANDRILL_API_KEY')
+MANDRILL_API_KEY = env('MANDRILL_API_KEY', default='')
 DEFAULT_FROM_EMAIL = DJANGO_EMAIL_FROM
 DJANGO_EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX',
                                   default='[Ekratia] ')
