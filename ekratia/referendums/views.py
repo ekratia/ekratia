@@ -41,7 +41,9 @@ class ReferendumArchivedListView(ListView):
     """
     model = Referendum
     template_name = 'referendums/archived.html'
-    queryset = Referendum.objects.finished().order_by('open_time')
+
+    def get_queryset(self):
+        return Referendum.objects.finished().order_by('open_time')
 
 
 class ReferendumCreateView(LoginRequiredMixin, CreateView):

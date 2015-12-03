@@ -20,49 +20,65 @@ logger = logging.getLogger('ekratia')
 
 class Referendum(models.Model):
     """
-    Referendum model:
+    Entity that refers to a proposal made by an user to modify the rules.
+    It is opened for vote for a period of time and the members vote to approve
+    it or not.
     """
+    #: Title of the referendum
     title = models.CharField(max_length=25, blank=False,
                              verbose_name=_('Subject'))
+    #: Slugify version of the title
     slug = models.SlugField(max_length=50, db_index=True, unique=True)
+    #: Rules that will remove from rules
     text_remove_rules = models.TextField(
         max_length=1000, blank=False,
         verbose_name=_('Text that this referendum will remove from our rules'))
+    #: Text that will add to rules
     text_add_rules = models.TextField(
         max_length=1000, blank=False,
         verbose_name=_('Text that this referendum will add to our rules'))
+    #: Date of creation
     date = models.DateTimeField(auto_now_add=True)
+    #: User who created referendum
     user = models.ForeignKey(common.AUTH_USER_MODEL)
+    #: Open Time of Referendum
     open_time = models.DateTimeField(null=True, blank=True)
 
-    # Total Value of the Referndum
+    #: Total Value of the Referndum
     points = models.FloatField(default=0)
 
-    # Total Values for Stats
+    #: Total Values for Stats
     total_yes = models.FloatField(default=0.0)
     total_no = models.FloatField(default=0.0)
     total_votes = models.FloatField(default=0.0)
     total_users = models.IntegerField(default=0)
 
-    # True If approved, False if not approved, None not set yet
+    #: True If approved, False if not approved, None not set yet
     approved = models.NullBooleanField(null=True, blank=True)
 
-    # Comment thread
+    #: Comment thread
     comment = models.OneToOneField(Comment, null=True, blank=True)
-    # Rating due to the comments, used to establish trendy referendums
+    #: Rating due to the comments, used to establish trendy referendums
     comment_points = models.FloatField(default=0.0)
 
-    # Options: created, open, finished
+    #: Status options: created, open, finished
     status = models.CharField(max_length=10, default='created')
 
     objects = ReferendumManager()
-
+    #: Number of comments
     num_comments = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['open_time', '-date']
 
     def count_comments(self):
+        """
+        Counts the comments of the referendunm, updates the value and returns
+        the count.
+
+        :returns: count of comments
+        :rtype: int
+        """
         count = self.comment.get_descendant_count()
         self.num_comments = count
         self.save()
@@ -89,6 +105,9 @@ class Referendum(models.Model):
     def is_approved(self):
         """
         Get partial results and determines if It's approved or not
+
+        :returns: True or False
+        :rtype: boolean
         """
         logger.debug("POINTS: %s" % self.points)
         return True if self.points > 0 else False
@@ -96,6 +115,9 @@ class Referendum(models.Model):
     def is_open(self):
         """
         Method to establish id Referendum is open for vote.
+
+        :returns: True or False
+        :rtype: boolean
         """
         if not self.open_time:
             return False
@@ -106,6 +128,9 @@ class Referendum(models.Model):
     def is_finished(self):
         """
         Method to establish id Referendum is open for vote.
+
+        :returns: True or False
+        :rtype: boolean
         """
         if not self.open_time:
             return False
@@ -115,6 +140,9 @@ class Referendum(models.Model):
     def open_remaining_time(self):
         """
         Returns the remaining time for vote.
+
+        :returns: Remianing time for referendum to finish
+        :rtype: datetime.timedelta()
         """
         end_time = self.end_time()
         now = timezone.now()
@@ -129,7 +157,9 @@ class Referendum(models.Model):
     def vote_process(self, user, value):
         """
         Processes a vote for the referendum
-        returns the vote object
+
+        :param: user User object
+        :param: value Vote value (-1 or 1)
         """
         if value != -1 and value != 1:
             raise ValueError
@@ -226,6 +256,12 @@ class Referendum(models.Model):
         return ReferendumUserVote.objects.filter(referendum=self)
 
     def get_graph(self):
+        """
+        Get graph of the referendum
+
+        :returns: Graph of the referendum
+        :rtype: ekratia.core.graphs.GraphEkratia
+        """
         votes = self.get_votes_list()
         graph = GraphEkratia()
         for vote in votes:
@@ -286,9 +322,13 @@ class ReferendumUserVote(models.Model):
     ReferendumUserVote Model:
     Stores votes from users to Referendums
     """
+    #: ekratia.users.models.User
     user = models.ForeignKey(common.AUTH_USER_MODEL)
+    #: ekratia.referendums.models.Referendum
     referendum = models.ForeignKey(Referendum)
+    #: Vote Value
     value = models.FloatField(default=1)
+    #: Time of the vote
     date = models.DateTimeField(default=timezone.now)
 
     # Custom manager
