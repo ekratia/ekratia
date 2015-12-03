@@ -13,11 +13,6 @@ Users
     :members:
 
 
-Referendums
------------
-.. automodule:: ekratia.referendums.api
-    :members:
-
 Conversations
 -------------
 .. automodule:: ekratia.conversations.api
