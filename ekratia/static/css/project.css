@@ -180,10 +180,14 @@ div.threads div.comment-vote {
   padding: 0 15px; }
   div.threads div.comment-vote a {
     color: #c2c2c2; }
-  div.threads div.comment-vote a.active {
-    color: #006699; }
-  div.threads div.comment-vote a:hover {
-    color: rgba(0, 102, 153, 0.7); }
+  div.threads div.comment-vote a.active .fa-arrow-circle-up {
+    color: #009999; }
+  div.threads div.comment-vote a.active .fa-arrow-circle-down {
+    color: #b3161b; }
+  div.threads div.comment-vote a:hover .fa-arrow-circle-up {
+    color: #007f80; }
+  div.threads div.comment-vote a:hover .fa-arrow-circle-down {
+    color: #9c1318; }
 
 div.threads div.comment-content {
   padding-left: 20px; }
@@ -261,13 +265,13 @@ div.threads .referendum-rule-title {
   font-size: 60px;
   color: #c2c2c2; }
   .vote-button.up.active {
-    color: #109D58; }
+    color: #009999; }
   .vote-button.up:hover {
-    color: #0b6f3e; }
+    color: #007f80; }
   .vote-button.down.active {
-    color: #E11B22; }
-  .vote-button.down:hover {
     color: #b3161b; }
+  .vote-button.down:hover {
+    color: #9c1318; }
 
 div.referendum-list div.open a {
   background-color: rgba(0, 153, 153, 0.1); }
@@ -277,9 +281,18 @@ div.referendum-list div.open a {
 div.referendum-results .fa {
   font-size: 40px; }
   div.referendum-results .fa.fa-arrow-circle-up {
-    color: #109D58; }
+    color: #009999; }
   div.referendum-results .fa.fa-arrow-circle-down {
-    color: #E11B22; }
+    color: #b3161b; }
+
+.vote .fa.fa-arrow-circle-up {
+  color: #009999; }
+
+.vote .fa.fa-arrow-circle-down {
+  color: #b3161b; }
+
+.f24 {
+  font-size: 24px; }
 
 #graph-container {
   width: 100%;

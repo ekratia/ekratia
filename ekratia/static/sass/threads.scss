@@ -13,10 +13,20 @@ div.threads{
           color: $color_vote_inactive;
         }
         a.active{
-          color: $color_vote_active;
+            .fa-arrow-circle-up{
+                color: $color_vote_up;
+            }
+            .fa-arrow-circle-down{
+                color: $color_vote_down;
+            }
         }
         a:hover{
-          color: $color_vote_hover;
+            .fa-arrow-circle-up{
+                color: darken($color_vote_up, 5%);
+            }
+            .fa-arrow-circle-down{
+                color: darken($color_vote_down, 5%);
+            }
         }
     }
     div.comment-content{

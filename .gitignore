@@ -62,3 +62,7 @@ env/
 bower_components
 
 /ekratia/media/
+
+_build
+_static
+_templates

@@ -172,7 +172,8 @@ class ThreadCommentsVotes(APIView):
                     vote.save()
                 else:
                     if(vote.value != serializer.data['value']):
-                        vote.value = serializer.data['value']
+                        vote.value = serializer.data['value']\
+                            * request.user.rank
                         vote.save()
                     else:
                         vote.delete()

@@ -12,6 +12,10 @@ from ekratia.delegates.models import Delegate
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
+    """
+    User Detail View.
+    Displays the details for an user
+    """
     model = User
     # These next two lines tell the view to index lookups by username
     slug_field = "username"
@@ -38,6 +42,9 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Update Users View
+    """
 
     form_class = UserForm
 
@@ -55,6 +62,9 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class UserListView(LoginRequiredMixin, ListView):
+    """
+    List users view
+    """
     model = User
     # These next two lines tell the view to index lookups by username
     slug_field = "username"

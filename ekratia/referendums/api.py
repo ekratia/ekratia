@@ -1,6 +1,4 @@
 # Imports for django rest framework
-from ekratia.threads.serializers import CommentThreadSerializer
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -100,6 +98,7 @@ class ReferendumComments(APIView):
         return Response(data)
 
     def post(self, request, pk, format=None):
+        from ekratia.threads.serializers import CommentThreadSerializer
         """
         Method to create new comment for the current Referendum
         """
