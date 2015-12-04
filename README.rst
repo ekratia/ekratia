@@ -6,7 +6,7 @@
 Ekratia
 =======
 
-.. image:: https://img.shields.io/github/release/ekratia/ekratia.svg
+.. image:: https://badge.fury.io/gh/ekratia%2Fekratia.svg
     :target: https://github.com/ekratia/ekratia/releases
     :alt: Release
 .. image:: https://travis-ci.org/ekratia/ekratia.svg
@@ -37,11 +37,15 @@ Found an issue? `Create an issue in Github <https://github.com/ekratia/ekratia/i
 Licensing
 ---------
 
+`View License <`LICENSE.rst>`_
+
 Releases
 --------
 
-0.5.2 November 22/2015
+Current release:
 
-0.6.0 November 23/2015
-
-0.7.0 December 1/2015
+.. image:: https://badge.fury.io/gh/ekratia%2Fekratia.svg
+   :target: https://github.com/ekratia/ekratia/releases
+   :alt: Release
+    
+Other releases: https://github.com/ekratia/ekratia/releases
