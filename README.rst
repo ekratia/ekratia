@@ -37,7 +37,7 @@ Found an issue? `Create an issue in Github <https://github.com/ekratia/ekratia/i
 Licensing
 ---------
 
-`View License <`LICENSE.rst>`_
+`View License <LICENSE>`_
 
 Releases
 --------
