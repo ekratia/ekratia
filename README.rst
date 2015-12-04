@@ -6,10 +6,8 @@
 Ekratia
 =======
 
-.. image:: https://codeship.com/projects/9e79e6a0-556f-0133-ba06-26e6b5453efb/status?branch=master
-   :target: http://www.ekratia.org
-   :alt: Build Status
-
+.. image:: https://travis-ci.org/ekratia/ekratia.svg
+    :target: https://travis-ci.org/ekratia/ekratia
 .. image:: https://readthedocs.org/projects/ekratia/badge/?version=latest
    :target: http://ekratia.readthedocs.org/en/latest/?badge=latest
    :alt: Documentation Status
