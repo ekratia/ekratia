@@ -4,7 +4,7 @@ Deployment
 
 This project relies on Environment variables.
 
-Please make sure you define the variables according to the `Settings <settings.rst>`_ page:
+Please make sure you define the variables according to the `Settings <settings.html>`_ page:
 
 
 Deployment to Production on AWS
