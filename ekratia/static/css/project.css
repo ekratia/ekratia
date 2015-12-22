@@ -81,6 +81,11 @@ ul {
 .text-strike {
   text-decoration: line-through; }
 
+.button-more {
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline; }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   h1 {
