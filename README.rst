@@ -6,10 +6,12 @@
 Ekratia
 =======
 
-.. image:: https://codeship.com/projects/9e79e6a0-556f-0133-ba06-26e6b5453efb/status?branch=master
-   :target: http://www.ekratia.org
-   :alt: Build Status
-
+.. image:: https://badge.fury.io/gh/ekratia%2Fekratia.svg
+    :target: https://github.com/ekratia/ekratia/releases
+    :alt: Release
+.. image:: https://travis-ci.org/ekratia/ekratia.svg
+    :target: https://travis-ci.org/ekratia/ekratia
+    :alt: Build Status
 .. image:: https://readthedocs.org/projects/ekratia/badge/?version=latest
    :target: http://ekratia.readthedocs.org/en/latest/?badge=latest
    :alt: Documentation Status
@@ -35,11 +37,15 @@ Found an issue? `Create an issue in Github <https://github.com/ekratia/ekratia/i
 Licensing
 ---------
 
+`View License <LICENSE>`_
+
 Releases
 --------
 
-0.5.2 November 22/2015
+Current release:
 
-0.6.0 November 23/2015
-
-0.7.0 December 1/2015
+.. image:: https://badge.fury.io/gh/ekratia%2Fekratia.svg
+   :target: https://github.com/ekratia/ekratia/releases
+   :alt: Release
+    
+Other releases: https://github.com/ekratia/ekratia/releases

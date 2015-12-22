@@ -25,6 +25,10 @@
 				<div class="row">
 					<div class="col-sm-8">
 						{{ referendum.title }}
+						<br>
+						<small>
+						{{ referendum.text_add_rules|truncatechars:75}}
+						</small>
 					</div>
 					<div class="col-sm-4 text-right">
 						<small>
@@ -38,9 +42,7 @@
   	{% endfor %}
 		</div>
 		<div class="col-xs-12 text-center">
-			<small>
-			[<a href="{% url 'referendums:list' %}">{% trans "Active Referendums" %}</a>]
-			</small>
+			<a class="button-more" href="{% url 'referendums:list' %}"><i class="fa fa-arrow-circle-right"></i> {% trans "Active Referendums" %}</a>
 		</div>
 	</div>
 
