@@ -25,6 +25,10 @@
 				<div class="row">
 					<div class="col-sm-8">
 						{{ referendum.title }}
+						<br>
+						<small>
+						{{ referendum.text_add_rules|truncatechars:75}}
+						</small>
 					</div>
 					<div class="col-sm-4 text-right">
 						<small>
@@ -44,9 +48,15 @@
 				<div class="row">
 					<div class="col-sm-8">
 						{{ referendum.title }}
+						<br>
+						<small>
+						{{ referendum.text_add_rules|truncatechars:75}}
+						</small>
 					</div>
 					<div class="col-sm-4 text-right">
 						<small>
+						<strong>{% trans "Haven't been opened for voting yet" %}</strong>
+						<br>
 							{% trans "Created" %} {{ referendum.date | naturaltime }}
 						</small>
 					</div>
@@ -58,7 +68,7 @@
 		</div>
 		<div class="col-xs-12 text-center">
 			<small>
-			[<a href="{% url 'referendums:archived' %}">{% trans "Finished Referendums" %}</a>]
+			<a href="{% url 'referendums:archived' %}" class="button-more"><i class="fa fa-arrow-circle-right"></i> {% trans "Past Referendums" %}</a>
 			</small>
 		</div>
 	</div>
