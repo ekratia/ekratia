@@ -10,12 +10,15 @@
 
     <div class="results">
         <div class="row">
-            <div class="col-md-offset-3 col-md-6 text-center">
+            <div class="col-md-12 text-center">
                 {% if object.is_finished %}
                 {% include "referendums/_final_result.html" %}
                 <br>
-                {% endif %}
                 {% include "referendums/_results.html" %}
+                {% else %}
+                <h2>{% trans "Partial Results" %}</h2>
+                {% include "referendums/_results.html" %}
+                {% endif %}
             </div>
         </div>
         {% if votes %}
@@ -43,13 +46,17 @@
         {% endif %}
 
     </div>
+    {% if votes %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{% trans "Graph Visualization" %}</h2>
+            <div class="container-graph-container">
+              <div id="graph-container"></div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
-{% if votes %}
-    
-<h2>{% trans "Graph Visualization" %}</h2>
-  <div id="graph-container"></div>
-  <div>Ekratia.org</div>
-{% endif %}
 {% endblock content %}
 {% block extra_js %}
 <script src="{% static "lib/sigma.min.js" %}"></script>

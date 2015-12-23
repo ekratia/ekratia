@@ -202,7 +202,7 @@ class ReferendumProcessVoteView(LoginRequiredMixin, RedirectView):
             # and other referendum votes
             referendum.vote_process(self.request.user, vote_value)
 
-            messages.success(self.request, _('We got your Vote. Thanks!'))
+            messages.success(self.request, _("We've got your Vote. Thanks!"))
         else:
             messages.error(self.request, _('Referendum is Closed'))
         return reverse('referendums:detail', kwargs={'slug': referendum.slug})
