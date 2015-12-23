@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load i18n humanize %}
 {% block title %}{% trans "Conversations" %}{% endblock title %}
 {% block content %}
       
@@ -22,7 +22,13 @@
   	{% for thread in object_list %}
 			
 			<div class="list-group">
-				<a href="{% url "conversations:detail" slug=thread.slug %}" class="list-group-item">{{ thread.title }}</a>
+				<a href="{% url "conversations:detail" slug=thread.slug %}" class="list-group-item">
+				{{ thread.title }}
+				<br>
+				<small>
+					{{ thread.num_comments }} votes by {{ thread.user.get_full_name_or_username }} {{ thread.date | naturaltime }} | {{ thread.num_comments }} {% trans "comments" %}
+				</small>
+				</a>
 			</div>
 
   	{% endfor %}
