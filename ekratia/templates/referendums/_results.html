@@ -1,5 +1,8 @@
 {% load i18n humanize percentage %}
-<span class="vote f24"><i class="fa fa fa-arrow-circle-up"></i></span> {{ object.total_yes|floatformat:"2"|intcomma }} ({{ object.total_yes|percentage:object.total_votes}})<br>
+<span class="vote f24"><i class="fa fa fa-arrow-circle-up"></i></span> {{ object.total_yes|floatformat:"2"|intcomma }} ({{ object.total_yes|percentage:object.total_votes}})
+&nbsp;&nbsp;
 <span class="vote f24"><i class="fa fa fa-arrow-circle-down"></i> </span>{{ object.total_no|floatformat:"2"|intcomma }} ({{ object.total_no|percentage:object.total_votes}})<br>
+    <div class=" col-md-12 horizontal-line top20 bottom-10"></div>
+    <br>
 <strong>{% trans "Total Votes" %}:</strong> {{ object.total_votes|floatformat:"2"|intcomma }} <br>
 <strong>{% trans "Result" %}:</strong> {{ object.points|floatformat:"2"|intcomma }} <br>

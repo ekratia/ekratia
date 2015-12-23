@@ -66,6 +66,9 @@ ul {
 .bottom-20 {
   margin-bottom: 20px; }
 
+.bottom-10 {
+  margin-bottom: 10px; }
+
 .horizontal-line {
   border-top: 1px dotted #ccc; }
 
@@ -299,6 +302,10 @@ div.referendum-results .fa {
 .f24 {
   font-size: 24px; }
 
-#graph-container {
-  width: 100%;
-  height: 500px; }
+div.container-graph-container {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 50px; }
+  div.container-graph-container #graph-container {
+    width: 100%;
+    height: 500px; }
