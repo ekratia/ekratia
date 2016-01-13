@@ -8,6 +8,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 
+from ekratia.core.views import HomePageView
 urlpatterns = [
     url(r'^$',
         TemplateView.as_view(template_name='pages/home.html'), name="home"),
@@ -18,7 +19,7 @@ urlpatterns = [
 
 # URLS with URL patterns: /es /en
 urlpatterns += i18n_patterns(
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
+    url(r'^$', HomePageView.as_view(),
         name="home"),
     url(r'^trending/$',
         TemplateView.as_view(template_name='pages/trending.html'), name="trending"),
