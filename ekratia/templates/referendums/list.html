@@ -15,8 +15,6 @@
 			</a>
 		</div>
 	</div>
-
-
 	<div class="row page-content referendum-list">
 		<div class="col-xs-12">
           	{% for referendum in referendums_open %}
@@ -62,7 +60,6 @@
         					</div>
         				</div>
         				</a>
-
         			</div>
           	{% endfor %}
 		</div>
@@ -72,6 +69,16 @@
 			</small>
 		</div>
 	</div>
-
-
+	<!-- Pager -->
+	<ul class="pager">
+		{% if object_list.has_previous %}
+			<li class="previous"><a href="?page={{ object_list.previous_page_number }}">&larr; {% trans "older" %}</a></li>
+		{% endif %}
+		<span class="current">
+			{% trans "page" %} {{ object_list.number }} {% trans "of" %} {{ object_list.paginator.num_pages }}.
+		</span>
+		{% if object_list.has_next %}
+			<li class="next"><a href="?page={{ object_list.next_page_number }}">{% trans "newer" %} &rarr;</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}
