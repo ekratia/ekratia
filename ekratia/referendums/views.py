@@ -25,6 +25,7 @@ class ReferendumListView(TemplateView):
     List of Referendums
     """
     template_name = 'referendums/list.html'
+    paginated_by = 20
 
     def get_context_data(self, *args, **kwargs):
         context = super(ReferendumListView, self).get_context_data(**kwargs)
