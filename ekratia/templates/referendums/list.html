@@ -3,7 +3,7 @@
 {% load i18n humanize %}
 {% block title %}{% trans "Referendums" %}{% endblock title %}
 {% block content %}
-      
+
 	<div class="row">
 		<div class="col-xs-8">
 			<h1>{% trans "Referendums" %}</h1>
@@ -19,52 +19,52 @@
 
 	<div class="row page-content referendum-list">
 		<div class="col-xs-12">
-  	{% for referendum in referendums_open %}
-		  	<div class="list-group open">
-				<a href="{% url "referendums:detail" slug=referendum.slug %}" class="list-group-item">
-				<div class="row">
-					<div class="col-sm-8">
-						{{ referendum.title }}
-						<br>
-						<small>
-						{{ referendum.text_add_rules|truncatechars:75}}
-						</small>
-					</div>
-					<div class="col-sm-4 text-right">
-						<small>
-						<strong>{% trans "Open for voting" %}</strong>
-						<br>
-						{% trans "Expires in" %} <strong>{{ referendum.end_time | naturaltime }}</strong></small>
-					</div>
-				</div>
+          	{% for referendum in referendums_open %}
+        		  	<div class="list-group open">
+        				<a href="{% url "referendums:detail" slug=referendum.slug %}" class="list-group-item">
+        				<div class="row">
+        					<div class="col-sm-8">
+        						{{ referendum.title }}
+        						<br>
+        						<small>
+        						{{ referendum.text_add_rules|truncatechars:75}}
+        						</small>
+        					</div>
+        					<div class="col-sm-4 text-right">
+        						<small>
+        						<strong>{% trans "Open for voting" %}</strong>
+        						<br>
+        						{% trans "Expires in" %} <strong>{{ referendum.end_time | naturaltime }}</strong></small>
+        					</div>
+        				</div>
 
-				</a>
+        				</a>
 
-			</div>
-  	{% endfor %}
-  	{% for referendum in referendums_created %}
-		  	<div class="list-group">
-				<a href="{% url "referendums:detail" slug=referendum.slug %}" class="list-group-item">
-				<div class="row">
-					<div class="col-sm-8">
-						{{ referendum.title }}
-						<br>
-						<small>
-						{{ referendum.text_add_rules|truncatechars:75}}
-						</small>
-					</div>
-					<div class="col-sm-4 text-right">
-						<small>
-						<strong>{% trans "Haven't been opened for voting yet" %}</strong>
-						<br>
-							{% trans "Created" %} {{ referendum.date | naturaltime }}
-						</small>
-					</div>
-				</div>
-				</a>
+        			</div>
+          	{% endfor %}
+          	{% for referendum in referendums_created %}
+        		  	<div class="list-group">
+        				<a href="{% url "referendums:detail" slug=referendum.slug %}" class="list-group-item">
+        				<div class="row">
+        					<div class="col-sm-8">
+        						{{ referendum.title }}
+        						<br>
+        						<small>
+        						{{ referendum.text_add_rules|truncatechars:75}}
+        						</small>
+        					</div>
+        					<div class="col-sm-4 text-right">
+        						<small>
+        						<strong>{% trans "Haven't been opened for voting yet" %}</strong>
+        						<br>
+        							{% trans "Created" %} {{ referendum.date | naturaltime }}
+        						</small>
+        					</div>
+        				</div>
+        				</a>
 
-			</div>
-  	{% endfor %}
+        			</div>
+          	{% endfor %}
 		</div>
 		<div class="col-xs-12 text-center">
 			<small>
