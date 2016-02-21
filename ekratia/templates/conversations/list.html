@@ -39,7 +39,7 @@
                     <li class="previous"><a href="?page={{ object_list.previous_page_number }}">&larr; {% trans "older" %}</a></li>
                 {% endif %}
                 <span class="current">
-                    Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                    {% trans "page" %} {{ object_list.number }} {% trans "of" %} {{ object_list.paginator.num_pages }}.
                 </span>
                 {% if object_list.has_next %}
                     <li class="next"><a href="?page={{ object_list.next_page_number }}">{% trans "newer" %} &rarr;</a></li>
