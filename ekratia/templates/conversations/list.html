@@ -34,17 +34,19 @@
           	{% endfor %}
             <hr>
             <!-- Pager -->
-            <ul class="pager">
-                {% if object_list.has_previous %}
-                    <li class="previous"><a href="?page={{ object_list.previous_page_number }}">&larr; {% trans "older" %}</a></li>
-                {% endif %}
-                <span class="current">
-                    {% trans "page" %} {{ object_list.number }} {% trans "of" %} {{ object_list.paginator.num_pages }}.
-                </span>
-                {% if object_list.has_next %}
-                    <li class="next"><a href="?page={{ object_list.next_page_number }}">{% trans "newer" %} &rarr;</a></li>
-                {% endif %}
-            </ul>
+			{% if is_paginated %}
+				<ul class="pager">
+					{% if page_obj.has_previous %}
+						<li class="previous"><a href="?page={{ page_obj.previous_page_number }}">&larr; {% trans "older" %}</a></li>
+					{% endif %}
+					<span class="current">
+						{% trans "page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+					</span>
+					{% if page_obj.has_next %}
+						<li class="next"><a href="?page={{ page_obj.next_page_number }}">{% trans "newer" %} &rarr;</a></li>
+					{% endif %}
+				</ul>
+			{% endif %}			
 		</div>
 	</div>
 
