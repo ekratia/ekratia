@@ -13,6 +13,7 @@ class ThreadListView(ListView):
     """
     model = Thread
     template_name = 'conversations/list.html'
+    paginate_by = 20
 
 
 class ThreadCreateView(LoginRequiredMixin, CreateView):
