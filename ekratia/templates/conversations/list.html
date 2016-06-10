@@ -3,7 +3,7 @@
 {% load i18n humanize %}
 {% block title %}{% trans "Conversations" %}{% endblock title %}
 {% block content %}
-      
+
 	<div class="row">
 		<div class="col-xs-8">
 			<h1>{% trans "Conversations" %}</h1>
@@ -19,19 +19,34 @@
 
 	<div class="row page-content">
 		<div class="col-xs-12">
-  	{% for thread in object_list %}
-			
-			<div class="list-group">
-				<a href="{% url "conversations:detail" slug=thread.slug %}" class="list-group-item">
-				{{ thread.title }}
-				<br>
-				<small>
-					{{ thread.num_comments }} votes by {{ thread.user.get_full_name_or_username }} {{ thread.date | naturaltime }} | {{ thread.num_comments }} {% trans "comments" %}
-				</small>
-				</a>
-			</div>
+          	{% for thread in object_list %}
 
-  	{% endfor %}
+        			<div class="list-group">
+        				<a href="{% url "conversations:detail" slug=thread.slug %}" class="list-group-item">
+        				{{ thread.title }}
+        				<br>
+        				<small>
+        					{{ thread.num_comments }} votes by {{ thread.user.get_full_name_or_username }} {{ thread.date | naturaltime }} | {{ thread.num_comments }} {% trans "comments" %}
+        				</small>
+        				</a>
+        			</div>
+
+          	{% endfor %}
+            <hr>
+            <!-- Pager -->
+			{% if is_paginated %}
+				<ul class="pager">
+					{% if page_obj.has_previous %}
+						<li class="previous"><a href="?page={{ page_obj.previous_page_number }}">&larr; {% trans "older" %}</a></li>
+					{% endif %}
+					<span class="current">
+						{% trans "page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+					</span>
+					{% if page_obj.has_next %}
+						<li class="next"><a href="?page={{ page_obj.next_page_number }}">{% trans "newer" %} &rarr;</a></li>
+					{% endif %}
+				</ul>
+			{% endif %}			
 		</div>
 	</div>
 
