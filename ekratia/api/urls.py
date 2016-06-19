@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from ekratia.threads import api as threads
 from ekratia.conversations import api as conversations
 from ekratia.referendums import api as referendums
 from ekratia.delegates import api as delegates
 from ekratia.users import api as users
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     # Conversations CRUD
     url(r'^conversations/$', conversations.ThreadList.as_view()),
     url(r'^conversations/(?P<pk>[0-9]+)/$',
@@ -37,4 +36,4 @@ urlpatterns = patterns(
     # Users
     url(r'^users/(?P<pk>[0-9]+)/$',
         users.UserView.as_view()),
-    )
+]
