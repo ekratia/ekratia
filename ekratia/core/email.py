@@ -1,7 +1,7 @@
 from ekratia.conversations.models import Thread
 from ekratia.referendums.models import Referendum
 
-from django_email import EmailTemplate
+from django_email.email import EmailTemplate
 
 import logging
 logger = logging.getLogger('ekratia')
