@@ -193,7 +193,7 @@ div.threads div.comment-vote {
   div.threads div.comment-vote a.active .fa-arrow-circle-down {
     color: #b3161b; }
   div.threads div.comment-vote a:hover .fa-arrow-circle-up {
-    color: #007f80; }
+    color: teal; }
   div.threads div.comment-vote a:hover .fa-arrow-circle-down {
     color: #9c1318; }
 
@@ -275,7 +275,7 @@ div.threads .referendum-rule-title {
   .vote-button.up.active {
     color: #009999; }
   .vote-button.up:hover {
-    color: #007f80; }
+    color: teal; }
   .vote-button.down.active {
     color: #b3161b; }
   .vote-button.down:hover {
@@ -309,3 +309,6 @@ div.container-graph-container {
   div.container-graph-container #graph-container {
     width: 100%;
     height: 500px; }
+
+.custom-horizontal-line {
+  border-top: 1px solid black; }
