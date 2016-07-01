@@ -104,3 +104,14 @@ ul
     font-weight: bold;
     text-decoration: underline
 }
+.menu-responsive{
+    @media(min-width: 768px) {
+        display: none !important;
+    }
+}
+#avatar-login{
+    @media(min-width: 768px) {
+        display: block !important;
+    }
+    display: none;
+}
