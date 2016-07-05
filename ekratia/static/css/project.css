@@ -89,6 +89,16 @@ ul {
   font-weight: bold;
   text-decoration: underline; }
 
+@media (min-width: 768px) {
+  .menu-responsive {
+    display: none !important; } }
+
+#avatar-login {
+  display: none; }
+  @media (min-width: 768px) {
+    #avatar-login {
+      display: block !important; } }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   h1 {
