@@ -46,8 +46,8 @@ THIRD_PARTY_APPS = (
     'bootstrap3',  # Django-Bootstrap3
     'treebeard',   # Trees on Django
     'avatar',  # Django Avatar
-    'django_email',
     'djrill',
+    'django_email',
 )
 
 # Apps specific for this project go here.
