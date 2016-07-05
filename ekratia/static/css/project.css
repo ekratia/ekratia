@@ -106,6 +106,13 @@ ul {
   margin-right: 0px;
   margin-left: 0px; }
 
+#list-email input {
+  display: inline-block; }
+
+#list-email h1 {
+  display: inline-block;
+  font-size: 25px; }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   h1 {
