@@ -9,10 +9,9 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>{% block header %}User: {{ user.username }}{% endblock %}</h1>
-            <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
+            <form class="form-horizontal" method="post" action="{% url 'users:update' %}" id="update-name">
                 {% csrf_token %}
-                {{ form|crispy }}
-
+                <label for="id_first_name">Name</label>
                 {{ form.first_name|as_crispy_field  }}
                 <div class="control-group">
                   <div class="controls">

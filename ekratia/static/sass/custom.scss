@@ -115,3 +115,12 @@ ul
     }
     display: none;
 }
+#update-name{
+    label.control-label {
+        display: none;
+    }
+    #div_id_first_name{
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}

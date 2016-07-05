@@ -99,6 +99,13 @@ ul {
     #avatar-login {
       display: block !important; } }
 
+#update-name label.control-label {
+  display: none; }
+
+#update-name #div_id_first_name {
+  margin-right: 0px;
+  margin-left: 0px; }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   h1 {
