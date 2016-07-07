@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory, Client
+from ekratia.users.models import User
 from ekratia.core import graphs
 from django.core.urlresolvers import reverse
 
@@ -6,6 +7,15 @@ import networkx as nx
 
 
 class PagesTestCase(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.client = Client()
+        # Create sample user
+        User.objects.create_user('user', 'user@email.com', 'password')
+        # Authenticate Client
+        self.client.login(username='user', password='password')
+
     def test_home(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
@@ -80,6 +90,5 @@ class GraphPagerankCase(TestCase):
         G.add_edge(3, 1)
         G.add_edge(1, 4)
         G.add_edge(1, 5)
-        print graphs.graph_pagerank_values(G)
         self.assertEqual(graphs.graph_pagerank_node_value(G, 4), 5.0)
         self.assertEqual(graphs.graph_pagerank_node_value(G, 5), 5.0)
