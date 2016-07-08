@@ -15,7 +15,7 @@
       <h1>User:{{ object.get_full_name_or_username }}</h1>
      {% trans "Represents" %} <strong>{{ object.get_pagerank|floatformat:"2"|intcomma }}</strong> {% trans "votes" %}
       <br>
-      <small style="font-size:80%;">{% trans "(Based on) " %} </small>{% trans "the members who delegated to" %} {{ user.get_full_name_or_username }}
+      <small style="font-size:80%;">({% trans "Based on the members who delegated to" %} {{ user.get_full_name_or_username }})</small>
     </div>
   </div>
 
