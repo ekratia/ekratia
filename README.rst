@@ -47,5 +47,8 @@ Current release:
 .. image:: https://badge.fury.io/gh/ekratia%2Fekratia.svg
    :target: https://github.com/ekratia/ekratia/releases
    :alt: Release
-    
+
 Other releases: https://github.com/ekratia/ekratia/releases
+
+
+Follow us!

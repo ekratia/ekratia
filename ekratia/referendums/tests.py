@@ -12,7 +12,12 @@ logger = logging.getLogger('ekratia')
 
 class ReferendumViewsTestCase(TestCase):
     def setUp(self):
+        self.factory = RequestFactory()
         self.client = Client()
+        # Create sample user
+        User.objects.create_user('user', 'user@email.com', 'password')
+        # Authenticate Client
+        self.client.login(username='user', password='password')
         self.user1 = User.objects.create_user(
             'user1', 'user@email.com', 'password')
         self.user2 = User.objects.create_user(
