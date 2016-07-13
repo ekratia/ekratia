@@ -93,10 +93,10 @@ ul {
   .menu-responsive {
     display: none !important; } }
 
-#avatar-login {
+#avatar-login, #language {
   display: none; }
   @media (min-width: 768px) {
-    #avatar-login {
+    #avatar-login, #language {
       display: block !important; } }
 
 #update-name label.control-label {
