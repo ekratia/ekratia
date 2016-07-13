@@ -104,3 +104,32 @@ ul
     font-weight: bold;
     text-decoration: underline
 }
+.menu-responsive{
+    @media(min-width: 768px) {
+        display: none !important;
+    }
+}
+#avatar-login, #language{
+    @media(min-width: 768px) {
+        display: block !important;
+    }
+    display: none;
+}
+#update-name{
+    label.control-label {
+        display: none;
+    }
+    #div_id_first_name{
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}
+#list-email{
+    input{
+        display: inline-block;
+    }
+    h1{
+        display: inline-block;
+        font-size: 25px;
+    }
+}
