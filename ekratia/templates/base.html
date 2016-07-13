@@ -109,6 +109,10 @@
                       {% else %}
                         <li><a  class=""href="{% provider_login_url 'facebook' next=request.path scope=scope auth_params=auth_params %}">{% trans "Log In" %}</a></li>
                       {% endif %}
+                      {% if request.user.is_authenticated %}
+                        <li class="menu-responsive"><a href="{% url 'delegates:delegates' %}">{% trans "Your delegates" %}</a></li>
+                        <li class="menu-responsive"><a href="{% url 'account_logout' %}?next={{ request.path }}">{% trans "Logout" %}</a></li>
+                      {% endif %}
                       {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
 
@@ -117,11 +121,6 @@
                               <li class="menu-responsive"><a href="/{{ language.code }}/">{{ language.name_local|title }} ({{ language.code }})</a></li>
                             {% endif %}
                           {% endfor %}
-                      {% if request.user.is_authenticated %}
-                        <li class="menu-responsive"><a href="{% url 'users:detail' request.user.username %}">{% trans "Profile" %}</a></li>
-                        <li class="menu-responsive"><a href="{% url 'delegates:delegates' %}">{% trans "Your delegates" %}</a></li>
-                        <li class="menu-responsive"><a href="{% url 'account_logout' %}?next={{ request.path }}">{% trans "Logout" %}</a></li>
-                      {% endif %}
                   </ul>
               </div>
               <!-- /.navbar-collapse -->
