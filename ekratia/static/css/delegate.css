@@ -1,8 +1,2 @@
-/* line 3, /home/westeros/projects/ekratia/ekratia/client/styles/delegate.scss */
-.delegate .caption h4 {
-  width: auto;
-  box-sizing: content-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; }
-
+.delegate .caption h4{width:auto;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImRlbGVnYXRlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQSxzQkFDRSxXQUFZLEFBQ1osK0JBQXdCLEFBQXhCLDRCQUF3QixBQUF4Qix1QkFBd0IsQUFDeEIsZ0JBQWlCLEFBQ2pCLHVCQUF3QixBQUN4QixrQkFBb0IsQ0FBRSIsImZpbGUiOiJkZWxlZ2F0ZS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBsaW5lIDMsIC9ob21lL3dlc3Rlcm9zL3Byb2plY3RzL2VrcmF0aWEvZWtyYXRpYS9jbGllbnQvc3R5bGVzL2RlbGVnYXRlLnNjc3MgKi9cbi5kZWxlZ2F0ZSAuY2FwdGlvbiBoNCB7XG4gIHdpZHRoOiBhdXRvO1xuICBib3gtc2l6aW5nOiBjb250ZW50LWJveDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7IH1cblxuIl19 */

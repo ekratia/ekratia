@@ -12,13 +12,13 @@
       <img ng-src="{{object.get_avatar}}" alt="{{ object.full_name }}" width="75" class="img-circle top30">
     </div>
     <div class="col-md-10 col-sm-10">
-      <h1>{{ object.get_full_name_or_username }}</h1>
+      <h1>User:{{ object.get_full_name_or_username }}</h1>
      {% trans "Represents" %} <strong>{{ object.get_pagerank|floatformat:"2"|intcomma }}</strong> {% trans "votes" %}
       <br>
-      {% trans "Based on the members who delegated to" %} {{ user.get_full_name_or_username }}
+      <small style="font-size:80%;">({% trans "Based on the members who delegated to" %} {{ user.get_full_name_or_username }})</small>
     </div>
   </div>
-  
+
     {% if object == request.user %}
   <!-- Action buttons -->
   <div class="row top20">

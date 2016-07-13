@@ -6,7 +6,7 @@
         <span us-spinner="{radius:30, width:8, length: 16}"></span>
         <div class="row">
             <div class="col-md-12">
-                <h1>{% trans "Delegates" %}</h1>
+                <h1 style="margin-left: -4px;">{% trans "Delegates" %}</h1>
                 <small>{% trans "You represent " %} {% verbatim %}<strong>{{ user.rank| number:2 }}</strong>{% endverbatim %} {% trans "votes" %}</small>
                 <h2>{% trans "Your Delegates" %} {% verbatim %}({{ assigned_delegates.length }}){% endverbatim %}</h2>
                 

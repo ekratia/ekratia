@@ -46,8 +46,8 @@ THIRD_PARTY_APPS = (
     'bootstrap3',  # Django-Bootstrap3
     'treebeard',   # Trees on Django
     'avatar',  # Django Avatar
-    'django_email',
     'djrill',
+    'django_email',
 )
 
 # Apps specific for this project go here.
@@ -333,8 +333,8 @@ LOGGING = {
 
 # Your common stuff: Below this line define 3rd party library settings
 REFERENDUM_EXPIRE_HOURS = 72
-DJANGO_EMAIL_FROM = 'noreply@ekratia.org'
-DJANGO_EMAIL_ADMIN = 'support@ekratia.org'
+DJANGO_EMAIL_FROM = env('DJANGO_EMAIL_FROM', default='noreply@ekratia.org')
+DJANGO_EMAIL_ADMIN = env('DJANGO_EMAIL_ADMIN', default='support@ekratia.org')
 
 MANDRILL_API_KEY = env('MANDRILL_API_KEY', default='')
 DEFAULT_FROM_EMAIL = DJANGO_EMAIL_FROM
