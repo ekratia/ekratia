@@ -124,7 +124,7 @@ MANAGERS = ADMINS
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
     'default': env.db("DATABASE_URL",
-                      default="postgres://idekratia:idekratia@localhost:5432/idekratia"),
+                      default="postgres:///ekratia"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 

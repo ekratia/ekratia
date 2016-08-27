@@ -29,6 +29,8 @@ class AssignedDelegates(mixins.ListModelMixin, generics.GenericAPIView):
         serializer = UserDelegateSerializer(data=request.data)
         if(serializer.is_valid()):
             request.user.delegate_to(serializer.data['delegate'])
+            for delegate in request.user.user_set.all():
+                delegate.delegate.compute_pagerank()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,
@@ -79,7 +81,9 @@ class UserDelegateDetail(generics.GenericAPIView):
             delegate = self.get_delegate(delegate_id)
         except Http404:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
         request.user.undelegate_to(delegate.delegate)
+        for delegate in request.user.user_set.all().exclude(
+                delegate_id=delegate_id):
+            delegate.delegate.compute_pagerank()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
