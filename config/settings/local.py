@@ -50,6 +50,13 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 
+# robot-framework
+# ------------------------------------------------------------------------------
+MIDDLEWARE_CLASSES += (
+    'DjangoLibrary.middleware.AutologinAuthenticationMiddleware',
+    'DjangoLibrary.middleware.FactoryBoyMiddleware',
+    'DjangoLibrary.middleware.QuerySetMiddleware',)
+
 # django-extensions
 # ------------------------------------------------------------------------------
 INSTALLED_APPS += ('django_extensions', )
