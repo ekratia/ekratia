@@ -1,3 +1,5 @@
-- VirtualEnv
-- Master is the stable branch
-
+- Run tests before and after.
+- Creates tests for the implemented code.
+- Master is the stable branch.
+- Develop is the development Branch.
+- We follow and Recommend Git flow.
