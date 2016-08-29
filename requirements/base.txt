@@ -1,6 +1,8 @@
 # Bleeding edge Django
 Django==1.9.7
 
+html5lib==1.0b1
+
 # Configuration
 django-environ==0.4.0
 django-secure==1.0.1
