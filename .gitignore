@@ -66,3 +66,8 @@ bower_components
 _build
 _static
 _templates
+
+# Robot framework
+test/robot/*.html
+test/robot/*.xml
+test/robot/*.png
